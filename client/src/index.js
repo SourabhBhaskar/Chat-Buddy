@@ -5,21 +5,24 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import { AllContactListContextProvider, RecentContactListContextProvider } from './context/contactList';
+import { ContactListContextProvider } from './context/contactList';
 import { InChatRoomContactContextProvider, InChatRoomMessagesContextProvider } from './context/chatRoomContext';
+import { ScreenModeContextProvider } from './context/screenMode';
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <InChatRoomMessagesContextProvider>
       <InChatRoomContactContextProvider>
-        <AllContactListContextProvider>
-          <RecentContactListContextProvider>
-              <BrowserRouter>
+        <ContactListContextProvider>
+          <ScreenModeContextProvider>
+            <BrowserRouter>
               <App />
             </BrowserRouter>
-          </RecentContactListContextProvider>
-        </AllContactListContextProvider>
+          </ScreenModeContextProvider>
+        </ContactListContextProvider>
       </InChatRoomContactContextProvider>
     </InChatRoomMessagesContextProvider>
   </React.StrictMode>

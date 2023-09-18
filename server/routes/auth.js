@@ -1,7 +1,6 @@
 const express = require('express');
 const { passport } = require('../services/authentication');
-const { User } = require('../models/auth');
-const { Profile } = require('../models/profile');
+const { User } = require('../models/user');
 const router = express.Router();
 
 
@@ -18,10 +17,6 @@ router.post('/signup', async (req, res) => {
     const newUser = new User({ email, password });
     await newUser.save();
 
-    // Profile model
-    const newProfile = new Profile({ email: email });
-    await newProfile.save();
-
     req.login(newUser, (err) => {
       if (err) {
         return res.send({message : 'Signup successful, but an error occurred during login'});
@@ -37,7 +32,6 @@ router.post('/signup', async (req, res) => {
 
 // Login route
 router.post('/login', (req, res, next) => {
-
   passport.authenticate('local', (err, user, info) => {
     if (err) {
       return res.status(500).json({ message: 'Internal Server Error' });
@@ -50,7 +44,7 @@ router.post('/login', (req, res, next) => {
       if (err) {
         return res.status(500).json({ message: 'Internal Server Error' });
       }
-      const userProfile = await Profile.findOne({ email: req.body.email });
+      const userProfile = await User.findOne({ email: req.body.email });
       return res.json({ message: 'Login successful', data: userProfile }); 
     });
   })(req, res, next);
@@ -70,4 +64,8 @@ router.get('/logout', (req, res) => {
 
 
 
+// Exports all the routes
 module.exports = router;
+
+
+

@@ -1,6 +1,7 @@
 require('dotenv').config();
 const cors = require("cors");
 const { Server } = require("socket.io");
+const { User } = require('../models/user');
 const onlineUser = new Map();
 
 
@@ -30,11 +31,12 @@ function configureSocketIO(server) {
     });
 
     // Message
-    socket.on("message", (message, from, to) => {
+    socket.on("message", async(message, from, to) => {
       console.log(message, to, from);
+      const UserProfile = await User.findOne({ email: from });
       const senderId = from;
       const receiverId = to;
-      const msg = { senderId: senderId, message: message };
+      const msg = { senderProfile: UserProfile.getProfile(), message: message };
 
       // Check if the receiver is online
       if (onlineUser.has(receiverId)) {

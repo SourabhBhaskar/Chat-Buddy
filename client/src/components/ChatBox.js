@@ -26,11 +26,10 @@ function ChatBox() {
 
   // Incomming messages from server
   useEffect(() => {
-    function handleIncomingMessage(message) {
-      console.log(message)
-      const newMessage = [message.message, 'received'];
-      setInChatRoomMessages((prevMessages) => [...prevMessages, newMessage]);
-      console.log(message.senderId)
+    function handleIncomingMessage({ senderProfile, message }) {
+      const newMessage = [message, 'received'];
+      if(inChatRoomContact && senderProfile.email === inChatRoomContact.email)
+        setInChatRoomMessages((prevMessages) => [...prevMessages, newMessage]);
     }
     socket.on('message', handleIncomingMessage);
     return () => socket.off('message', handleIncomingMessage);

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { socketConnection, newConnection } from '../services/socketIO';
 import { setMyProfile } from '../context/myProfile';
-import { AllContactListContext } from '../context/contactList';
+import { ContactListContext } from '../context/contactList';
 
 
 
@@ -10,7 +10,7 @@ function LogIn() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { allContactList, setAllContactList }= useContext(AllContactListContext);
+    const { contactList, setContactList }= useContext(ContactListContext);
 
     // Submit handler
     async function handleSubmit(e) {
@@ -36,13 +36,13 @@ function LogIn() {
           setMyProfile(email);
 
           // Import all contacts
-          result.data.contactList.forEach((contact) => {
-            setAllContactList((prevList) => [contact, ...prevList]);
+          result.data.contacts.forEach((contact) => {
+            setContactList((prevList) => [contact, ...prevList]);
           });
           
           socketConnection(true);
           newConnection(email);
-          navigate('/contacts');
+          navigate('/home');
           console.log('Login successful');
         }else{
           console.log("Some technical error", result);

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { myProfile } from '../context/myProfile';
-import { AllContactListContext } from '../context/contactList';
+import { ContactListContext } from '../context/contactList';
 
 
 
@@ -8,7 +8,7 @@ function AddContact() {
   const [box, setBox] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const { allContactList, setAllContactList } = useContext(AllContactListContext);
+  const { contactList, setContactList } = useContext(ContactListContext);
 
 
   // Submit handler
@@ -18,7 +18,7 @@ function AddContact() {
     const url = process.env.REACT_APP_SERVER_ADD_CONTACT;
     const method = "POST";
     const headers = { "Content-Type": "application/json" };
-    const body = JSON.stringify({ user:myProfile.email, name:name, email:email })
+    const body = JSON.stringify({ userEmail:myProfile.email, contactName:name, contactEmail:email })
     const options = { method, headers, body }
 
     try{
@@ -29,8 +29,8 @@ function AddContact() {
       setBox(!box);
       
       if(result.message === 'Contact added successfully'){
-        setAllContactList([result.data, ...allContactList])
-        console.log(result);
+        setContactList([result.data, ...contactList])
+        console.log(result.data);
       }
       else if(result.message === 'Contact with this email already exists')
         alert(result.message);
@@ -51,11 +51,11 @@ function AddContact() {
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label htmlFor="name" className="block text-white text-sm font-bold mb-2">Name</label>
-              <input type="text" name="name" className="border border-gray-300 p-2 w-full rounded text-black" value={name} onChange={ (e) => setName(e.target.value) } required/>
+              <input type="text" name="contactName" className="border border-gray-300 p-2 w-full rounded text-black" value={name} onChange={ (e) => setName(e.target.value) } required/>
             </div>
             <div className="mb-4">
             <label htmlFor="email" className="block text-white text-sm font-bold mb-2">Email</label>
-              <input type="email" id="email" name="email" className="border border-gray-300 p-2 w-full rounded text-black" value={email} onChange={ (e) => setEmail(e.target.value) } required/>
+              <input type="email" id="email" name="contactEmail" className="border border-gray-300 p-2 w-full rounded text-black" value={email} onChange={ (e) => setEmail(e.target.value) } required/>
             </div>
             <button type="submit" className="bg-white hover:bg-[#fffe] text-blue-600 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue">Add</button>
           </form>

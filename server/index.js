@@ -12,7 +12,7 @@ const { User } = require("./models/auth");
 const { sessionSetup } = require("./models/sessions");
 const { configureSocketIO } = require("./services/socketIO");
 const authRouter = require("./routes/auth");
-const profileRouter = require('./routes/profile');
+const addUserRouter = require('./routes/addUser');
 
 
 
@@ -47,7 +47,7 @@ app.use(passport.session());
 
 // Routes
 app.use('/auth', authRouter);
-app.use('/profile', profileRouter);
+app.use('/profile', addUserRouter);
 app.get('/', (req, res)=>{
   res.send("<h1>HI, I am from Server</h1>");
 })

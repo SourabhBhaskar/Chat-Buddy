@@ -2,14 +2,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { socketConnection, newConnection } from '../services/socketIO';
 import { setMyProfile } from '../context/myProfile';
-import { AllContactListContext } from '../context/contactList';
+import { ContactListContext } from '../context/contactList';
 
 
 
 function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { allContactList, setAllContactList }= useContext(AllContactListContext);
+  const { contactList, setContactList }= useContext(ContactListContext);
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
@@ -24,6 +24,7 @@ function SignUp() {
 
       const response = await fetch(url, options);
       const result = await response.json();
+      console.log(result)
 
       if(result.message === 'Username is already taken'){
         alert('Username is already taken, Please login');
@@ -33,7 +34,7 @@ function SignUp() {
         setMyProfile(email);
         socketConnection(true);
         newConnection(email);
-        navigate('/contacts');
+        navigate('/home');
         console.log('Signup successful');
       }else { 
         console.error("Request failed:", response.status, response.statusText);

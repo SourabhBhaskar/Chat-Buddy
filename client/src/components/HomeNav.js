@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Menu from '../pages/Menu';
 
 
-function ContactsNav() {
+function HomeNav() {
     const navigate = useNavigate();
 
 return (
@@ -16,4 +16,4 @@ return (
     );
 }
 
-export default ContactsNav
+export default HomeNav
