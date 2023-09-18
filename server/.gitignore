@@ -1,0 +1,11 @@
+# Ignore the package lock file
+package-lock.json
+
+# Ignore the node_modules directory
+node_modules/
+
+# Ignore the package .env
+.env
+
+
+

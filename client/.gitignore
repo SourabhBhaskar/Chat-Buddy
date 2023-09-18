@@ -1,0 +1,11 @@
+# Dependency directories
+node_modules/
+
+# Dependency lock files
+package-lock.json
+
+# Compiled output
+build/
+
+# Environment variables
+.env
