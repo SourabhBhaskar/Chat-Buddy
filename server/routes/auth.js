@@ -13,16 +13,20 @@ router.post('/signup', async (req, res) => {
       return res.send({message : 'Username is already taken'});
     }
 
-    // User model
-    const newUser = new User({ email, password });
+    // New User model
+    const  newUser = new User({ email, password });
     await newUser.save();
+
+    // Accessing the user profile 
+    const private = newUser;
+    const public = newUser.getProfile();
 
     req.login(newUser, (err) => {
       if (err) {
         return res.send({message : 'Signup successful, but an error occurred during login'});
       }
 
-      res.send({message : 'Signup successful'}); 
+      res.send({message : 'Signup successful', profiles:{ private: private, public: public }}); 
     }); 
   } catch (err) {
     res.send({ message : err.message }); 
@@ -44,8 +48,12 @@ router.post('/login', (req, res, next) => {
       if (err) {
         return res.status(500).json({ message: 'Internal Server Error' });
       }
-      const userProfile = await User.findOne({ email: req.body.email });
-      return res.json({ message: 'Login successful', data: userProfile }); 
+
+      // Acessing the user profile
+      const private = await User.findOne({ email: req.body.email });
+      const public = private.getProfile();
+
+      return res.json({ message: 'Login successful', profiles:{ private: private, public: public }}); 
     });
   })(req, res, next);
 });

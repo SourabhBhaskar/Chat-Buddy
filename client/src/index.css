@@ -1,3 +1,97 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer utilities{
+    .hide-scrollbar::-webkit-scrollbar{
+        width: 0;
+        height: 0;
+    }
+
+    .bg{
+        background-color: red;
+    }
+
+    .move{
+        animation-name: move;
+        animation-duration: 0.5s;
+        animation-iteration-count: 1;
+        animation-timing-function: linear;
+    }
+
+    @keyframes move {
+        0%{transform: scale(0, 0);}
+        100%{transform: scale(1, 1);}
+    }
+
+
+    /* Login */
+    /* Custom checkbox styles */
+.custom-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #7269ef;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Custom checkbox checked state */
+  .custom-checkbox:checked {
+    background-color: #7269ef;
+  }
+  
+  /* Custom label styles */
+  .custom-label {
+    font-size: 1rem;
+    color: #abb4d2;
+    cursor: pointer;
+    user-select: none;
+    margin-left: 8px;
+  }
+  
+  /* Custom checkbox checkmark icon */
+  .custom-checkbox:checked::before {
+    content: '\2713'; /* Checkmark character */
+    font-size: 16px;
+    color: #fff;
+    display: block;
+    text-align: center;
+    line-height: 20px;
+  }
+
+
+  /* Dropdown menu */
+  .dropdown-menu{
+    animation-name: menuMove;
+    animation-duration: 0.5s;
+  }
+  @keyframes menuMove {
+    0%{ top: 50px}
+    100%{ top: 25px}
+  }
+
+
+/* CSS for loader */
+.loader {
+  animation-name: loaderMove;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes loaderMove {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+}

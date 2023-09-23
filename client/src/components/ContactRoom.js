@@ -9,7 +9,7 @@ import AddContact from './AddContact';
 function ContactRoom() {
 
   return (
-    <section className='bg-blue-600 w-full h-full flex flex-col relative'>
+    <section className='w-full h-full flex flex-col relative'>
       <HomeNav />
       <StatusList />
       <ContactList />

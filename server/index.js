@@ -8,11 +8,11 @@ const passport = require('passport');
 
 // Importing custom  modules
 const { mongoose } = require("./services/db");
-const { User } = require("./models/auth");
 const { sessionSetup } = require("./models/sessions");
 const { configureSocketIO } = require("./services/socketIO");
 const authRouter = require("./routes/auth");
 const addUserRouter = require('./routes/addUser');
+const editRouter = require('./routes/edit');
 
 
 
@@ -48,6 +48,7 @@ app.use(passport.session());
 // Routes
 app.use('/auth', authRouter);
 app.use('/profile', addUserRouter);
+app.use('/edit', editRouter);
 app.get('/', (req, res)=>{
   res.send("<h1>HI, I am from Server</h1>");
 })

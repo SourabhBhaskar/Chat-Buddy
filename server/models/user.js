@@ -1,31 +1,43 @@
 const mongoose = require('mongoose');
 
+
+const profile_picture = undefined;
+const last_seen = () => {
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() +1).padStart(2, "0");
+  const day = String(currentDate.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
 const userSchema = new mongoose.Schema({
-  username: { type: String, default: '' },
-  phone_number: { type: String, default: ''},
-  email: { type: String, default: ''  },
-  password: { type: String, default: '' },
-  last_seen: { type: Date, default: Date.now }, // Use Date type for storing timestamps
-  profile_picture: { type: String, default: '' },
-  status: { type: String, default: '' },
-  contacts: []
+  username: { type: String, default: "" },
+  mobile_number: { type: String, default: "" },
+  email: { type: String, default: "" },
+  password: { type: String, default: "" },
+  location: { type: String, default: "" },
+  last_seen: { type: String, default: last_seen },
+  profile_picture: { type: String, default: profile_picture },
+  status: { type: String, default: "" },
+  contacts: { all: [], favorite: [], recent: [] },
+  groups: [],
+  setting: {}
 });
 
-// Define a method called getProfile using a regular function
-userSchema.methods.getProfile = function() {
+
+userSchema.methods.getProfile = function () {
   return {
     username: this.username,
-    phone_number: this.phone_number,
+    mobile_number: this.mobile_number,
     email: this.email,
+    location: this.location,
     last_seen: this.last_seen,
     profile_picture: this.profile_picture,
     status: this.status,
-    messages: []
+    messages: [],
   };
 };
 
-// Create a User model based on the userSchema
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
-// Export the User model
 module.exports = { User };

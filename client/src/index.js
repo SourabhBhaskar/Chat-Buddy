@@ -7,7 +7,10 @@ import reportWebVitals from './reportWebVitals';
 
 import { ContactListContextProvider } from './context/contactList';
 import { InChatRoomContactContextProvider, InChatRoomMessagesContextProvider } from './context/chatRoomContext';
-import { ScreenModeContextProvider } from './context/screenMode';
+import { DarkModeContextProvider } from './context/Modes';
+import { NavContextProvider } from './context/Nav';
+import { LoaderContextProvider } from './context/Loader';
+import Nav from './components/Nav';
 
 
 
@@ -17,11 +20,15 @@ root.render(
     <InChatRoomMessagesContextProvider>
       <InChatRoomContactContextProvider>
         <ContactListContextProvider>
-          <ScreenModeContextProvider>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-          </ScreenModeContextProvider>
+          <DarkModeContextProvider>
+              <NavContextProvider>
+                <LoaderContextProvider>
+                  <BrowserRouter>
+                    <App />
+                  </BrowserRouter>
+                </LoaderContextProvider>
+              </NavContextProvider>
+          </DarkModeContextProvider>
         </ContactListContextProvider>
       </InChatRoomContactContextProvider>
     </InChatRoomMessagesContextProvider>

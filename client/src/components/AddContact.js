@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { myProfile } from '../context/myProfile';
+import { myPublicProfile } from '../context/myProfile';
 import { ContactListContext } from '../context/contactList';
 
 
@@ -18,7 +18,7 @@ function AddContact() {
     const url = process.env.REACT_APP_SERVER_ADD_CONTACT;
     const method = "POST";
     const headers = { "Content-Type": "application/json" };
-    const body = JSON.stringify({ userEmail:myProfile.email, contactName:name, contactEmail:email })
+    const body = JSON.stringify({ userEmail:myPublicProfile.email, contactName:name, contactEmail:email })
     const options = { method, headers, body }
 
     try{
@@ -28,9 +28,9 @@ function AddContact() {
       setEmail('');
       setBox(!box);
       
-      if(result.message === 'Contact added successfully'){
-        setContactList([result.data, ...contactList])
-        console.log(result.data);
+      if(result.profiles){
+        setContactList([result.profiles.public, ...contactList])
+        console.log(result.profiles);
       }
       else if(result.message === 'Contact with this email already exists')
         alert(result.message);

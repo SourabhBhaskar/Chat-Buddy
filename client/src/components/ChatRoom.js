@@ -7,10 +7,10 @@ import SendMessage from './SendMessage';
 
 function ChatRoom() {
   return (
-    <section className='w-full h-full flex flex-col bg-blue-600 '>
-        <ChatRoomNav />
-        <ChatBox />
-        <SendMessage />
+    <section className='w-full h-full flex flex-col'>
+      <ChatRoomNav />
+      <ChatBox />
+      <SendMessage />
     </section>
   )
 }

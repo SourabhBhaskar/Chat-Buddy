@@ -9,26 +9,7 @@
 }
 
 
-:root{
-    --primary-bg: #111b21;
-    --bg-color1: black;
-    --secondary-bg: #00a884;
-    --bg-color3: #005c4b;
-    --bg-color4: #667781;
-    --bg-color5: #0b141a;
-    --bg-color6: #8696a0;
-    --bg-color7: #101a20;
-    --bg-color9: #aebac1;
-    --bg-color10: #d1d7db;
-    --bg-color11: #e9edef;
-    --bg-color12: #182229;
-    --bg-color13: #202c33;
-    --bg-color14: #2a3942;
-    --bg-color15: #42c7b8;
-    --bg-color16: #53bdeb;
-    --bg-color17: #54656f;
 
-}
 
 
 ::-webkit-scrollbar{
@@ -44,12 +25,10 @@
 body{
     width: 100%;
     height: 100%;
-    min-width: 320px;
-    max-width: 1024px;
     position: relative;
     margin: auto;
-    font-family: 'Poppins',sans-serif;;
-    background-color: whitesmoke;
+    background-color: #303841;
+    background-color: white;
 }
 
 input:focus{

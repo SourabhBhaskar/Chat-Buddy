@@ -20,8 +20,8 @@ router.post('/add-user', async (req, res) => {
 
     // Checking if contact already exists in the database
     let contactUser = await User.findOne({ email: contactEmail });
-    if (contactUser === null) {
-      contactUser = { username: contactName, email: contactEmail, messages: [] }; // Create a new user document
+    if(contactUser === null) {
+      contactUser = new User({ username: contactName, email: contactEmail }).getProfile();
     } else {
       contactUser = contactUser.getProfile();
       contactUser.username = contactName;
@@ -32,7 +32,7 @@ router.post('/add-user', async (req, res) => {
     await userAddingContact.save();
 
     // Send user data to the client
-    res.json({ message: 'Contact added successfully', data: contactUser });
+    res.json({ message: 'Contact added successfully', profiles:{ public: contactUser }});
   } catch (error) {
     console.error('Error adding contact:', error);
     res.status(500).json({ message: 'Internal server error' });

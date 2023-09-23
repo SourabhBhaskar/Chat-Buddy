@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       container: {
         screens: {
+          'xs': '411px',
           'sm': '640px',
           'md': '768px',
           'lg': '1024px',
@@ -15,8 +16,7 @@ module.exports = {
         }
       },
       fontFamily: {
-        logo: ['Cinzel', 'sans'],
-        body: ['Arial', 'sans'],
+        publicSans: ['Public Sans', 'sans'],
       }
     },
   },
