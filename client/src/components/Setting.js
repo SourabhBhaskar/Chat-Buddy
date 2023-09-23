@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import profile from '../assets/profile.jpg';
 import Profile_Pic_Name_status from './Profile_Pic_Name_status';
 import DropdownMenu from './DropDownMenu';
 import EditableField from './EditableField';
@@ -82,8 +83,8 @@ function Help(){
 // Setting
 function Setting() {
   const [expend, setExpend] = useState(false);
-  const username = 'Sourabh Bhaskar';
-  const dp = undefined;
+  const username = 'unknown';
+  const dp = myPrivateProfile.profile_picture || profile;
   const ContentList = ['Available', 'Busy', 'Working', 'Sleeping', 'On a mission'];
 
   return (

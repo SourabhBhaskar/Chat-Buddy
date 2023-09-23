@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import EditableField from './EditableField';
+import profile from '../assets/profile.jpg';
 import Profile_Pic_Name_status from './Profile_Pic_Name_status';
 import { myPrivateProfile } from '../context/myProfile';
 
@@ -83,7 +84,7 @@ function Profile() {
   const password = myPrivateProfile.password || '_';
   const location = myPrivateProfile.location || '_';
   const last_seen = myPrivateProfile.last_seen || '_';
-  const dp = myPrivateProfile.profile_picture;  
+  const dp = myPrivateProfile.profile_picture || profile;
  
   return (
     <main className='w-full h-full absolute flex flex-col gap-4 p-6 move text-gray-200'>

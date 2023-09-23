@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { InChatRoomContactContext  } from "../context/chatRoomContext";
 import { DarkModeContext } from "../context/Modes";
-import dp from '../assets/dp.png';
+import profile from '../assets/profile.jpg';
 
 
 
@@ -36,7 +36,7 @@ function Profile() {
       <div className='h-full w-full flex items-center gap-4'>
         <div className="inline-block text-xs text-gray-300 active:text-white"><i className="fa-solid fa-chevron-left" ></i></div>
         <div className="flex items-center gap-2">
-          <img src={inChatRoomContact.profile_picture ? inChatRoomContact.profile_picture : dp} className='w-[50px] h-[50px] rounded-full bg-red-600' />
+          <img src={inChatRoomContact.profile_picture ? inChatRoomContact.profile_picture : profile} className='w-[50px] h-[50px] rounded-full bg-red-600' />
           <div>
             <p className='text-white text-[1rem] font-medium'>{inChatRoomContact.username}</p>
             <small>Online</small>

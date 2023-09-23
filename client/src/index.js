@@ -10,6 +10,7 @@ import { InChatRoomContactContextProvider, InChatRoomMessagesContextProvider } f
 import { DarkModeContextProvider } from './context/Modes';
 import { NavContextProvider } from './context/Nav';
 import { LoaderContextProvider } from './context/Loader';
+import { MyProfileContextContextProvider } from './context/myProfile';
 import Nav from './components/Nav';
 
 
@@ -23,9 +24,11 @@ root.render(
           <DarkModeContextProvider>
               <NavContextProvider>
                 <LoaderContextProvider>
-                  <BrowserRouter>
-                    <App />
-                  </BrowserRouter>
+                  <MyProfileContextContextProvider>
+                    <BrowserRouter>
+                      <App />
+                    </BrowserRouter>
+                  </MyProfileContextContextProvider>
                 </LoaderContextProvider>
               </NavContextProvider>
           </DarkModeContextProvider>

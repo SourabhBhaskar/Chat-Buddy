@@ -3,7 +3,7 @@ import { ContactListContext } from '../context/contactList';
 import { InChatRoomContactContext } from '../context/chatRoomContext';
 import { DarkModeContext } from '../context/Modes';
 import { socket } from '../services/socketIO';
-import dp from '../assets/dp.png';
+import profile from '../assets/profile.jpg';
 
 
 
@@ -57,7 +57,7 @@ const RecentChat = ({ Contact }) => {
 
   return (
     <div className={`w-full h-[70px] flex items-center justify-center gap-2 cursor-pointer transition-all px-2 rounded-md ${darkMode}`} onClick={handleClick}>
-      <img src={Contact.profile_picture ? Contact.profile_picture : dp} alt={Contact.username} className='w-[50px] h-[50px] rounded-full' />
+      <img src={Contact.profile_picture ? Contact.profile_picture : profile} alt={Contact.username} className='w-[50px] h-[50px] rounded-full' />
       <div className='h-full flex justify-center flex-col flex-grow overflow-hidden'>
         <div className='flex justify-between'>
           <p className='w-auto truncate font-medium'>{Contact.username}</p>

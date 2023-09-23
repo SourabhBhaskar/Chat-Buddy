@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { socketConnection, newConnection } from '../services/socketIO';
-import { setMyProfile } from '../context/myProfile';
 import Loader from '../components/Loader';
 import { LoaderContext } from '../context/Loader';
+import { MyProfileContext } from '../context/myProfile';
 
 
 
@@ -15,6 +15,7 @@ function LogIn() {
   const [usernameErr, setUsernameErr] = useState('');
   const [passwordErr, setPasswordErr] = useState('');
   const { loader, setLoader } = useContext(LoaderContext);
+  const { myProfie, setMyProfile } = useContext(MyProfileContext);
 
   // Submit handler
   async function handleSubmit(e) {

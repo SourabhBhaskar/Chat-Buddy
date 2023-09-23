@@ -4,6 +4,7 @@ import { socketConnection, newConnection } from '../services/socketIO';
 import { setMyProfile } from '../context/myProfile';
 import Loader from '../components/Loader';
 import { LoaderContext } from '../context/Loader';
+import { MyProfileContext } from '../context/myProfile';
 
 
 
@@ -15,6 +16,7 @@ function SignUp() {
   const [usernameErr, setUsernameErr] = useState('');
   const [passwordErr, setPasswordErr] = useState('');
   const { loader, setLoader } = useContext(LoaderContext);
+  const { myProfile, setMyProfile } = useContext(MyProfileContext);
 
   // Submit handler
   async function handleSubmit(e) {

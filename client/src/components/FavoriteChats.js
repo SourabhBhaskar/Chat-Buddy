@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ContactListContext } from '../context/contactList';
 import { InChatRoomContactContext } from '../context/chatRoomContext';
 import { socket } from '../services/socketIO';
-import dp from '../assets/dp.png';
+import profile from '../assets/profile.jpg';
 import { DarkModeContext } from '../context/Modes';
 
 
@@ -17,7 +17,7 @@ function FavoriteChat({ Contact }){
   return (
     <div className='w-[70px] h-[70px] flex-shrink-0 flex justify-center relative group cursor-pointer'>
       <div className='w-auto h-auto flex justify-center absolute z-50'>         
-        <img className='w-[40px] aspect-square rounded-full' src={picture ? picture : dp} alt={name} />
+        <img className='w-[40px] aspect-square rounded-full' src={picture ? picture : profile} alt={name} />
         <div className='w-[10px] h-[10px] rounded-full bg-green-600 absolute top-[28px] right-0 border-2 border-black'></div>
       </div>
       <div className={`w-full h-[50px] absolute bottom-0 rounded-md ${darkMode}`}>

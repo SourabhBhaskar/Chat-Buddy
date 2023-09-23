@@ -11,7 +11,7 @@ function Nav() {
   const darkMode = mode ? 'text-[#a6b0cf] hover:bg-[#a6b0cf11] hover:text-white' : 'text-[#000b] hover:bg-[#a6b0cf44] hover:text-black';
   console.log(nav)
   return (
-    <nav className={`w-full h-full flex justify-center items-center`}>
+    <nav className={`w-full h-full flex justify-center items-center bg-[#a6b0cf22]`}>
       <div className='w-full h-full max-h-[450px] flex xl:flex-col items-center justify-around'>
         <button onClick={()=>setNav('profile')}><i className={`${darkMode} w-[50px] aspect-square flex items-center justify-center rounded-lg transition-all fa-solid fa-user`}></i></button>
         <button onClick={()=>setNav('chats')}><i className={`${darkMode} w-[50px] aspect-square flex items-center justify-center rounded-lg transition-all fa-solid fa-message text-[0.85rem]`}></i></button>
