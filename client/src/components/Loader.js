@@ -6,7 +6,7 @@ function Loader() {
   return (
     <>  
         {   loader &&
-            <div className='w-screen h-screen absolute flex justify-center items-center border-2 bg-[#7269ef11] '>
+            <div className='w-full h-full absolute top-0 left-0 flex justify-center items-center bg-[#0002]'>
                 <div className='w-[50px] h-[50px] border-4 border-t-[#7269ef] rounded-full loader'></div>
             </div>
         }

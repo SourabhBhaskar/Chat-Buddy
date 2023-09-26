@@ -13,7 +13,7 @@ router.post('/add-user', async (req, res) => {
     }
 
     // Check if the email already exists in the contacts
-    const contactExists = userAddingContact.contacts.some((contact) => contact.email === contactEmail);
+    const contactExists = userAddingContact.contacts.all.some((contact) => contact.email === contactEmail);
     if (contactExists) {
       return res.status(400).json({ message: 'Contact with this email already exists' });
     }
@@ -28,7 +28,7 @@ router.post('/add-user', async (req, res) => {
     }
 
     // Add contactUser to userAddingContact's contacts array
-    userAddingContact.contacts.push(contactUser);
+    userAddingContact.contacts.all.push(contactUser);
     await userAddingContact.save();
 
     // Send user data to the client

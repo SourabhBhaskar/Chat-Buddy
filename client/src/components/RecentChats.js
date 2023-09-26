@@ -1,24 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ContactListContext } from '../context/contactList';
-import { InChatRoomContactContext } from '../context/chatRoomContext';
-import { DarkModeContext } from '../context/Modes';
+import { DarkModeContext, ChatRoomScreenModeContext } from '../context/Modes';
 import { socket } from '../services/socketIO';
 import profile from '../assets/profile.jpg';
+import { useSelector, useDispatch } from 'react-redux';
+import ChatRoomContact, { Change } from '../context/ChatRoomContact';
 
 
 
 // Recent Chat
 const RecentChat = ({ Contact }) => {
-  const { mode } = useContext(DarkModeContext);
-  const darkMode = mode ? 'text-white hover:bg-[#a6b0cf11]' : 'text-black hover:bg-[#a6b0cf22]';
+  const dispatch = useDispatch();
+  const { setChatMode } = useContext(ChatRoomScreenModeContext);
+
   const [curr, setCurr] = useState(false);
   const [seen, setSeen] = useState(false);
   const [newMsgCnt, setNewMsgCnt] = useState(0);
   const [state, setState] = useState(Contact);
 
-  
-
-  const { inChatRoomContact, setInChatRoomContact } = useContext(InChatRoomContactContext);
 
   // Incomming messages from server
   useEffect(() => {
@@ -37,7 +35,7 @@ const RecentChat = ({ Contact }) => {
 
   // Update seen and newMsgCnt when receiver or state.contact changes
   useEffect(() => {
-    if (curr && state.email !== inChatRoomContact.email) {
+    if (curr && state.email !== ChatRoomContact.email) {
       setSeen(true);
       setNewMsgCnt((prevCount) => prevCount + 1);
     } else{
@@ -48,15 +46,15 @@ const RecentChat = ({ Contact }) => {
   
   // Change the receiver on click and reset messege and seen
   function handleClick(){
-    setInChatRoomContact({...Contact});
+    dispatch(Change(Contact));
     setNewMsgCnt(0);
     setSeen(false);
     setCurr(false);
-    // setMode(!mode)
+    setChatMode(true);
   }
 
   return (
-    <div className={`w-full h-[70px] flex items-center justify-center gap-2 cursor-pointer transition-all px-2 rounded-md ${darkMode}`} onClick={handleClick}>
+    <div className={`w-full h-[70px] flex items-center justify-center gap-2 cursor-pointer transition-all px-2 rounded-md`} onClick={handleClick}>
       <img src={Contact.profile_picture ? Contact.profile_picture : profile} alt={Contact.username} className='w-[50px] h-[50px] rounded-full' />
       <div className='h-full flex justify-center flex-col flex-grow overflow-hidden'>
         <div className='flex justify-between'>
@@ -76,13 +74,13 @@ const RecentChat = ({ Contact }) => {
 
 // Recent Chats List
 export default function RecentChats() {
-  const { contactList, setContactList } = useContext(ContactListContext);
+  const RecentContacts = useSelector((state) => state.RecentContactsSlice);
 
   return (
     <section className='w-full h-full absolute overflow-scroll hide-scrollbar'> 
       <h1 className='font-bold'>Recent Chats</h1>
       <div className='pt-6'>
-        {contactList.length!=0 && contactList.map((value, index) => (<RecentChat key={index} Contact={value} />))}
+        { RecentContacts.map((value, index) => (<RecentChat key={index} Contact={value} />)) }
       </div>
     </section>
   );

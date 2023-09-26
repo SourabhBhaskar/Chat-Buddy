@@ -1,21 +1,30 @@
 import { createContext, useState } from "react";
+import { DummyContactList } from "./DummyData";
 
-export let myPrivateProfile = {
-    email: ''
-};
-export let myPublicProfile = {
-    email: ''
-};
 
-export function setMyProfile(profiles){
-    myPrivateProfile = profiles.private;
-    myPublicProfile = profiles.public;
-    console.log(myPublicProfile, myPrivateProfile);
-}
+  
+const all = DummyContactList.map((value)=>value.username);
+const groups = [];
+console.log(all)
+const initialValue = {
+    username: "",
+    mobile_number: "",
+    email: "",
+    password: "",
+    location: "",
+    status: "",
+    contacts: {
+      all: [...DummyContactList].sort((a, b) => a.username.charAt(0).toLowerCase().localeCompare(b.username.charAt(0).toLowerCase())),
+      favorite: [...DummyContactList],
+      recent: [...DummyContactList]
+    },
+    groups: groups,
+    last_seen: "",
+  }
 
 export const MyProfileContext = createContext(null);
 export function MyProfileContextContextProvider({ children }){
-    const [myProfile, setMyProfile] = useState(undefined);
+    const [myProfile, setMyProfile] = useState(initialValue);
 
     return (
         <MyProfileContext.Provider value={{myProfile, setMyProfile}}>
@@ -23,3 +32,4 @@ export function MyProfileContextContextProvider({ children }){
         </MyProfileContext.Provider>
     );
 }
+

@@ -1,8 +1,4 @@
-import React, { createContext, useState } from "react";
-
-
-
-const ContactList = [
+export const DummyContactList = [
     {
       username: "Alice", email: "1", last_seen: "2023-09-10", profile_picture:"https://picsum.photos/id/237/100/100", messages: []
     },
@@ -31,20 +27,3 @@ const ContactList = [
       username: "Batman", email: "10", last_seen: "2023-09-01", profile_picture:"https://picsum.photos/id/289/100/100", messages: []
     }
   ]; 
-  
-
-  export const ContactListContext = createContext(null);
-  export const ContactListContextProvider = ({ children }) => {
-      const [contactList, setContactList] = useState([...ContactList]);
-  
-      return (
-          <ContactListContext.Provider value={{contactList, setContactList}}>
-              {children}
-          </ContactListContext.Provider>
-      );
-  };
-
-
-
-
-

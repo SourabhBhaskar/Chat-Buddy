@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useContext } from 'react';
-import { InChatRoomContactContext, InChatRoomMessagesContext } from '../context/chatRoomContext';
 import { emitMessage } from '../services/socketIO';
-import { myPublicProfile } from '../context/myProfile';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateChatBoxMessages } from '../context/ChatBoxMessages';
 
 
 // Message Input
@@ -14,8 +14,8 @@ function Input({ inputRef }) {
 
 // Send Button
 function Send({ inputRef }){
-  const { inChatRoomContact, setInChatRoomContact } = useContext(InChatRoomContactContext);
-  const { inChatRoomMessages, setInChatRoomMessages } = useContext(InChatRoomMessagesContext);
+  const dispatch = useDispatch();
+  const ChatRoomContact = useSelector((state) => state.ChatRoomContactSlice);
 
   function handleSendMessage() {
     const message = inputRef.current.value.trim();
@@ -30,9 +30,8 @@ function Send({ inputRef }){
       message: message
     }
 
-    setInChatRoomMessages([...inChatRoomMessages, newMessage]);
-    inChatRoomContact.messages.push(newMessage);
-    emitMessage(message, myPublicProfile.email, inChatRoomContact.email);
+    dispatch(updateChatBoxMessages(newMessage));
+    // emitMessage(message, myProfile.email, inChatRoomContact.email);
     inputRef.current.value = '';
   }
 

@@ -13,7 +13,7 @@ function Chats() {
   const darkMode = mode ? 'bg-[#303841]' : 'bg-white';
 
   return (
-    <main className={`w-full h-full relative flex flex-col p-6 move ${darkMode}`}>
+    <main className={`w-full h-full absolute flex flex-col p-6 move ${darkMode}`}>
       <section className='relative' ><Heading text={"Chats"}/></section>
       <section className='relative' ><SearchChat placeholder={"Search for a chat..."} /></section>
       <section className='relative' ><FavoriteChats /></section>

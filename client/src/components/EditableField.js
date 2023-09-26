@@ -1,15 +1,15 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { myPublicProfile } from '../context/myProfile';
+import React, { useState, useRef, useEffect, useContext } from 'react';
+import { MyProfileContext } from '../context/myProfile';
 
 
 // Request to the server
-async function handleSubmit(dataField, data) {
-  const email = myPublicProfile.email;
+async function handleSubmit(dataField, data, myProfile) {
+  const email = myProfile.private.email;
   const url = process.env.REACT_APP_SERVER_EDIT;
   const method = "POST";
   const headers = { "Content-Type": "application/json" };
   const body = JSON.stringify({ email: email, dataField: dataField, data: data })
-  const options = { method, headers, body }
+  const options = { method, headers, body };
 
   try{
       const response = await fetch(url, options);
@@ -27,6 +27,7 @@ export default function EditableField({ FieldName, data}){
   const [state, setState] = useState(data)
   const [mode, setMode] = useState(true);
   const inputRef = useRef(null);
+  const { myProfile, setMyProfile } = useContext(MyProfileContext);
 
   // On input change
   function handleChange(e) {
@@ -40,7 +41,7 @@ export default function EditableField({ FieldName, data}){
     if(!mode){
         const dataField = FieldName;
         const data = state;
-        handleSubmit(dataField, data);
+        handleSubmit(dataField, data, myProfile);
     }
     setMode(!mode);
   }

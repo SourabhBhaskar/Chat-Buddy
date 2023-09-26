@@ -1,15 +1,15 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import EditableField from './EditableField';
 import profile from '../assets/profile.jpg';
 import Profile_Pic_Name_status from './Profile_Pic_Name_status';
-import { myPrivateProfile } from '../context/myProfile';
+import { MyProfileContext } from '../context/myProfile';
 
 
 
 
 // About
-function Status(){
-  const [status, setStatus] = useState(myPrivateProfile.status);
+function Status(profile){
+  const [status, setStatus] = useState('');
   return (
     <div className='border-[1px] border-gray-700 w-full h-[100px] text-[#abb4d2]  cursor-pointer bg-transparent'>
       <p>{status}</p>
@@ -20,8 +20,9 @@ function Status(){
 
 // Profile Picture
 function ProfilePicture() {
+  const { myProfile, setMyProfile } = useContext(MyProfileContext);
   const [oldImg, setOldImg] = useState(null);
-  const [newImg, setNewImage] = useState(myPrivateProfile.profile_picture);
+  const [newImg, setNewImage] = useState(myProfile.private.profile_picture);
   const [click, setClick] = useState(false);
   const inputRef = useRef(null);
 
@@ -78,16 +79,17 @@ function ProfilePicture() {
 
 // Profile
 function Profile() {
-  const username = myPrivateProfile.username || 'Unknown';
-  const number = myPrivateProfile.mobile_number || '_';
-  const email = myPrivateProfile.email || '_';
-  const password = myPrivateProfile.password || '_';
-  const location = myPrivateProfile.location || '_';
-  const last_seen = myPrivateProfile.last_seen || '_';
-  const dp = myPrivateProfile.profile_picture || profile;
+ const { myProfile, setMyProfile } = useContext(MyProfileContext);
+  const username = myProfile.private.username || 'Unknown';
+  const number = myProfile.private.mobile_number || '_';
+  const email = myProfile.private.email || '_';
+  const password = myProfile.private.password || '_';
+  const location = myProfile.private.location || '_';
+  const last_seen = myProfile.private.last_seen || '_';
+  const dp = myProfile.private.profile_picture || profile;
  
   return (
-    <main className='w-full h-full absolute flex flex-col gap-4 p-6 move text-gray-200'>
+    <main className='w-full h-full absolute flex flex-col gap-4 p-6 pb-0 move text-gray-200 border-2'>
       <div className='w-full flex justify-between'>
         <h1 className='text-xl font-[600]'>My Profile</h1>
         <i class="fa-solid fa-ellipsis-vertical text-sm"></i>
@@ -100,7 +102,7 @@ function Profile() {
           </div>
       </Profile_Pic_Name_status>
 
-      <div className='flex-grow overflow-scroll'>
+      <div className='flex-grow overflow-scroll border-2'>
         <EditableField key={'username'} data={username} FieldName={'Username'} />
         <EditableField key={'number'} data={number} FieldName={'Mobile Number'} />
         <EditableField key={'email'} data={email} FieldName={'Email'} />

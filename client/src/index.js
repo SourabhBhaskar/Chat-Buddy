@@ -5,13 +5,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import { ContactListContextProvider } from './context/contactList';
 import { InChatRoomContactContextProvider, InChatRoomMessagesContextProvider } from './context/chatRoomContext';
-import { DarkModeContextProvider } from './context/Modes';
+import { DarkModeContextProvider, ChatRoomScreenModeContextProvider } from './context/Modes';
 import { NavContextProvider } from './context/Nav';
 import { LoaderContextProvider } from './context/Loader';
 import { MyProfileContextContextProvider } from './context/myProfile';
-import Nav from './components/Nav';
+import store from './context/store';
+import { Provider } from 'react-redux';
 
 
 
@@ -20,19 +20,23 @@ root.render(
   <React.StrictMode>
     <InChatRoomMessagesContextProvider>
       <InChatRoomContactContextProvider>
-        <ContactListContextProvider>
           <DarkModeContextProvider>
               <NavContextProvider>
                 <LoaderContextProvider>
                   <MyProfileContextContextProvider>
-                    <BrowserRouter>
-                      <App />
-                    </BrowserRouter>
+                    <ChatRoomScreenModeContextProvider>
+                      
+                      <BrowserRouter>
+                        <Provider store={store}>
+                          <App />
+                        </Provider>
+                      </BrowserRouter>
+
+                    </ChatRoomScreenModeContextProvider>
                   </MyProfileContextContextProvider>
                 </LoaderContextProvider>
               </NavContextProvider>
           </DarkModeContextProvider>
-        </ContactListContextProvider>
       </InChatRoomContactContextProvider>
     </InChatRoomMessagesContextProvider>
   </React.StrictMode>

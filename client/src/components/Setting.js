@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import profile from '../assets/profile.jpg';
 import Profile_Pic_Name_status from './Profile_Pic_Name_status';
 import DropdownMenu from './DropDownMenu';
 import EditableField from './EditableField';
-import { myPrivateProfile } from '../context/myProfile';
+import { MyProfileContext } from '../context/myProfile';
 
 
 
@@ -36,11 +36,12 @@ function ExpendableDiv({p, children}){
 
 // Personal info
 function PersonalInfo(){
-  const username = myPrivateProfile.username || 'Unknown';
-  const number = myPrivateProfile.mobile_number || '_';
-  const email = myPrivateProfile.email || '_';
-  const password = myPrivateProfile.password || '_';
-  const location = myPrivateProfile.location || '_';
+  const { myProfile, setMyProfile } = useContext(MyProfileContext)
+  const username = myProfile.private.username || 'Unknown';
+  const number = myProfile.private.mobile_number || '_';
+  const email = myProfile.private.email || '_';
+  const password = myProfile.private.password || '_';
+  const location = myProfile.private.location || '_';
 
   return (
     <ExpendableDiv p={"Personal info"}>
@@ -82,18 +83,19 @@ function Help(){
 
 // Setting
 function Setting() {
+  const { myProfile, setMyProfile } = useContext(MyProfileContext);
   const [expend, setExpend] = useState(false);
   const username = 'unknown';
-  const dp = myPrivateProfile.profile_picture || profile;
+  const dp = myProfile.private.profile_picture || profile;
   const ContentList = ['Available', 'Busy', 'Working', 'Sleeping', 'On a mission'];
 
   return (
-    <main className='w-full h-full absolute flex flex-col p-6 pb-0 move border-2'>
+    <main className='w-full h-full relative flex flex-col p-6 pb-0 move'>
       <h1 className='text-xl font-[600]'>Settings</h1>
       <Profile_Pic_Name_status pic={dp} name={username}>
         <DropdownMenu ContentList={ContentList}/>
       </Profile_Pic_Name_status>
-      <section className='flex-grow py-6 border-t-[1px] border-gray-700 overflow-scroll hide-scrollbar'>
+      <section className='w-full h-full xl:flex-grow py-6 border-t-[1px] border-gray-700 overflow-scroll hide-scrollbar'>
           <PersonalInfo />
           <Privacy />
           <Security />
