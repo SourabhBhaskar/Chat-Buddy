@@ -1,27 +1,28 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { socketConnection, newConnection } from '../services/socketIO';
 import Loader from '../components/Loader';
-import { LoaderContext } from '../context/Loader';
-import { MyProfileContext } from '../context/myProfile';
-import { DummyContactList } from '../context/DummyData';
+import { useDispatch } from 'react-redux';
+import { toggleLoader } from '../context/Loader';
+import { setMyProfile } from '../context/MyProfile';
+
 
 function LogIn() {
   // Hooks and state initialization
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [submit, setSubmit] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [usernameErr, setUsernameErr] = useState('');
   const [passwordErr, setPasswordErr] = useState('');
-  const { setLoader } = useContext(LoaderContext);
-  const { myProfile, setMyProfile } = useContext(MyProfileContext);
+
 
   // Submit handler
   async function handleSubmit(e) {
     e.preventDefault();
     setSubmit(true);
-    setLoader(true);
+    dispatch(toggleLoader(true));
 
     if (email === '' || password === '') {
       if (email === '') {
@@ -35,7 +36,7 @@ function LogIn() {
       } else {
         setPasswordErr('');
       }
-      setLoader(false);
+      dispatch(toggleLoader(false));
       return;
     }
 
@@ -59,15 +60,7 @@ function LogIn() {
         setUsernameErr('');
       } else if (result.profiles) {
         // Set My Profile
-        setMyProfile({
-          ...result.profiles.private,
-          contacts: {
-            all: [...result.profiles.private.contacts.all, ...DummyContactList].sort((a, b) => a.username.charAt(0).toLowerCase().localeCompare(b.username.charAt(0).toLowerCase())),
-            favorite: [...result.profiles.private.contacts.favorite, ...DummyContactList],
-            recent: [...result.profiles.private.contacts.recent, ...DummyContactList],
-          },
-        });        
-        console.log(result.profiles);
+        dispatch(setMyProfile(result.profiles.private)); 
 
         // Socket connection
         socketConnection(true);
@@ -75,7 +68,7 @@ function LogIn() {
 
         // Home route
         console.log('Login successful');
-        setLoader(false);
+        dispatch(toggleLoader(false));
         navigate('/home');
       } else {
         console.log('Some technical error', result);
@@ -83,7 +76,7 @@ function LogIn() {
     } catch (error) {
       console.error('Error:', error);
     }
-    setLoader(false);
+    dispatch(toggleLoader(false));
   }
 
   // Email focus

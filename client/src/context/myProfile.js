@@ -1,35 +1,19 @@
-import { createContext, useState } from "react";
-import { DummyContactList } from "./DummyData";
+import { createSlice } from "@reduxjs/toolkit";
 
 
-  
-const all = DummyContactList.map((value)=>value.username);
-const groups = [];
-console.log(all)
-const initialValue = {
-    username: "",
-    mobile_number: "",
-    email: "",
-    password: "",
-    location: "",
-    status: "",
-    contacts: {
-      all: [...DummyContactList].sort((a, b) => a.username.charAt(0).toLowerCase().localeCompare(b.username.charAt(0).toLowerCase())),
-      favorite: [...DummyContactList],
-      recent: [...DummyContactList]
-    },
-    groups: groups,
-    last_seen: "",
-  }
 
-export const MyProfileContext = createContext(null);
-export function MyProfileContextContextProvider({ children }){
-    const [myProfile, setMyProfile] = useState(initialValue);
+const initialState = { x:0 };
+const MyProfile = createSlice({
+    name: 'MyProfile',
+    initialState: initialState,
+    reducers: {
+        setMyProfile: (state, action) => {
+            const updatedState = { ...action.payload };
+            console.log("Updated", updatedState);
+            return updatedState;
+        }
+    }
+});
 
-    return (
-        <MyProfileContext.Provider value={{myProfile, setMyProfile}}>
-            { children }
-        </MyProfileContext.Provider>
-    );
-}
-
+export const { setMyProfile } = MyProfile.actions;
+export default MyProfile.reducer;

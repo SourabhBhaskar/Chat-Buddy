@@ -35,6 +35,9 @@ userSchema.methods.getProfile = function () {
     profile_picture: this.profile_picture,
     status: this.status,
     messages: [],
+    onCurrent: false,
+    seen: false,
+    unSeenMsgCnt: 0,
   };
 };
 

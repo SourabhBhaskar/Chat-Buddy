@@ -1,17 +1,14 @@
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { ChatRoomScreenModeContext } from "../context/Modes";
-import { InChatRoomContactContext  } from "../context/chatRoomContext";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleChatMode } from "../context/ChatMode";
 import profile from '../assets/profile.jpg';
-
 
 
 // Back Button
 function Back(){
-  const { chatMode, setChatMode } = useContext(ChatRoomScreenModeContext);
+  const dispatch = useDispatch();
   function handleClick(){
-    setChatMode(false);
+    dispatch(toggleChatMode(false));
   }
   return (
     <button className="inline-block text-xs text-gray-300 hover:text-white" onClick={handleClick}>
@@ -33,11 +30,10 @@ function Menu(){
 
 // Profile
 function Profile() {
-  const ChatRoomContact = useSelector((state) => state.ChatRoomContactSlice);
+  const ChatRoomContact = useSelector((state) => state.ContactStatesSlice).chatRoomContact;
   const picture = ChatRoomContact.profile_picture;
   const username = ChatRoomContact.username;
   const lastSeen = ChatRoomContact.last_seen;
-
 
   return (
     <div className="flex items-center gap-2">
@@ -52,13 +48,13 @@ function Profile() {
 
 
 // Nav
-function ChatRoomNav() {
+const ChatRoomNav = () => {
   return (
     <section className={`w-full h-[70px] flex-shrink-0 flex justify-center items-center text-white px-4 border-b-[1px] border-gray-700`} >
       <div className="w-full flex justify-between items-center">
         <div className='h-full w-full flex items-center gap-4'>
           <Back />
-          <Profile />
+          <Profile/>
         </div>
         <Menu />
       </div>

@@ -1,4 +1,5 @@
 import { io } from 'socket.io-client';
+import { useSelector } from 'react-redux';
 
 
 
@@ -24,8 +25,27 @@ export function newConnection(contact) {
     socket.emit('new-connection', contact);
 }
 
-// Send messge to server
-export function emitMessage(message, from, to) {
-    console.log(message, from, to)
-    socket.emit('message',message, from, to );
+
+// Send message to server
+const useEmitMessage = () => {
+    // Hooks
+    const myProfile = useSelector((state) => state.MyProfileSlice);
+    const ChatRoomContact = useSelector((state) => state.ContactStatesSlice).chatRoomContact;
+  
+    // Data
+    const senderId = myProfile.email;
+    const receiverId = ChatRoomContact.email;
+
+    // Emit message 
+    const emitMessage = (message) => socket.emit('message', { message, senderId, receiverId });
+
+    // Return custom hook
+    return { emitMessage }
 }
+  
+
+
+
+// Export as a named export
+export { useEmitMessage };
+  

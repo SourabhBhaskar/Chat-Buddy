@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react'
-import { LoaderContext } from '../context/Loader'
+import { useSelector } from 'react-redux';
+
 
 function Loader() {
-  const { loader, setLoader } = useContext(LoaderContext);
+  const loader = useSelector((state) => state.LoaderSlice);
   return (
     <>  
         {   loader &&
@@ -14,4 +15,4 @@ function Loader() {
   )
 }
 
-export default Loader
+export default Loader ;

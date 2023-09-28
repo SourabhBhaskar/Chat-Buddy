@@ -1,12 +1,16 @@
-import { createContext, useState } from "react";
+import { createSlice } from "@reduxjs/toolkit";
 
-export const LoaderContext = createContext(null);
-export function LoaderContextProvider({ children }){
-    const [loader, setLoader] = useState(false);
 
-    return (
-        <LoaderContext.Provider value={{loader, setLoader}}>
-            { children }
-        </LoaderContext.Provider>
-    );
-}
+const Loader = createSlice({
+    name: 'Loader',
+    initialState: false,
+    reducers: {
+        toggleLoader: (state, action) => {
+            return !state;
+        }
+    }
+})
+
+
+export const { toggleLoader } = Loader.actions;
+export default Loader.reducer;

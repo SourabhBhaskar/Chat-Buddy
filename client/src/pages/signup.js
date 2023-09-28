@@ -1,27 +1,29 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { socketConnection, newConnection } from '../services/socketIO';
+import { setMyProfile } from '../context/MyProfile';
+import { useDispatch } from 'react-redux';
 import Loader from '../components/Loader';
-import { LoaderContext } from '../context/Loader';
-import { MyProfileContext } from '../context/myProfile';
-import { DummyContactList } from '../context/DummyData';
+import { toggleLoader } from '../context/Loader';
+
+
 
 function SignUp() {
   // Hooks and state initialization
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [submit, setSubmit] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [usernameErr, setUsernameErr] = useState('');
   const [passwordErr, setPasswordErr] = useState('');
-  const { setLoader } = useContext(LoaderContext);
-  const { myProfile, setMyProfile } = useContext(MyProfileContext);
+
 
   // Submit handler
   async function handleSubmit(e) {
     e.preventDefault();
     setSubmit(true);
-    setLoader(true);
+    dispatch(toggleLoader(true));
 
     if (email === '' || password === '') {
       if (email === '') setUsernameErr('Please enter your username');
@@ -30,7 +32,7 @@ function SignUp() {
       if (password === '') setPasswordErr('Please enter your password');
       else setPasswordErr('');
 
-      setLoader(false);
+      dispatch(toggleLoader(false));
       return;
     }
 
@@ -43,25 +45,18 @@ function SignUp() {
     try {
       const response = await fetch(url, options);
       const result = await response.json();
+      console.log(result)
 
       if (result.profiles) {
         // Set My Profile
-        setMyProfile({
-          ...result.profiles.private,
-          contacts: {
-            all: [...result.profiles.private.contacts.all, ...DummyContactList].sort((a, b) => a.username.charAt(0).toLowerCase().localeCompare(b.username.charAt(0).toLowerCase())),
-            favorite: [...result.profiles.private.contacts.favorite, ...DummyContactList],
-            recent: [...result.profiles.private.contacts.recent, ...DummyContactList],
-          },
-        });
-        console.log(result.profiles);
+        dispatch(setMyProfile(result.profiles.private));
 
         // Socket connection
         socketConnection(true);
         newConnection(email);
 
         // Home route
-        setLoader(false);
+        dispatch(toggleLoader(false));
         navigate('/home');
         console.log('Sign up successful');
       } else if (result.message === 'Username is already taken') {
@@ -74,7 +69,7 @@ function SignUp() {
     } catch (error) {
       console.error('Error:', error);
     }
-    setLoader(false);
+    dispatch(toggleLoader(false));
   }
 
   // Email focus

@@ -1,24 +1,22 @@
-import React, { useContext } from 'react'
-import { socket } from '../services/socketIO';
+import React, {  } from 'react'
 import profile from '../assets/profile.jpg';
-import { DarkModeContext, ChatRoomScreenModeContext } from '../context/Modes';
 import { useSelector, useDispatch } from 'react-redux';
-import { Change } from '../context/ChatRoomContact';
+import { setChatRoomContact } from '../context/ContactStates';
+import { toggleChatMode } from '../context/ChatMode';
 
 
 // Status
-function FavoriteChat({ Contact }){
-  const { mode } = useContext(DarkModeContext);
-  const { chatMode, setChatMode } = useContext(ChatRoomScreenModeContext);
+const FavoriteChat = React.memo(({ Contact }) => {
+  // Hooks and Constent
   const dispatch = useDispatch();
-  
-  const darkMode = mode ? 'bg-[#a6b0cf11] group-hover:bg-[#a6b0cf22]' : 'bg-[#a6b0cf22] group-hover:bg-[#a6b0cf33]';
+
+  // Data
   const name = Contact.username;
   const picture = Contact.profile_picture;
 
   function handleClick(){
-    setChatMode(true);
-    dispatch(Change(Contact))
+    dispatch(toggleChatMode(true));
+    dispatch(setChatRoomContact(Contact))
   }
 
   return (
@@ -27,18 +25,18 @@ function FavoriteChat({ Contact }){
         <img className='w-[40px] aspect-square rounded-full' src={picture ? picture : profile} alt={name} />
         <div className='w-[10px] h-[10px] rounded-full bg-green-600 absolute top-[28px] right-0 border-2 border-black'></div>
       </div>
-      <div className={`w-full h-[50px] absolute bottom-0 rounded-md ${darkMode}`}>
+      <div className={`w-full h-[50px] absolute bottom-0 rounded-md `}>
          <p className={`w-full text-center text-sm font-medium mx-auto absolute bottom-2 px-2 ${name.length>=7 ? 'truncate' : ''}`}>{name}</p>
       </div>
     </div>
   );
-}
+})
 
 
 
 // Favorite Chat List
 function FavoriteChats() {
-  const FavoriteContacts = useSelector((state) => state.FavoriteContactsSlice);
+  const FavoriteContacts = useSelector((state) => state.ContactStatesSlice).favorite;
 
   return (
     <div className={`font-bold text-white`}>

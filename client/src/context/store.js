@@ -1,20 +1,20 @@
 import { configureStore } from '@reduxjs/toolkit';
-import AllContacts from './AllContacts';
-import FavoriteContacts from './FavoriteContacts';
-import RecentContacts from './RecentContacts';
-import ChatRoomContact from './ChatRoomContact';
-import ChatBoxMessages from './ChatBoxMessages';
+import Loader from './Loader';
+import MyProfile from './MyProfile';
+import Navigate from './Nav';
+import ChatMode from './ChatMode';
+import ContactStates from './ContactStates';
 
 
 
 
 const store = configureStore({
     reducer: {
-        AllContactsSlice: AllContacts,
-        FavoriteContactsSlice: FavoriteContacts,
-        RecentContactsSlice: RecentContacts,
-        ChatRoomContactSlice: ChatRoomContact,
-        ChatBoxMessagesSlice: ChatBoxMessages
+        LoaderSlice: Loader,
+        MyProfileSlice: MyProfile,
+        NavigateSlice: Navigate,
+        ChatModeSlice: ChatMode,
+        ContactStatesSlice: ContactStates
     }
 })
 

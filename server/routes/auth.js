@@ -20,6 +20,7 @@ router.post('/signup', async (req, res) => {
     // Accessing the user profile 
     const private = newUser;
     const public = newUser.getProfile();
+    console.log('Profile', public)
 
     req.login(newUser, (err) => {
       if (err) {

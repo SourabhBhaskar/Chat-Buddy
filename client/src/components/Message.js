@@ -46,7 +46,7 @@ function ReceiverMessage({ Message }){
 
 
 // Day Time
-function Time({ message }){
+function Time({ Message }){
     const dayTime = 'Today';
     return (
         <div className='w-full h-auto flex justify-center py-4'>  
@@ -64,7 +64,7 @@ export function Message({ message }) {
         <>
             { direction==='sent' && <SenderMessage Message={message}/> }
             { direction==='received' && <ReceiverMessage Message={message} /> }
-            { direction==='time' && <Time message={message} /> }
+            { direction==='time' && <Time Message={message} /> }
         </>
     );
-  }
+}

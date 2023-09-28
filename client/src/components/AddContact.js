@@ -1,27 +1,25 @@
 import { useContext, useState } from 'react';
 import Loader from './Loader';
-import { LoaderContext } from '../context/Loader';
-import { MyProfileContext } from '../context/myProfile';
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleLoader } from '../context/Loader';
 
 // Add Contact 
 export default function AddContact(){
+  const dispatch = useDispatch();
   const AllContact = useSelector((state) => state.AllContactsSlice);
   const [add, setAdd] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const { loader, setLoader } = useContext(LoaderContext);
-  const { myProfile, setMyProfile } = useContext(MyProfileContext);
+  const myProfile = useSelector((state) => state.MyProfileSlice);
 
   // Submit handler
   async function handleSubmit(e) {
     e.preventDefault();
-    setLoader(true);
+    dispatch(toggleLoader(true));
 
     if(myProfile === undefined){
       alert('Signup or Login first');
-      setLoader(false);
+      dispatch(toggleLoader(false));
       return ;
     }
 
@@ -38,12 +36,12 @@ export default function AddContact(){
         console.log(result.profiles.public)
         AllContact.setAllContact([...AllContact.allContact, result.profiles.public].sort((a, b) => a.username.charAt(0).toLowerCase().localeCompare(b.username.charAt(0).toLowerCase())));
       }
-      setLoader(false);
+      dispatch(toggleLoader(false));
     } catch (error) {
       console.error('Error:', error);
-      setLoader(false);
+      dispatch(toggleLoader(false));
     }
-    setLoader(false);
+    dispatch(toggleLoader(false));
     setAdd(!add);
     setName('');
     setEmail('');

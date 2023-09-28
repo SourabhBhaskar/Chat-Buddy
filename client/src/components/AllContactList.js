@@ -1,9 +1,9 @@
-import { useContext, useState } from 'react';
+import React, {  } from 'react';
 import SearchChat from './Search';
 import AddContact from './AddContact';
-import { ChatRoomScreenModeContext } from '../context/Modes';
 import { useSelector, useDispatch } from 'react-redux';
-import { Change } from '../context/ChatRoomContact';
+import { setChatRoomContact } from '../context/ContactStates';
+import { toggleChatMode } from '../context/ChatMode';
 
 
 // Menu
@@ -17,13 +17,15 @@ function Menu(){
 
 
 // Contact
-function Contact({ Index, List }){
+const Contact = React.memo(({ Index, List }) => {
+  // Hooks and Constent
   const dispatch = useDispatch();
-  const { setChatMode } = useContext(ChatRoomScreenModeContext);
 
+  // Data
   const name = List[Index].username;
   let newAlpabet = false;
 
+  // Sorting
   if(Index === 0)
     newAlpabet = List[0].username.slice(0,1).toUpperCase();
   else if(Index){
@@ -32,9 +34,10 @@ function Contact({ Index, List }){
     newAlpabet = currAlphabet !== prevAlphabet ? currAlphabet : false;
   }
 
+  // Click handler
   function handleClick(){
-    setChatMode(true);
-    dispatch(Change({...List[Index]}));
+    dispatch(setChatRoomContact({...List[Index]}));
+    dispatch(toggleChatMode(true));
   }
 
   return (
@@ -46,26 +49,26 @@ function Contact({ Index, List }){
       </div>
     </>
   );
-}
+})
 
 
 
 // Contact List
-function ContactList() {
-  const AllContacts = useSelector((state) => state.AllContactsSlice);
+function AllContactList() {
+  const AllContacts = useSelector((state) => state.ContactStatesSlice).all;
 
   return (
   <div className='w-full h-full absolute flex flex-col p-6 pb-0 bg-[#303841] z-50 move'>
-      <div className='w-full flex justify-between items-center pr-4'>
-        <h1 className='text-xl font-[600]'>Contacts</h1>
-        <AddContact />
-      </div>
-      <SearchChat placeholder={"Search for a contact..."} />
-      <div className='flex-grow overflow-scroll'>
-        {AllContacts.map((value, index)=><Contact key={index} Index={index} List={ AllContacts }  />)}
-      </div>
+    <div className='w-full flex justify-between items-center pr-4'>
+      <h1 className='text-xl font-[600]'>Contacts</h1>
+      <AddContact />
     </div>
+    <SearchChat placeholder={"Search for a contact..."} />
+    <div className='flex-grow overflow-scroll'>
+      {AllContacts.map((value, index)=><Contact key={index} Index={index} List={ AllContacts }  />)}
+    </div>
+  </div>
   )
 }
 
-export default ContactList;
+export default AllContactList;

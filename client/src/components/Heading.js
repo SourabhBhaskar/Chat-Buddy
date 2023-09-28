@@ -1,13 +1,10 @@
-import React, { useContext } from "react";
-import { DarkModeContext } from "../context/Modes";
+import React, {  } from "react";
 
 
 
 // Heading
 export default function Heading({ text }){
-    const { mode, setMode } = useContext(DarkModeContext);
-    const darkMode = mode ? 'text-white' : 'text-black';
     return (
-      <h1 className={`text-xl font-semibold ${darkMode}`}>{text}</h1>
+      <h1 className={`text-xl font-semibold `}>{text}</h1>
     );
   }

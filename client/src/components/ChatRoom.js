@@ -9,8 +9,8 @@ function ChatRoom() {
   return (
     <section className='w-full h-full flex flex-col'>
       <ChatRoomNav />
-      <ChatBox />
-      <SendMessage />
+      <ChatBox/>
+      <SendMessage/>
     </section>
   )
 }
