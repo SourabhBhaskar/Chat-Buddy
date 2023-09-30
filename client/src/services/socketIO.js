@@ -1,5 +1,7 @@
 import { io } from 'socket.io-client';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { updateContactMessage, updateChatBoxMessages } from '../context/ContactStates';
 
 
 
@@ -40,9 +42,28 @@ const useEmitMessage = () => {
     const emitMessage = (message) => socket.emit('message', { message, senderId, receiverId });
 
     // Return custom hook
-    return { emitMessage }
+    return { emitMessage };
 }
-  
+
+// Receive Messages from server
+export const useReceiveMessage = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const handleReceiveMessage = (message) => {
+      console.log(message)
+      const profile = message.senderProfile;
+      const messageToSend = message.message;
+      dispatch(updateContactMessage({ profile: JSON.stringify(profile), message: messageToSend, from: 'received' }));
+      dispatch(updateChatBoxMessages({ profile: JSON.stringify(profile), message: messageToSend, from: 'received' }));
+    };
+
+    socket.on('message', handleReceiveMessage);
+    return () => socket.off('message', handleReceiveMessage);
+  }, []); 
+
+  return {};
+};
 
 
 

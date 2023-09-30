@@ -9,7 +9,7 @@ function Nav() {
   const dispatch = useDispatch();
 
   return (
-    <nav className={`w-full h-full flex justify-center items-center flex-shrink-0 bg-[#a6b0cf22] z-50`}>
+    <nav className={`w-full h-full flex justify-center items-center flex-shrink-0 bg-[#a6b0cf22]`}>
       <div className='w-full h-full max-h-[450px] flex xl:flex-col items-center justify-around'>
         <button onClick={()=>dispatch(navigate('profile'))}><i className={`w-[50px] aspect-square flex items-center justify-center rounded-lg transition-all fa-solid fa-user`}></i></button>
         <button onClick={()=>dispatch(navigate('chats'))}><i className={`w-[50px] aspect-square flex items-center justify-center rounded-lg transition-all fa-solid fa-message text-[0.85rem]`}></i></button>

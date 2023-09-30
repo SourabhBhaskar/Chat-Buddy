@@ -4,6 +4,7 @@ import AddContact from './AddContact';
 import { useSelector, useDispatch } from 'react-redux';
 import { setChatRoomContact } from '../context/ContactStates';
 import { toggleChatMode } from '../context/ChatMode';
+import { addNewChat } from '../context/ContactStates';
 
 
 // Menu
@@ -37,6 +38,7 @@ const Contact = React.memo(({ Index, List }) => {
   // Click handler
   function handleClick(){
     dispatch(setChatRoomContact({...List[Index]}));
+    dispatch(addNewChat({...List[Index]}));
     dispatch(toggleChatMode(true));
   }
 
@@ -58,7 +60,7 @@ function AllContactList() {
   const AllContacts = useSelector((state) => state.ContactStatesSlice).all;
 
   return (
-  <div className='w-full h-full absolute flex flex-col p-6 pb-0 bg-[#303841] z-50 move'>
+  <div className='w-full h-full absolute flex flex-col p-6 pb-0 bg-[#303841] move'>
     <div className='w-full flex justify-between items-center pr-4'>
       <h1 className='text-xl font-[600]'>Contacts</h1>
       <AddContact />

@@ -7,7 +7,7 @@ import SendMessage from './SendMessage';
 
 function ChatRoom() {
   return (
-    <section className='w-full h-full flex flex-col'>
+    <section className='w-full h-full relative flex flex-col'>
       <ChatRoomNav />
       <ChatBox/>
       <SendMessage/>

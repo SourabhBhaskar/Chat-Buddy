@@ -25,7 +25,7 @@ const FavoriteChat = React.memo(({ Contact }) => {
         <img className='w-[40px] aspect-square rounded-full' src={picture ? picture : profile} alt={name} />
         <div className='w-[10px] h-[10px] rounded-full bg-green-600 absolute top-[28px] right-0 border-2 border-black'></div>
       </div>
-      <div className={`w-full h-[50px] absolute bottom-0 rounded-md `}>
+      <div className={`w-full h-[50px] absolute bottom-0 rounded-md bg-[#a6b0cf11]`}>
          <p className={`w-full text-center text-sm font-medium mx-auto absolute bottom-2 px-2 ${name.length>=7 ? 'truncate' : ''}`}>{name}</p>
       </div>
     </div>

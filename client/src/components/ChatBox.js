@@ -1,10 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import { Message } from './Message';
 import { useSelector } from 'react-redux';
+import { useReceiveMessage } from '../services/socketIO';
 
 
 // Chat Box
 const ChatBox = () => {
+  useReceiveMessage();
   const currRef = useRef(null)
   const ChatBoxMessages = useSelector((state) => state.ContactStatesSlice).chatBoxMessages;
 

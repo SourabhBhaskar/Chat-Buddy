@@ -29,7 +29,7 @@ function Home() {
     <main className={`w-screen h-screen flex font-publicSans relative`}>
       { 
         ((!chatMode) || width >1280) &&
-        <section className={`w-full h-full xl:w-[460px] flex-shrink-0 flex-col flex xl:flex-row-reverse`}>
+        <section className={`w-full h-full xl:w-[460px] flex-shrink-0 flex-col flex xl:flex-row-reverse z-[5]`}>
           <div className='flex-grow bg-[#303841] text-white relative'>
             {navigate === 'profile' && <Profile key="profile" />}
             {navigate === 'chats' && <Chats key="chats" />}
@@ -37,17 +37,25 @@ function Home() {
             {navigate === 'setting' && <Setting key="setting" />}
             {navigate === 'phone-book' && <AllContactList key="phone-book" />}
           </div>
-          <div className='w-full h-[60px] xl:w-[75px] xl:h-full relative flex-shrink-0 bg-[#303841] text-[#a6b0cf]'>
+          <div className='w-full h-[60px] xl:w-[75px] xl:h-full relative flex-shrink-0 bg-[#303841] text-[#a6b0cf] z-0'>
             <Nav />
           </div>
         </section>
       }
       { 
         chatMode && 
-        <section className={`flex-grow bg-[#262e35] chatroom-move`}>
+        <section className={`flex-grow bg-[#262e35] chatroom-move `}>
           <ChatRoom key="chat-room" />
         </section>
+
       }
+      { 
+        !chatMode && 
+        <section className={`flex-grow bg-[#262e35] chatroom-move -z-40`}>
+        </section>
+
+      }
+
     </main>
   )
 }

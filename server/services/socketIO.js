@@ -31,19 +31,16 @@ function configureSocketIO(server) {
     });
 
     // Message
-    socket.on("message", async(message, from, to) => {
-      console.log(message, to, from);
-      const UserProfile = await User.findOne({ email: from });
-      const senderId = from;
-      const receiverId = to;
-      const msg = { senderProfile: UserProfile.getProfile(), message: message };
+    socket.on("message", async({ message, senderId, receiverId }) => {
+      const senderProfile = await User.findOne({ email: senderId });
+      const messageToSend = { senderProfile: senderProfile.getProfile(), message: message };
 
       // Check if the receiver is online
       if (onlineUser.has(receiverId)) {
         const receiverSocket = onlineUser.get(receiverId);
         console.log(receiverSocket.id);
-        receiverSocket.emit("message", msg);
-        console.log(`Sent message to ${receiverId}: ${msg.message}`);
+        receiverSocket.emit("message", messageToSend);
+        console.log(`Sent message to ${receiverId}: ${messageToSend.message}`);
       } else {
         console.log(`Receiver ${receiverId} is not online`);
       }

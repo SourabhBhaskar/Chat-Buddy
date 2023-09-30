@@ -5,6 +5,7 @@ import Loader from '../components/Loader';
 import { useDispatch } from 'react-redux';
 import { toggleLoader } from '../context/Loader';
 import { setMyProfile } from '../context/MyProfile';
+import { updataContactList } from '../context/ContactStates';
 
 
 function LogIn() {
@@ -61,6 +62,7 @@ function LogIn() {
       } else if (result.profiles) {
         // Set My Profile
         dispatch(setMyProfile(result.profiles.private)); 
+        dispatch(updataContactList(result.profiles.private.contacts));
 
         // Socket connection
         socketConnection(true);

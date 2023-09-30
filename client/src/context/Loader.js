@@ -6,7 +6,8 @@ const Loader = createSlice({
     initialState: false,
     reducers: {
         toggleLoader: (state, action) => {
-            return !state;
+            state = action.payload;
+            return state;
         }
     }
 })

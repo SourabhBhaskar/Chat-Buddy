@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import Loader from './Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleLoader } from '../context/Loader';
+import { addNewContact } from '../context/ContactStates';
 
 // Add Contact 
 export default function AddContact(){
@@ -16,6 +17,7 @@ export default function AddContact(){
   async function handleSubmit(e) {
     e.preventDefault();
     dispatch(toggleLoader(true));
+
 
     if(myProfile === undefined){
       alert('Signup or Login first');
@@ -34,7 +36,9 @@ export default function AddContact(){
       const result = await response.json();
       if(result.message === 'Contact added successfully'){
         console.log(result.profiles.public)
-        AllContact.setAllContact([...AllContact.allContact, result.profiles.public].sort((a, b) => a.username.charAt(0).toLowerCase().localeCompare(b.username.charAt(0).toLowerCase())));
+        dispatch(addNewContact(result.profiles.public));
+      }else if(result.message === 'Contact with this email already exists'){
+        console.log('Contact with this email already exists')
       }
       dispatch(toggleLoader(false));
     } catch (error) {
@@ -65,7 +69,7 @@ export default function AddContact(){
         <i className="fa-solid fa-user-plus"></i>
       </button>
       { add &&
-        <div className='w-screen h-screen absolute z-50 top-0 left-0 xl:left-[-75px] flex justify-center items-center bg-[#0008]'>
+        <div className='w-screen h-screen absolute top-0 left-0 xl:left-[-75px] flex justify-center items-center bg-[#0008] z-50'>
           <div className="w-[90%] max-w-[500px] h-[360px] flex flex-col gap-3 bg-[#303841] text-white mx-auto rounded-md relative add-contact p-4 px-6">
             <Loader />
             <div className="w-full flex justify-between items-center py-2 border-b-[1px] border-[#a6b0cf22]">
