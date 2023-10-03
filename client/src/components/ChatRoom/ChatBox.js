@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Message } from './Message';
 import { useSelector } from 'react-redux';
-import { useReceiveMessage } from '../services/socketIO';
+import { useReceiveMessage } from '../../services/socketIO';
 
 
 // Chat Box

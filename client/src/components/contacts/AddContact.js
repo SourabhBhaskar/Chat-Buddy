@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react';
-import Loader from './Loader';
+import Loader from '../common_/Loader';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleLoader } from '../context/Loader';
-import { addNewContact } from '../context/ContactStates';
+import { toggleLoader } from '../../context/Loader';
+import { addNewContact } from '../../context/ContactStates';
 
 // Add Contact 
 export default function AddContact(){

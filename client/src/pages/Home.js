@@ -1,13 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { navigate } from '../context/Nav';
-import Nav from '../components/Nav';
-import ChatRoom from '../components/ChatRoom';
-import Profile from '../components/Profile';
-import Chats from '../components/Chats';
-import Groups from '../components/Groups';
-import AllContactList from '../components/AllContactList';
-import Setting from '../components/Setting';
+import { useSelector } from 'react-redux';
+import Nav from '../components/common_/Nav';
+import ChatRoom from '../components/ChatRoom/ChatRoom';
+import Profile from '../components/profile/Profile';
+import Chats from '../components/chats_/Chats';
+import Groups from '../components/groups/Groups';
+import Contacts from '../components/contacts/Contacts';
+import Setting from '../components/setting_/Setting';
 
 
 function Home() {
@@ -35,7 +34,7 @@ function Home() {
             {navigate === 'chats' && <Chats key="chats" />}
             {navigate === 'groups' && <Groups key="groups" />}
             {navigate === 'setting' && <Setting key="setting" />}
-            {navigate === 'phone-book' && <AllContactList key="phone-book" />}
+            {navigate === 'phone-book' && <Contacts key="phone-book" />}
           </div>
           <div className='w-full h-[60px] xl:w-[75px] xl:h-full relative flex-shrink-0 bg-[#303841] text-[#a6b0cf] z-0'>
             <Nav />

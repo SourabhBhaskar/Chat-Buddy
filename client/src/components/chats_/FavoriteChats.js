@@ -1,8 +1,8 @@
 import React, {  } from 'react'
-import profile from '../assets/profile.jpg';
+import profile from '../../assets/profile.jpg';
 import { useSelector, useDispatch } from 'react-redux';
-import { setChatRoomContact } from '../context/ContactStates';
-import { toggleChatMode } from '../context/ChatMode';
+import { setChatRoomContact } from '../../context/ContactStates';
+import { toggleChatMode } from '../../context/ChatMode';
 
 
 // Status
@@ -16,7 +16,7 @@ const FavoriteChat = React.memo(({ Contact }) => {
 
   function handleClick(){
     dispatch(toggleChatMode(true));
-    dispatch(setChatRoomContact(Contact))
+    dispatch(setChatRoomContact(JSON.stringify(Contact)));
   }
 
   return (

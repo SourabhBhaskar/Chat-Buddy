@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { useDispatch } from 'react-redux';
-import { navigate } from '../context/Nav';
+import { navigate } from '../../context/Nav';
 
 
 
@@ -16,7 +16,7 @@ function Nav() {
         <button onClick={()=>dispatch(navigate('groups'))}><i className={`w-[50px] aspect-square flex items-center justify-center rounded-lg transition-all fa-solid fa-user-group text-[0.85rem]`}></i></button>
         <button onClick={()=>dispatch(navigate('phone-book'))}><i className={`w-[50px] aspect-square flex items-center justify-center rounded-lg transition-all fa-solid fa-address-book`}></i></button>
         <button onClick={()=>dispatch(navigate('setting'))}><i className={`w-[50px] aspect-square flex items-center justify-center rounded-lg transition-all fa-solid fa-gear`}></i></button>
-        {/* <button onClick={()=>setMode(!mode))}><i className={`w-[50px] aspect-square flex items-center justify-center rounded-lg transition-all fa-solid fa-circle-half-stroke`}></i></button> */}
+        <button ><i className={`w-[50px] aspect-square flex items-center justify-center rounded-lg transition-all fa-solid fa-circle-half-stroke`}></i></button>
       </div>
     </nav>
   )

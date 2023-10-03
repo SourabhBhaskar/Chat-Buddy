@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useChatBoxMessages} from '../context/ContactStates';
+import { useChatBoxMessages} from '../../context/ContactStates';
 
 
 // Message Input

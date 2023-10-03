@@ -1,8 +1,8 @@
 import React, { } from 'react';
-import defaultPicture from '../assets/profile.jpg';
+import defaultPicture from '../../assets/profile.jpg';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleChatMode } from '../context/ChatMode';
-import { setChatRoomContact } from '../context/ContactStates';
+import { toggleChatMode } from '../../context/ChatMode';
+import { setChatRoomContact } from '../../context/ContactStates';
 
 
 
@@ -12,18 +12,16 @@ const RecentChat = React.memo(({ Contact }) => {
   
   // Data
   const picture = Contact.profile_picture;
-  const username = Contact.username;
+  const username = Contact.username !== "" ? Contact.username : "Unknown";
   const lastSeen = Contact.last_seen;
   const messages = Contact.messages;
   const seen = Contact.seen;
   const unSeenMsgCnt = Contact.unSeenMsgCnt;
   const lastMsg = messages && messages.length>0 && messages[messages.length-1].message;
 
-
-
   // handleClick
   function handleClick(){
-    dispatch(setChatRoomContact(Contact));
+    dispatch(setChatRoomContact(JSON.stringify(Contact)));
     dispatch(toggleChatMode(true));
   }
 
@@ -49,15 +47,16 @@ const RecentChat = React.memo(({ Contact }) => {
 
 
 // Recent Chats List
-export default function RecentChats() {
-  const RecentContacts = useSelector((state) => state.ContactStatesSlice).recent;
+const RecentChats = ({ List }) => {
 
   return (
     <section className='w-full h-full absolute overflow-scroll hide-scrollbar'> 
       <h1 className='font-bold'>Recent Chats</h1>
       <div className='pt-6'>
-        { RecentContacts.map((value, index) => (<RecentChat key={index} Contact={value}/>)) }
+        { List.map((value, index) => (<RecentChat key={index} Contact={value}/>)) }
       </div>
     </section>
   );
 }
+
+export default RecentChats;

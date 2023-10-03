@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleChatMode } from "../context/ChatMode";
-import profile from '../assets/profile.jpg';
+import { toggleChatMode } from "../../context/ChatMode";
+import profile from '../../assets/profile.jpg';
 
 
 // Back Button

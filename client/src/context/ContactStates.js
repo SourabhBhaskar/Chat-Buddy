@@ -1,6 +1,6 @@
-import { createSerializableStateInvariantMiddleware, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from "react";
+import { useEffect  } from "react";
 import { useEmitMessage } from '../services/socketIO';
 import { DummyContactList } from "./DummyData";
 import { sortArrayOfObjectsByName } from "../services/sorting";
@@ -19,26 +19,38 @@ const ContactStates = createSlice({
   name: 'ContactStates',
   initialState: initialState,
   reducers: {
-    // Set my profile
-    updataContactList: (state, action) => {
-      console.log(action.payload)
-      const updatedState = {
+
+    // Initial update of contact list
+    updateContactList: (state, action) => {
+      return {
         ...state,
         all: sortArrayOfObjectsByName([...state.all, ...action.payload.all]),
         favorite: sortArrayOfObjectsByName([...state.favorite, ...action.payload.favorite]),
         recent: [...state.recent, ...action.payload.recent]
       }
-      return updatedState;
     },
 
     // Set chat room contact
     setChatRoomContact: (state, action) => {
-      const updatedState = {
-        ...state,
-        chatRoomContact: action.payload,
-        chatBoxMessages: [...action.payload.messages]
+      const contact = JSON.parse(action.payload);
+      contact.seen = false;
+      contact.unSeenMsgCnt = 0;
+
+      const updatedRecentContactList = [...state.recent];
+      const index = updatedRecentContactList.findIndex((c) => c.email === contact.email);
+      if(index !== -1){
+
+      }else{
+        updatedRecentContactList.unshift(0);
+        updatedRecentContactList[0] = contact;
       }
-      return updatedState;
+
+      return {
+        ...state,
+        recent: updatedRecentContactList,
+        chatRoomContact: contact,
+        chatBoxMessages: [...contact.messages]
+      }
     },
 
     // Update chatbox message
@@ -85,9 +97,20 @@ const ContactStates = createSlice({
         state.recent[recentIndex].messages.push(newMessage);
         state.recent.splice(recentIndex, 1);
         state.recent.splice(0, 0, recentIndexValue);
+
+        if(!from && state.chatRoomContact.email !== userId){
+          state.recent[0].seen = true;
+          state.recent[0].unSeenMsgCnt += 1;
+        }
       }else{
         state.recent.unshift(0);
         state.recent[0] = (allIndex !== -1) ? state.all[allIndex] : profile; 
+
+        if(!from && state.chatRoomContact.email !== userId){
+          state.recent[0].seen = true;
+          state.recent[0].unSeenMsgCnt += 1;
+        }
+
       }
 
       return state;
@@ -96,39 +119,23 @@ const ContactStates = createSlice({
     
     // Add new contacts
     addNewContact: (state, action) => {
-      const sortedContactList = sortArrayOfObjectsByName([...state.all, action.payload]);
-      const updatedState = {
+      return {
         ...state,
-        all: sortedContactList,
+        all: sortArrayOfObjectsByName([...state.all, action.payload])
       }
-
-      return updatedState;
     },
 
-
-    // Add new chat in recent
-    addNewChat: (state, action) => {
-      const isExist = state.recent.find((c) => c.email === action.payload.email);
-      if(isExist)
-        return state ;
-
-      const updatedState = {
-        ...state,
-        recent: [action.payload, ...state.recent]
-      }
-      return updatedState;
-    },
   },
 });
 
 export const { 
-  updataContactList,
+  updatedRecentContactList,
   setChatRoomContact, 
   updateChatBoxMessages,
   addNewContact,
-  addNewChat,
   updateContactMessage,
-  updateRecent
+  updateRecent,
+  updateContactList,
 } = ContactStates.actions;
 export default ContactStates.reducer;
 
