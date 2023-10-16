@@ -1,25 +1,55 @@
-import React, { useContext } from 'react'
-import { useDispatch } from 'react-redux';
+import React, { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { navigate } from '../../context/Nav';
+import { Icon } from '@iconify/react';
+import logo from '../../assets/logo.svg';
 
-
-
+const navigationItems = [
+  { id: 'profile', icon: 'ri:user-2-line' },
+  { id: 'chats', icon: 'ri:message-3-line' },
+  { id: 'groups', icon: 'ri:group-line' },
+  { id: 'contacts', icon: 'ri:contacts-line' },
+  { id: 'setting', icon: 'ri:settings-2-line' },
+];
 
 function Nav() {
   const dispatch = useDispatch();
+  const current = useSelector((state) => state.NavigateSlice);
 
   return (
-    <nav className={`w-full h-full flex justify-center items-center flex-shrink-0 bg-[#a6b0cf22]`}>
-      <div className='w-full h-full max-h-[450px] flex xl:flex-col items-center justify-around'>
-        <button onClick={()=>dispatch(navigate('profile'))}><i className={`w-[50px] aspect-square flex items-center justify-center rounded-lg transition-all fa-solid fa-user`}></i></button>
-        <button onClick={()=>dispatch(navigate('chats'))}><i className={`w-[50px] aspect-square flex items-center justify-center rounded-lg transition-all fa-solid fa-message text-[0.85rem]`}></i></button>
-        <button onClick={()=>dispatch(navigate('groups'))}><i className={`w-[50px] aspect-square flex items-center justify-center rounded-lg transition-all fa-solid fa-user-group text-[0.85rem]`}></i></button>
-        <button onClick={()=>dispatch(navigate('phone-book'))}><i className={`w-[50px] aspect-square flex items-center justify-center rounded-lg transition-all fa-solid fa-address-book`}></i></button>
-        <button onClick={()=>dispatch(navigate('setting'))}><i className={`w-[50px] aspect-square flex items-center justify-center rounded-lg transition-all fa-solid fa-gear`}></i></button>
-        <button ><i className={`w-[50px] aspect-square flex items-center justify-center rounded-lg transition-all fa-solid fa-circle-half-stroke`}></i></button>
-      </div>
+    <nav className={`w-full h-full flex justify-center items-center flex-shrink-0 bg-[#a6b0cf11]`}>
+      <section className='w-full h-full flex flex-col justify-between text-xl xl:text-2xl'>
+        
+        <div className='w-full h-[70px] hidden xl:flex flex-col justify-around items-center'>
+          <img src={logo} className='w-[30px]' alt="Logo" />
+        </div>
+
+        <div className='w-full h-full xl:h-[332px] flex xl:flex-col justify-around items-center'>
+          {navigationItems.map((item) => (
+            <button key={item.id} onClick={() => dispatch(navigate(item.id))} className={`p-3 xl:p-4 rounded-xl hover:bg-[#a6b0cf11] ${current === item.id ? 'bg-[#a6b0cf11] text-[#7269ef]' : ''}`}>
+              <Icon icon={item.icon} />
+            </button>
+          ))}
+          <button onClick={() => dispatch(navigate('profile'))} className={`xl:hidden p-3 xl:p-4 rounded-lg`}>
+            <img src='#' alt='' className='w-[30px] h-[30px] rounded-full' />
+          </button>
+        </div>
+
+        <div className='w-full h-[196px] hidden xl:flex flex-col justify-around items-center'>
+          <button onClick={() => dispatch(navigate('language'))} className={`p-3 xl:p-4 rounded-xl hover-bg-[#a6b0cf11] ${current === 'language' ? 'bg-[#a6b0cf11] text-[#7269ef]' : ''}`}>
+            <Icon icon='ri:global-line' />
+          </button>
+          <button onClick={() => dispatch(navigate('themeMode'))} className={`p-3 xl:p-4 rounded-xl hover-bg-[#a6b0cf11] ${current === 'themeMode' ? 'bg-[#a6b0cf11] text-[#7269ef]' : ''}`}>
+            <Icon icon='ri:sun-line' />
+          </button>
+          <button onClick={() => dispatch(navigate('profile'))} className={`p-3 xl:p-4 rounded-lg`}>
+            <img src='#' alt='' className='w-[30px] h-[30px] rounded-full' />
+          </button>
+        </div>
+        
+      </section>
     </nav>
-  )
+  );
 }
 
 export default Nav;

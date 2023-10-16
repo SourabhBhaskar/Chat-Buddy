@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
+import { Icon } from '@iconify/react';
 
 
 // Search Chat
@@ -50,13 +51,13 @@ export default function Search({ placeholder, ListName, List, Search}){
   return (
     <div className={`h-[44px] flex-shrink-0 px-4 my-4 rounded-sm flex items-center gap-4 bg-[#a6b0cf11]`}>
       <button onClick={handleSearch}>
-        <i className="fa-solid fa-magnifying-glass opacity-70"></i>
+        <Icon icon='ri:search-line' className={`text-lg text-gray-400 ${inpVal && 'text-white'}`} />
       </button>
       <input 
         onChange={handleChange}
         value={inpVal}
         placeholder={placeholder}
-        className={`flex-grow h-full bg-transparent`}
+        className={`flex-grow h-full bg-transparent text-[15px]`}
       />
     </div>
   );

@@ -29,11 +29,10 @@ function Menu(){
 
 
 // Profile
-function Profile() {
-  const ChatRoomContact = useSelector((state) => state.ContactStatesSlice).chatRoomContact;
-  const picture = ChatRoomContact.profile_picture;
-  const username = ChatRoomContact.username;
-  const lastSeen = ChatRoomContact.last_seen;
+const Profile = ({ User }) => {
+  const picture = User.profile_picture;
+  const username = User.username;
+  const lastSeen = User.last_seen.date;
 
   return (
     <div className="flex items-center gap-2">
@@ -44,17 +43,18 @@ function Profile() {
       </div>
     </div>
   )
-}
+};
 
 
 // Nav
-const ChatRoomNav = () => {
+const ChatRoomNav = ({ User }) => {
+
   return (
     <section className={`w-full h-[70px] flex-shrink-0 flex justify-center items-center text-white px-4 border-b-[1px] border-gray-700`} >
       <div className="w-full flex justify-between items-center">
         <div className='h-full w-full flex items-center gap-4'>
           <Back />
-          <Profile/>
+          <Profile User={ User }/>
         </div>
         <Menu />
       </div>

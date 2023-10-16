@@ -68,8 +68,8 @@
     animation-duration: 0.5s;
   }
   @keyframes menuMove {
-    0%{ top: 50px}
-    100%{ top: 25px}
+    0%{ top: 90%}
+    100%{ top: 110%}
   }
 
 

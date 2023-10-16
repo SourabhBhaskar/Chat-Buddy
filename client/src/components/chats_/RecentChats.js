@@ -1,4 +1,4 @@
-import React, { } from 'react';
+import React, { useState } from 'react';
 import defaultPicture from '../../assets/profile.jpg';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleChatMode } from '../../context/ChatMode';
@@ -11,9 +11,11 @@ const RecentChat = React.memo(({ Contact }) => {
   const dispatch = useDispatch();
   
   // Data
-  const picture = Contact.profile_picture;
+  const picture = Contact.profile_picture ? Contact.profile_picture : defaultPicture;
   const username = Contact.username !== "" ? Contact.username : "Unknown";
-  const lastSeen = Contact.last_seen;
+  const date = Contact.last_seen.date;
+  const time =  Contact.last_seen.time;
+  const lastSeen = date;
   const messages = Contact.messages;
   const seen = Contact.seen;
   const unSeenMsgCnt = Contact.unSeenMsgCnt;
@@ -21,27 +23,28 @@ const RecentChat = React.memo(({ Contact }) => {
 
   // handleClick
   function handleClick(){
-    dispatch(setChatRoomContact(JSON.stringify(Contact)));
+    dispatch(setChatRoomContact(Contact));
     dispatch(toggleChatMode(true));
   }
 
   // Component
   return (
-    <div className={`w-full h-[70px] flex items-center justify-center gap-2 cursor-pointer transition-all px-2 rounded-md`} onClick={handleClick}>
-      <img src={picture ? picture : defaultPicture} alt={username} className='w-[50px] h-[50px] rounded-full' />
-      <div className='h-full flex justify-center flex-col flex-grow overflow-hidden'>
-        <div className='flex justify-between'>
-          <p className='w-auto truncate font-medium'>{username}</p>
-          <p className='w-auto opacity-100 text-xs font-medium text-gray-400'>{lastSeen}</p>
-        </div>
-        <div className='flex justify-between'>
-          <p className='text-sm text-gray-400'>{lastMsg}</p>
-          {seen && <div className="flex justify-center items-center bg-[#ef476f22] text-[#ef476f] h-full aspect-square rounded-full text-xs p-1">{unSeenMsgCnt}</div>}
-        </div>
+    <div onClick={handleClick} className='w-full h-[73px] flex items-center gap-3 p-4 hover:bg-[#abb4d211] transition-all rounded-lg'>
+      <div className='relative flex-shrink-0'>         
+        <img className='w-[40px] aspect-square rounded-full' src={picture} alt={'k'} />
+        <div className='w-[10px] h-[10px] rounded-full bg-green-600 absolute top-[28px] right-0 border-[2px] border-black'></div>
+      </div>
+      <div className='flex-grow h-[44px] overflow-hidden'>
+        <p className='w-auto truncate font-medium'>{username}</p>
+        <p className='w-auto truncate font-medium text-[14px] text-gray-400'>{lastMsg}</p>
+      </div>
+      <div className='w-auto h-[44px] flex-shrink-0 flex flex-col justify-between items-center'>
+        <p className='text-[11px] text-gray-400 text-end'>{time} AM</p>
+        {seen && <p className={`w-[20px] h-[20px] flex justify-center items-center text-[12px] text-[#ef476f] bg-[#ef476f22] rounded-full`}>{unSeenMsgCnt}</p>}
       </div>
     </div>
   )
-});
+}); 
 
 
 
@@ -50,13 +53,13 @@ const RecentChat = React.memo(({ Contact }) => {
 const RecentChats = ({ List }) => {
 
   return (
-    <section className='w-full h-full absolute overflow-scroll hide-scrollbar'> 
-      <h1 className='font-bold'>Recent Chats</h1>
-      <div className='pt-6'>
+    <section className='w-full h-full absolute overflow-scroll flex flex-col hide-scrollbar'> 
+      <h1 className='font-bold py-2'>Recent Chats</h1>
+      <div className='w-full flex-grow overflow-scroll hide-scrollbar'>
         { List.map((value, index) => (<RecentChat key={index} Contact={value}/>)) }
       </div>
     </section>
   );
-}
+};
 
-export default RecentChats;
+export default React.memo(RecentChats);

@@ -1,5 +1,5 @@
 import React, { } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setChatRoomContact } from '../../context/ContactStates';
 import { toggleChatMode } from '../../context/ChatMode';
 import ContactMenu from './ContactMenu';
@@ -24,7 +24,7 @@ const Contact = React.memo(({ Index, List }) => {
 
   // Click handler
   function handleClick(){
-    dispatch(setChatRoomContact(JSON.stringify({...List[Index]})));
+    dispatch(setChatRoomContact({...List[Index]}));
     dispatch(toggleChatMode(true));
   }
 
@@ -43,9 +43,10 @@ const Contact = React.memo(({ Index, List }) => {
 
 // Contact List
 const AllContactList = React.memo(({ List }) => {
+
   return (
     <div className='flex-grow overflow-scroll'>
-      {List.map((value, index)=><Contact key={index} Index={index} List={List}  />)}
+      {List.map((value, index)=><Contact key={value.email} Index={index} List={List}  />)}
     </div>
   )
 });

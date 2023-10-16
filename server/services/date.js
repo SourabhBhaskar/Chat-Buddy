@@ -7,14 +7,13 @@ const day = date.getDate().toString().padStart(2, '0');
 const formattedDate = `${day}-${month}-${year}`;
 
 // Time
-const hours = date.getHours() > 12 ? date.getHours()-12 : date.getHours();
+const hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
 const minutes = date.getMinutes().toString().padStart(2, '0');
-let period = hours<12 ? 'AM' : 'PM';
+let period = hours < 12 ? 'AM' : 'PM';
 const formattedTime = `${hours}:${minutes} ${period}`;
 
 // Total Time
-const totalTime = { date: date, time: time };
+const TotalTime = { date: formattedDate, time: formattedTime };
 
-
-
-
+// export default TotalTime;
+module.exports = TotalTime;

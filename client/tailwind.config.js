@@ -16,7 +16,11 @@ module.exports = {
         }
       },
       fontFamily: {
+        default: ['san'],
         publicSans: ['Public Sans', 'sans'],
+        cursive: ['cursive'],
+        fantasy: ['fantasy'],
+        'sans-serif': ['Arial', 'Helvetica', 'sans-serif'],
       }
     },
   },

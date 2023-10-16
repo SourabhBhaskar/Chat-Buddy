@@ -7,135 +7,124 @@ import { sortArrayOfObjectsByName } from "../services/sorting";
 import { designMessage } from "../services/designMessage";
 
 
-// All contact list slice
+
+
+// Initial update of contact list
+function handleUpdateContactList(state, action){
+  console.log(action.payload);
+}
+
+
+// Handle Set Current Contact
+function handleSetChatRoomContact(state, action){
+  const currContactEmail = action.payload.email;
+  const currContactIndex = state.contacts.findIndex((c) => c.email === currContactEmail);
+  state.currContactIndex = currContactIndex;
+  state.currContact = state.contacts[currContactIndex];
+};
+
+
+// Handle Send Message
+function handleSendMessage(state, action){
+  const message = action.payload.message;
+  const from = (action.payload.from === 'sent') ? true : false;
+  const newMessage = designMessage(from, message);  
+  const currIndex = state.currContactIndex;
+  state.contacts[currIndex].messages.push(newMessage);
+}
+
+
+// Handle Receive Message
+function handleReceiveMessage(){
+
+}
+
+
+// Add New Contacts
+function handleAddNewContact(state, action){
+  return {
+    ...state,
+    all: sortArrayOfObjectsByName([...state.all, action.payload])
+  }
+}
+
+
+
+
+
+// Initial State
 const initialState = {
-  all: sortArrayOfObjectsByName(DummyContactList),
-  favorite: sortArrayOfObjectsByName(DummyContactList),
-  recent: [ ...DummyContactList ],
-  chatRoomContact: {},
-  chatBoxMessages: [],
+  currContactIndex: -1,
+  currContact: undefined,
+  contacts: sortArrayOfObjectsByName(DummyContactList)
 } 
+
+
+// Slice
 const ContactStates = createSlice({
   name: 'ContactStates',
   initialState: initialState,
   reducers: {
-
     // Initial update of contact list
-    updateContactList: (state, action) => {
-      return {
-        ...state,
-        all: sortArrayOfObjectsByName([...state.all, ...action.payload.all]),
-        favorite: sortArrayOfObjectsByName([...state.favorite, ...action.payload.favorite]),
-        recent: [...state.recent, ...action.payload.recent]
-      }
-    },
+    updateContactList: handleUpdateContactList,
 
-    // Set chat room contact
-    setChatRoomContact: (state, action) => {
-      const contact = JSON.parse(action.payload);
-      contact.seen = false;
-      contact.unSeenMsgCnt = 0;
+    // Set Current Contact
+    setChatRoomContact: handleSetChatRoomContact,
 
-      const updatedRecentContactList = [...state.recent];
-      const index = updatedRecentContactList.findIndex((c) => c.email === contact.email);
-      if(index !== -1){
+    // Send Message
+    sendMessage: handleSendMessage,
 
-      }else{
-        updatedRecentContactList.unshift(0);
-        updatedRecentContactList[0] = contact;
-      }
-
-      return {
-        ...state,
-        recent: updatedRecentContactList,
-        chatRoomContact: contact,
-        chatBoxMessages: [...contact.messages]
-      }
-    },
-
-    // Update chatbox message
-    updateChatBoxMessages: (state, action) => {
-      const profile = JSON.parse(action.payload.profile);
-      const message = action.payload.message;
-      const userId = profile.email;
-      const from = (action.payload.from === 'sent') ? true : false;
-      const newMessage = designMessage(from, message);  
-      profile.messages.push(newMessage);
-
-      if(userId !== state.chatRoomContact.email)
-        return state;
-      else
-        return {
-          ...state,
-          chatBoxMessages: [...state.chatBoxMessages, newMessage]
-        };
-    },
+    // Receive Message
+    receiveMessage: handleReceiveMessage,
 
     // Update contact message
-    updateContactMessage: (state, action) => {
+    updateUserMessage: (state, action) => {
       const profile = JSON.parse(action.payload.profile);
-      const message = action.payload.message;
-      const userId = profile.email;
-      const from = (action.payload.from === 'sent') ? true : false;
-      const newMessage = designMessage(from, message);  
-      profile.messages.push(newMessage);
+      // const message = action.payload.message;
+      // const userId = profile.email;
+      // const from = (action.payload.from === 'sent') ? true : false;
+      // const newMessage = designMessage(from, message);  
+      // profile.messages.push(newMessage);
 
-      // All
-      const allIndex = state.all.findIndex((c) => c.email === userId);
-      if(allIndex !== -1)
-        state.all[allIndex].messages.push(newMessage);
+      // // Recent
+      // const recentIndex = state.recent.findIndex((c) => c.email === userId);
+      // if(recentIndex !== -1){
+      //   const recentIndexValue = state.recent[recentIndex];
+      //   state.recent[recentIndex].messages.push(newMessage);
+      //   state.recent.splice(recentIndex, 1);
+      //   state.recent.splice(0, 0, recentIndexValue);
 
-      // Favorite
-      const favoriteIndex = state.favorite.findIndex((c) => c.email === userId);
-      if(favoriteIndex !== -1) 
-        state.favorite[favoriteIndex].messages.push(newMessage);
+      //   if(!from && state.chatRoomContact.email !== userId){
+      //     state.recent[0].seen = true;
+      //     state.recent[0].unSeenMsgCnt += 1;
+      //   }
+      // }else{
+      //   state.recent.unshift(0);
+      //   state.recent[0] = (allIndex !== -1) ? state.all[allIndex] : profile; 
 
-      // Recent
-      const recentIndex = state.recent.findIndex((c) => c.email === userId);
-      if(recentIndex !== -1){
-        const recentIndexValue = state.recent[recentIndex];
-        state.recent[recentIndex].messages.push(newMessage);
-        state.recent.splice(recentIndex, 1);
-        state.recent.splice(0, 0, recentIndexValue);
+      //   if(!from && state.chatRoomContact.email !== userId){
+      //     state.recent[0].seen = true;
+      //     state.recent[0].unSeenMsgCnt += 1;
+      //   }
 
-        if(!from && state.chatRoomContact.email !== userId){
-          state.recent[0].seen = true;
-          state.recent[0].unSeenMsgCnt += 1;
-        }
-      }else{
-        state.recent.unshift(0);
-        state.recent[0] = (allIndex !== -1) ? state.all[allIndex] : profile; 
-
-        if(!from && state.chatRoomContact.email !== userId){
-          state.recent[0].seen = true;
-          state.recent[0].unSeenMsgCnt += 1;
-        }
-
-      }
+      // }
 
       return state;
     },
 
     
     // Add new contacts
-    addNewContact: (state, action) => {
-      return {
-        ...state,
-        all: sortArrayOfObjectsByName([...state.all, action.payload])
-      }
-    },
+    addNewContact: handleAddNewContact
 
   },
 });
 
 export const { 
-  updatedRecentContactList,
-  setChatRoomContact, 
-  updateChatBoxMessages,
-  addNewContact,
-  updateContactMessage,
-  updateRecent,
   updateContactList,
+  setChatRoomContact, 
+  sendMessage,
+  receiveMessage,
+  addNewContact
 } = ContactStates.actions;
 export default ContactStates.reducer;
 
@@ -143,24 +132,20 @@ export default ContactStates.reducer;
 
 // Action
 export const useChatBoxMessages = (inputRef) => {
-  // Hooks
-  const receiverProfile = JSON.stringify(useSelector((state) => state.ContactStatesSlice).chatRoomContact);
+  const receiverProfile = useSelector((state) => state.ContactStatesSlice).currContact;
   const dispatch = useDispatch();
   const { emitMessage } = useEmitMessage();
 
-  // Send message handler
   function handleSendMessage() {
     const messageToSend = inputRef.current.value.trim();
     if (messageToSend === '') 
       return;
 
-    dispatch(updateContactMessage({ profile: receiverProfile, message: messageToSend, from: 'sent' }));
-    dispatch(updateChatBoxMessages({ profile: receiverProfile, message: messageToSend, from: 'sent' }));
+    dispatch(sendMessage({ profile: receiverProfile, message: messageToSend, from: 'sent' }));
     emitMessage(messageToSend);
     inputRef.current.value = '';
   }
 
-  // Key Down Event Listner
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Enter') handleSendMessage();
