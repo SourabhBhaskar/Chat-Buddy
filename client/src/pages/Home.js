@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import Nav from '../components/Common_/Nav';
+// import Profile from '../components/Profile/Profile.js';
+import Profile from '../components/Profile/Profile'
 import ChatRoom from '../components/ChatRoom/ChatRoom';
-// import Profile from '../components/Profile/Profile';
 import Chats from '../components/Chats_/Chats';
 import Groups from '../components/Groups/Groups';
 import Contacts from '../components/Contacts/Contacts';
@@ -30,7 +31,7 @@ function Home() {
         ((!chatMode) || width >1280) &&
         <section className={`w-full h-full xl:w-[460px] flex-shrink-0 flex-col flex xl:flex-row-reverse z-[5]`}>
           <div className='flex-grow bg-[#303841] text-white relative'>
-            {/* {navigate === 'profile' && <Profile key="profile" />} */}
+            {navigate === 'profile' && <Profile key="profile" />}
             {navigate === 'chats' && <Chats key="chats" />}
             {navigate === 'groups' && <Groups key="groups" />}
             {navigate === 'setting' && <Setting key="setting" />}
