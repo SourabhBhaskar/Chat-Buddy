@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import ContactHeading from './ContactHeading';
-import Search from '../common_/Search';
+import Search from '../Common_/Search';
 import AllContactList from './AllContactList';
 
 

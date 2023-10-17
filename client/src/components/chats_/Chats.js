@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import FavoriteChats from './FavoriteChats';
 import RecentChats from './RecentChats';
-import Heading from '../common_/Heading';
-import Search from '../common_/Search';
-import { DummyContactList } from '../../context/DummyData';
+import Heading from '../Common_/Heading';
+import Search from '../Common_/Search';
 
 
 

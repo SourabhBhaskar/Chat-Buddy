@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import Loader from '../common_/Loader';
+import Loader from '../Common_/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleLoader } from '../../context/Loader';
 import { addNewContact } from '../../context/ContactStates';

@@ -1,10 +1,10 @@
 import React from "react";
-import Profile from "./Profile";
-import PersonalInfo from "./PersonalInfo";
-import Privacy from "./Privacy";
-import Security from "./Security";
-import Theme from "./Theme";
-import Help from "./Help";
+import ProfilePic from "./ProfilePic/ProfilePic";
+import PersonalInfo from "./PersonalInfo/PersonalInfo";
+import Privacy from "./Privacy/Privacy";
+import Security from "./Security_/Security";
+import Theme from "./Theme_/Theme";
+import Help from "./Help/Help";
 
 
 // Setting
@@ -13,7 +13,7 @@ function Setting() {
     <main className="w-full h-full absolute flex flex-col p-6 pb-0 move">
       <h1 className="text-xl font-[600]">Settings</h1>
       <section className="w-full h-[222px] flex-shrink-0 my-6 border-b-[1px] border-gray-600">
-        <Profile></Profile>
+        <ProfilePic></ProfilePic>
       </section>
       <section className="flex-grow overflow-scroll hide-scrollbar">
         <PersonalInfo />

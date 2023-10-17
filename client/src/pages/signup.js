@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { socketConnection, newConnection } from '../services/socketIO';
 import { setMyProfile } from '../context/MyProfile';
 import { useDispatch } from 'react-redux';
-import Loader from '../components/common_/Loader';
+import Loader from '../components/Common_/Loader';
 import { toggleLoader } from '../context/Loader';
 
 

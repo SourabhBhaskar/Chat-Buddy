@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { socketConnection, newConnection } from '../services/socketIO';
-import Loader from '../components/common_/Loader';
+import Loader from '../components/Common_/Loader';
 import { useDispatch } from 'react-redux';
 import { toggleLoader } from '../context/Loader';
 import { setMyProfile } from '../context/MyProfile';

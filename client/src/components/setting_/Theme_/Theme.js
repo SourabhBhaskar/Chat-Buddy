@@ -1,4 +1,4 @@
-import ExpendableDiv from "./ExpendableDiv";
+import ExpendableDiv from "../ProfilePic/ProfileExpendableDiv";
 
 // Theme
 function Theme() {

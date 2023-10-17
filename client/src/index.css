@@ -114,4 +114,26 @@
       0%{transform: translateX(-75px); box-shadow: 0px 0px 10px black ;}
       100%{transform: translateX(0px); box-shadow: none}
   }
+
+
+  /* Move top to bottom */
+  .move-top-to-bottom{
+    animation-name: moveTopToBottom;
+    animation-duration: 0.5s;
+  }
+
+  @keyframes moveTopToBottom {
+    0%{ top: -10%}
+    100%{ top: 0%}
+  }
+  /* Move top to bottom */
+  .move-bottom-to-top{
+  animation-name: moveBottomToTop;
+  animation-duration: 0.5s;
+  }
+
+  @keyframes moveBottomToTop {
+    0%{ bottom: -10%}
+    100%{ bottom: 0%}
+  }
 }

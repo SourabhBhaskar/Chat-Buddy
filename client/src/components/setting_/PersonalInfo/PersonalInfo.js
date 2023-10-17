@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import ExpendableDiv from './ExpendableDiv';
+import ExpendableDiv from '../ProfilePic/ProfileExpendableDiv';
 
 
 // Personal info
