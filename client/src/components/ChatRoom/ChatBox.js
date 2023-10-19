@@ -1,22 +1,23 @@
 import React, { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import { Message } from './Message';
-import { useReceiveMessage } from '../../services/socketIO';
 
 
 // Chat Box
-const ChatBox = ({ User }) => {
+function ChatBox(){
+  const { chatRoomContact } = useSelector((state) => state.ProfileSlice);
+  const messages = chatRoomContact.messages ? chatRoomContact.messages : [];
   const currRef = useRef(null)
-  const UserMessages = User.messages;
 
   // Scroll on every new message
   useEffect(() => {
-    if(currRef.current)  
-      currRef.current.scrollTop = currRef.current.scrollHeight;
-  }, [UserMessages]);
+    if(currRef.chatRoomContact)  
+      currRef.chatRoomContact.scrollTop = currRef.chatRoomContact.scrollHeight;
+  }, [messages]);
 
   return (
     <div ref={currRef} className='flex-grow overflow-y-scroll overflow-x-hidden px-4'>
-      { UserMessages.map((value, index)=> <Message key={index} message={value} />) }
+      { messages.map((value, index)=> <Message key={index} message={value} />) }
     </div>
   );
 }

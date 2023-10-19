@@ -45,7 +45,7 @@
   /* Custom label styles */
   .custom-label {
     font-size: 1rem;
-    color: #abb4d2;
+    color: #a6b0cf;
     cursor: pointer;
     user-select: none;
     margin-left: 8px;
@@ -135,5 +135,9 @@
   @keyframes moveBottomToTop {
     0%{ bottom: -10%}
     100%{ bottom: 0%}
+  }
+
+  input::placeholder{
+    color: #a6b0cf;
   }
 }

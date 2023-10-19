@@ -4,6 +4,7 @@ import PersonalInfo from "./PersonalInfo/PersonalInfo";
 import Privacy from "./Privacy/Privacy";
 import Security from "./Security_/Security";
 import Theme from "./Theme_/Theme";
+import Language from "./Language_/Language";
 import Help from "./Help/Help";
 
 
@@ -17,9 +18,10 @@ function Setting() {
       </section>
       <section className="flex-grow overflow-scroll hide-scrollbar">
         <PersonalInfo />
+        <Theme />
+        <Language />
         <Privacy />
         <Security />
-        <Theme />
         <Help />
       </section>
     </main>

@@ -1,8 +1,8 @@
 import React, { useState, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import defaultPic from '../../assets/profile.jpg';
-import EditableField from '../Common_/EditableField';
-import Profile_Pic_Name_status from '../Common_/Profile_Pic_Name_status';
+import EditableField from '../Common/EditableField';
+import Profile_Pic_Name_status from '../Common/Profile_Pic_Name_status';
 
 
 
@@ -79,7 +79,7 @@ function ProfilePicture() {
 
 // Profile
 function Profile() {
-  const myProfile = useSelector((state) => state.MyProfileSlice);
+  const myProfile = useSelector((state) => state.ProfileSlice);
   const username = myProfile.username || 'Unknown';
   const number = myProfile.mobile_number || '_';
   const email = myProfile.email || '_';
@@ -87,6 +87,7 @@ function Profile() {
   const location = myProfile.location || '_';
   const last_seen = myProfile.last_seen || '_';
   const dp = myProfile.profile_picture || defaultPic;
+  console.log(myProfile)
  
   return (
     <main className='w-full h-full absolute flex flex-col gap-4 p-6 pb-0 move text-gray-200'>
@@ -95,7 +96,7 @@ function Profile() {
         <i className="fa-solid fa-ellipsis-vertical text-sm"></i>
       </div>
 
-      <Profile_Pic_Name_status pic={dp} name={username}>
+      {/* <Profile_Pic_Name_status pic={dp} name={username}>
           <div className='flex items-center justify-center gap-1'>
             <p className='w-[6px] h-[6px] bg-green-600 rounded-full'></p>
             <p className='text-[#abb4d2]'>{last_seen}</p>
@@ -108,7 +109,7 @@ function Profile() {
         <EditableField key={'email'} data={email} FieldName={'Email'} />
         <EditableField key={'password'} data={password} FieldName={'Password'} />
         <EditableField key={'location'} data={location} FieldName={'Location'} />
-      </div>
+      </div> */}
 
     </main>
   )

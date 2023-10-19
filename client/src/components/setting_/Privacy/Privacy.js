@@ -1,9 +1,9 @@
-import ExpendableDiv from "../ProfilePic/ProfileExpendableDiv";
+import ExpendableComponent from "../Common/ExpendableComponent";
 
 
 // Privacy
 function Privacy() {
-    return <ExpendableDiv p={"Privacy"} key="privacy"></ExpendableDiv>;
+    return <ExpendableComponent p={"Privacy"} key="privacy"></ExpendableComponent>;
 }
 
 export default Privacy;

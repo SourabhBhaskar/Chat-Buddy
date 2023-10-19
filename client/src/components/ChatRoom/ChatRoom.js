@@ -7,15 +7,12 @@ import SendMessage from './SendMessage';
 
 
 function ChatRoom() {
-  const contacts = useSelector((state) => state.ContactStatesSlice).contacts;
-  const currContactIndex = useSelector((state) => state.ContactStatesSlice).currContactIndex;
-  const currContact = contacts[currContactIndex];
-
-  return (
+  const chatMode = useSelector((state) => state.NavigateModesSlice).chatMode;
+  return chatMode && (
     <section className='w-full h-full relative flex flex-col'>
-      <ChatRoomNav User={currContact}/>
-      <ChatBox User={currContact}/>
-      <SendMessage User={currContact}/>
+      <ChatRoomNav/>
+      <ChatBox />
+      <SendMessage />
     </section>
   )
 }

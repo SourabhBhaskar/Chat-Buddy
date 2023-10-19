@@ -1,168 +1,134 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { socketConnection, newConnection } from '../services/socketIO';
-import Loader from '../components/Common_/Loader';
-import { useDispatch } from 'react-redux';
-import { toggleLoader } from '../context/Loader';
-import { setMyProfile } from '../context/MyProfile';
-import { updateContactList } from '../context/ContactStates';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Icon } from '@iconify/react';
+import useSubmitForm from "../services/submitForms";
+import { useHomeSetup } from "../services/homeSetup";
+import Loader from "../components/Common/Loader";
 
 
-function LogIn() {
-  // Hooks and state initialization
-  const dispatch = useDispatch();
+function Login() {
+  // State variables
   const navigate = useNavigate();
-  const [submit, setSubmit] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [usernameErr, setUsernameErr] = useState('');
-  const [passwordErr, setPasswordErr] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailErr, setEmailErr] = useState("");
+  const [passwordErr, setPasswordErr] = useState("");
 
+  // Custom hooks
+  const submitForm = useSubmitForm('LOGIN', true, { email: email, password: password });
+  const homeSetup = useHomeSetup();
 
-  // Submit handler
+  // Handle Form Submit
   async function handleSubmit(e) {
+    e.stopPropagation();
     e.preventDefault();
-    setSubmit(true);
-    dispatch(toggleLoader(true));
 
-    if (email === '' || password === '') {
-      if (email === '') {
-        setUsernameErr('Please enter your username');
-      } else {
-        setUsernameErr('');
-      }
+    // Validation
+    if (!email) setEmailErr("Enter your email");
+    if (!password) setPasswordErr("Enter your password");
+    if (!email || !password) return ;
 
-      if (password === '') {
-        setPasswordErr('Please enter your password');
-      } else {
-        setPasswordErr('');
-      }
-      dispatch(toggleLoader(false));
-      return;
-    }
+    const response = await submitForm();
+    const status = response && response.status;
 
-    const url = process.env.REACT_APP_SERVER_LOGIN;
-    const method = 'POST';
-    const headers = { 'Content-Type': 'application/json' };
-    const body = JSON.stringify({ email: email, password: password });
-    const options = { method, headers, body };
-
-    try {
-      const response = await fetch(url, options);
+    if (status) {
       const result = await response.json();
+      const { message, data } = result;
 
-      if (result.message === 'Incorrect email') {
-        setEmail('');
-        setUsernameErr('Incorrect email');
-        setPasswordErr('');
-      } else if (result.message === 'Incorrect password') {
-        setPassword('');
-        setPasswordErr('Incorrect password');
-        setUsernameErr('');
-      } else if (result.profiles) {
-        // Set My Profile
-        dispatch(setMyProfile(result.profiles.private)); 
-        dispatch(updateContactList(result.profiles.private.contacts));
-
-        // Socket connection
-        socketConnection(true);
-        newConnection(email);
-
-        // Home route
-        console.log('Login successful');
-        dispatch(toggleLoader(false));
-        navigate('/home');
-      } else {
-        console.log('Some technical error', result);
+      if(status === 200) 
+        homeSetup(data);
+      else if(status === 400){
+        if(message === "Incorrect email") 
+          setEmailErr("Incorrect email");
+        else 
+          setPasswordErr("Incorrect password");
+      }else{
+        console.log(message)
       }
-    } catch (error) {
-      console.error('Error:', error);
     }
-    dispatch(toggleLoader(false));
   }
 
-  // Email focus
-  const handleEmailFocus = () => setUsernameErr('Please enter your username');
+  // Handle onFocus events for Email & Password
+  const handleEmailFocus = () => setEmailErr("");
+  const handlePasswordFocus = () => setPasswordErr("");
 
-  // Password focus
-  const handlePasswordFocus = () => setPasswordErr('Please enter your password');
-
-  // Email change
-  function handleEmailChange(e) {
-    e.stopPropagation();
-    setEmail(e.target.value);
-  }
-
-  // Password change
-  function handlePasswordChange(e) {
-    e.stopPropagation();
-    setPassword(e.target.value);
-  }
+  // Handle onChange events for Email & Password
+  const handleEmailChange = (e) => setEmail(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
 
   return (
-    <main className="w-full min-h-screen relative flex flex-col justify-center bg-[#303841] text-white">
+    <>
       <Loader />
-      <div className="w-full h-auto flex flex-col items-center justify-center mb-4">
-        <h1 className="text-4xl font-extrabold text-[#7269ef] py-10">Chat-Buddy</h1>
-        <h2 className="text-2xl font-semibold">Login</h2>
-        <p className="text-[#abb4d2] text-center">Welcome back to Chat-Buddy</p>
-      </div>
-      <form onSubmit={handleSubmit}>
-        <div className="w-[90%] max-w-[500px] h-[360px] flex flex-col gap-3 bg-[#262e35] text-white p-10 mx-auto rounded-md">
-          <div className="flex flex-col">
-            <label className="font-medium mb-1">Email</label>
-            <div className="flex border-[1px] border-gray-700 rounded-md">
-              <i className="fa-solid fa-user w-[50px] flex justify-center items-center text-gray-400 border-r-[1px] border-gray-500 text-sm flex-shrink-0"></i>
-              <input
-                onFocus={handleEmailFocus}
-                onChange={handleEmailChange}
-                value={email}
-                type="email"
-                className="w-full h-[40px] bg-transparent text-[14px] font-[500] px-4"
-                placeholder="Enter your username"
-              />
-              <span className={`material-symbols-outlined text-red-600 text-lg w-[50px] h-full justify-center items-center flex-shrink-0 ${email === '' && submit ? 'flex' : 'hidden'}`}>warning</span>
-            </div>
-            <p className={`text-red-600 flex ${email === '' && submit ? 'flex' : 'hidden'}`}>{usernameErr}</p>
-          </div>
-          <div className="flex flex-col">
-            <label className="font-medium mb-1">Password</label>
-            <div className="flex border-[1px] border-gray-700 rounded-md">
-              <i className="fa-solid fa-lock w-[50px] flex justify-center items-center border-r-[1px] text-gray-400 border-gray-500 text-sm flex-shrink-0"></i>
-              <input
-                onFocus={handlePasswordFocus}
-                onChange={handlePasswordChange}
-                value={password}
-                type="password"
-                className="w-full h-[40px] bg-transparent text-[14px] font-[500] px-4"
-                placeholder="Enter your password"
-              />
-              <span className={`material-symbols-outlined text-red-600 text-lg w-[50px] h-full flex justify-center items-center flex-shrink-0 ${password === '' && submit ? 'flex' : 'hidden'}`}>warning</span>
-            </div>
-            <p className={`text-red-600 flex ${password === '' && submit ? 'flex' : 'hidden'}`}>{passwordErr}</p>
-          </div>
-          <div className="w-full h-[40px] flex items-center gap-2">
-            <input type="checkbox" id="rememberMe" className="custom-checkbox" />
-            <label htmlFor="rememberMe" className="custom-label">Remember me</label>
-          </div>
-          <div>
-            <button className="w-full h-[40px] bg-[#7269ef] font-bold rounded-md hover:bg-[#7269efcc]">Log in</button>
-          </div>
+      <main className="w-full min-h-screen relative flex flex-col justify-center bg-[#303841] text-white">
+        <div className="w-full h-auto flex flex-col items-center justify-center mb-4">
+          <h1 className="text-4xl font-extrabold text-[#7269ef] py-10">Chat-Buddy</h1>
+          <h2 className="text-2xl font-semibold">Login</h2>
+          <p className="text-[#abb4d2] text-center">Welcome back to Chat-Buddy</p>
         </div>
-      </form>
-      <div className="w-full py-10">
-        <div className="flex justify-center gap-2">
-          <p className="text-gray-400">New to Chat-Buddy?</p>
-          <a className="text-[#7269EF] font-semibold hover:underline" onClick={() => navigate('/signup')}>Sign Up</a>
+        <form onSubmit={handleSubmit}>
+          <div className="w-[90%] max-w-[500px] h-[360px] flex flex-col gap-3 bg-[#262e35] text-white p-10 mx-auto rounded-md">
+            <div className="flex flex-col">
+              <label className="font-medium mb-1">Email</label>
+              <div className="flex border-[1px] border-gray-700 rounded-[4px] text-[#a6b0cf]">
+                <span className='w-[45px] flex-shrink-0 flex justify-center items-center font-bold border-r-[1px] border-gray-700'>
+                  <Icon icon="ri:user-2-line" />
+                </span>
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={handleEmailChange}
+                  onFocus={handleEmailFocus}
+                  className="w-full h-[40px] bg-transparent text-[14px] font-[500] px-4"
+                  placeholder="Enter your username"
+                />
+                { emailErr && <Icon icon="clarity:warning-line" className="w-auto h-full text-red-600 p-[6px]" /> }
+              </div>
+              {emailErr && <p className="text-red-600">{emailErr}</p>}
+            </div>
+            <div className="flex flex-col">
+              <label className="font-medium mb-1">Password</label>
+              <div className="flex border-[1px] border-gray-700 rounded-[4px] text-[#a6b0cf]">
+                <span className='w-[45px] flex-shrink-0 flex justify-center items-center font-bold border-r-[1px] border-gray-700'>
+                  <Icon icon="ri:lock-2-line" />
+                </span>
+                <input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={handlePasswordChange}
+                  onFocus={handlePasswordFocus}
+                  className="w-full h-[40px] bg-transparent text-[14px] font-[500] px-4"
+                  placeholder="Enter your password"
+                />
+                { passwordErr && <Icon icon="clarity:warning-line" className="w-auto h-full text-red-600 p-[6px]" /> }
+              </div>
+              {passwordErr && <p className="text-red-600">{passwordErr}</p>}
+            </div>
+            <div className="w-full h-[40px] flex items-center gap-2">
+              <input type="checkbox" id="rememberMe" className="custom-checkbox" />
+              <label htmlFor="rememberMe" className="custom-label">Remember me</label>
+            </div>
+            <div>
+              <input className="w-full h-[40px] bg-[#7269ef] font-bold rounded-md hover:bg-[#7269efcc]" type="submit" value={"Login"} />
+            </div>
+          </div>
+        </form>
+        <div className="w-full py-10">
+          <div className="flex justify-center gap-2">
+            <p className="text-gray-400">New to Chat-Buddy?</p>
+            <a className="text-[#7269EF] font-semibold hover:underline" onClick={() => navigate('/signup')}>Sign Up</a>
+          </div>
+          <p className="text-center text-gray-400 mt-2">
+            &copy; 2023 Chat-Buddy. Crafted with ❤️ by Bhaskar
+          </p>
         </div>
-        <p className="text-center text-gray-400 mt-2">
-          &copy; 2023 Chat-Buddy. Crafted with ❤️ by Bhaskar
-        </p>
-      </div>
-    </main>
-  )
+        </main>
+    </>
+  );
 }
 
-export default LogIn;
+export default Login;
+
 
 

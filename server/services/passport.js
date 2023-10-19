@@ -2,13 +2,10 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const { User } = require('../models/user');
 
-
-
-
 // Local Strategy
 passport.use(
   new LocalStrategy(
-    {usernameField: 'email'}, 
+    { usernameField: 'email' },
     async function (email, password, done) {
       try {
         const user = await User.findOne({ email }).exec();
@@ -24,27 +21,24 @@ passport.use(
       } catch (err) {
         return done(err);
       }
-  })
+    })
 );
-
 
 // Serialize the user
 passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
 
-
-// Serialize the user
-passport.deserializeUser(async function (id, done) {
+// Deserialize the user
+passport.deserializeUser(async function (id, done){
   try {
     const user = await User.findById(id).exec();
-    console.log(user)
-    done(null, user);
+    const dataToSend = { message: "Welcom back", data: user };
+    done(null, dataToSend);
   } catch (err) {
     done(err, null);
   }
 });
-
 
 // Export modules
 module.exports = { passport };

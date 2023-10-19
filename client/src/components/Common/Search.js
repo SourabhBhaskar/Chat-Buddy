@@ -4,37 +4,37 @@ import { Icon } from '@iconify/react';
 
 
 // Search Chat
-export default function Search({ placeholder, ListName, List, Search}){
+function Search({ placeholder }){
   const [inpVal, setInpVal] = useState('');
-  const { search, setSearch } = Search;
-  const { list, setList } = List;
-  const all = useSelector((state) => state.ContactStatesSlice).all;
-  const recent = useSelector((state) => state.ContactStatesSlice).recent;
+  // const { search, setSearch } = Search;
+  // const { list, setList } = List;
+  // const all = useSelector((state) => state.ContactStatesSlice).all;
+  // const recent = useSelector((state) => state.ContactStatesSlice).recent;
 
   // handle input change
   function handleChange(e){
-    e.stopPropagation();
-    setInpVal(e.target.value);
-    if(e.target.value === ''){
-      setSearch(false);
-      setList([]);
-    }
+    // e.stopPropagation();
+    // setInpVal(e.target.value);
+    // if(e.target.value === ''){
+    //   setSearch(false);
+    //   setList([]);
+    // }
   }
 
   // handle search 
   function handleSearch(){
-    const trimmedInpVal = inpVal.trim();
-    if(trimmedInpVal === '')
-      return ;
+  //   const trimmedInpVal = inpVal.trim();
+  //   if(trimmedInpVal === '')
+  //     return ;
 
-    const isExistInAll = all.findIndex((c) => c.username === trimmedInpVal);
-    const isExistInRecent = recent.findIndex((c) => c.username === trimmedInpVal);
-    if(ListName === 'all' && isExistInAll !== -1){
-      setList([all[isExistInAll]]);
-    }else if(ListName === 'recent' && isExistInRecent !== -1){
-      setList([recent[isExistInRecent]]);
-    }
-    setSearch(true);
+  //   const isExistInAll = all.findIndex((c) => c.username === trimmedInpVal);
+  //   const isExistInRecent = recent.findIndex((c) => c.username === trimmedInpVal);
+  //   if(ListName === 'all' && isExistInAll !== -1){
+  //     setList([all[isExistInAll]]);
+  //   }else if(ListName === 'recent' && isExistInRecent !== -1){
+  //     setList([recent[isExistInRecent]]);
+  //   }
+  //   setSearch(true);
   }
 
   // handle keydown
@@ -62,3 +62,6 @@ export default function Search({ placeholder, ListName, List, Search}){
     </div>
   );
 }
+
+
+export default React.memo(Search);

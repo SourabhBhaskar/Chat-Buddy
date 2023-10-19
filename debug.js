@@ -1,20 +1,24 @@
-const date = new Date();
+const array = [1, 2, 3, 4, 5];
+// const elementToMove = 3;
+// const indexToMoveTo = 0;
 
-// Date
-const year = date.getFullYear();
-const month = (date.getMonth() + 1).toString().padStart(2, '0');
-const day = date.getDate().toString().padStart(2, '0');
-const formattedDate = `${day}-${month}-${year}`;
+// // // Find the index of the element to move
+// const indexToMove = 2
 
-// Time
-const hours = date.getHours() > 12 ? date.getHours()-12 : date.getHours();
-const minutes = date.getMinutes().toString().padStart(2, '0');
-let period = hours<12 ? 'AM' : 'PM';
-const formattedTime = `${hours}:${minutes} ${period}`;
+// // // Remove the element from its current position
+// // if (indexToMove > -1) {
+// //   array.splice(indexToMove, 1);
+// // }
 
-// Total Time
-const totalTime = { date: date, time: time };
+// // Add the element to the desired position (indexToMoveTo)
+// // array.splice(indexToMoveTo, elementToMove);
 
+// // console.log(array); // [3, 1, 2, 4, 5]
 
+// array.splice(2, 1)
+array.splice(0, 0, 3)
+console.log(array.splice(array))
 
-
+// const array = [1, 2, 3, 4, 5];
+// array.splice(2); // Removes elements from index 2 to the end
+// console.log(array); // [1, 2]

@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const date = require('../services/date');
+const dummyData = require('../models/dummyData');
 
-
+// console.log(JSON.parse(dummyData))
 const profile_picture = undefined;
 const userSchema = new mongoose.Schema({
   username: { type: String, default: "" },
@@ -12,7 +13,11 @@ const userSchema = new mongoose.Schema({
   last_seen: { type: Object, default: date },
   profile_picture: { type: String, default: profile_picture },
   status: { type: String, default: "" },
-  contacts: { all: [], favorite: [], recent: [] },
+  contacts: {
+    all: [],
+    favorite: [],
+    recent: []
+  },
   groups: [],
   setting: {}
 });
@@ -28,9 +33,11 @@ userSchema.methods.getProfile = function () {
     profile_picture: this.profile_picture,
     status: this.status,
     messages: [],
-    onCurrent: false,
     seen: false,
     unSeenMsgCnt: 0,
+    isCurrent: false,
+    isFavorite: false,
+    isRecent: false,
   };
 };
 

@@ -1,8 +1,8 @@
 import React, {  } from 'react'
 import profile from '../../assets/profile.jpg';
 import { useSelector, useDispatch } from 'react-redux';
-import { setChatRoomContact } from '../../context/ContactStates';
-import { toggleChatMode } from '../../context/ChatMode';
+import { setChatMode } from '../../context/NavigateModes';
+import { setProfileCurrent } from '../../context/Profile';
 
 
 // Contact
@@ -12,8 +12,8 @@ const FavoriteChat = React.memo(({ Contact }) => {
   const picture = Contact.profile_picture;
 
   function handleClick(){
-    dispatch(toggleChatMode(true));
-    dispatch(setChatRoomContact(Contact));
+    dispatch(setChatMode(true));
+    dispatch(setProfileCurrent(Contact));
   }
 
   return (
@@ -33,8 +33,8 @@ const FavoriteChat = React.memo(({ Contact }) => {
 
 // Favorite Chat List
 function FavoriteChats() {
-  const contacts = useSelector((state) => state.ContactStatesSlice).contacts;
-  const favorite = contacts.filter((c) => c.isFavorite === true);
+  const { contacts } = useSelector((state) => state.ProfileSlice);
+  const favorite = contacts.favorite;
 
   return (
     <div className={`font-bold text-white`}>

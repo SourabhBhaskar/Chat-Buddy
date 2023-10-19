@@ -34,8 +34,8 @@ function ProfilePictureEditOption({ states, setStates }){
           {EditOptions.map((value)=><p onClick={() => handleSetEditOption(value)} className="w-[150px] py-2 text-center hover:bg-[#a6b0cf11] transition-all cursor-pointer" key={value}>{value}</p>)}
         </div>
       }
-      <ProfileViewPhoto states={states} setStates={setStates} /> 
-      <ProfileTakePhoto states={states} setStates={setStates} /> 
+      { states.view && <ProfileViewPhoto states={states} setStates={setStates} /> }
+      { states.take && <ProfileTakePhoto states={states} setStates={setStates} /> }
     </>
   )
 }

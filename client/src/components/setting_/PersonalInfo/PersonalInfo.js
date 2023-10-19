@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import ExpendableDiv from '../ProfilePic/ProfileExpendableDiv';
+import ExpendableComponent from '../Common/ExpendableComponent';
 
 
 // Personal info
@@ -13,7 +13,7 @@ function PersonalInfo({ myProfile }) {
     // const location = myProfile.location || "_";
   
     return(
-        <ExpendableDiv p={"Personal info"} key={'personal-info'}></ExpendableDiv>
+        <ExpendableComponent p={"Personal info"} key={'personal-info'}></ExpendableComponent>
     );
 }
 

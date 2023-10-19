@@ -1,11 +1,17 @@
-export function designMessage(isSent, message){
-    const date = new Date();
-    const newTime = date.getHours() + ':' + date.getMinutes();
-    const newMessage = {
-      direction: isSent ? 'sent' : 'received',
-      time: newTime,
-      message: message,
-    };
+export function designMessage(isSent, message) {
+  const date = new Date();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const amOrPm = hours >= 12 ? 'PM' : 'AM';
+  const formattedHours = hours % 12 || 12;
 
-    return newMessage
+  const newTime = `${formattedHours}:${minutes} ${amOrPm}`;
+  const newMessage = {
+    direction: isSent === 'sent' ? 'sent' : 'received',
+    time: newTime,
+    message: message,
+    status: 'send',
+  };
+
+  return newMessage;
 }

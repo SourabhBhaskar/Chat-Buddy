@@ -1,123 +1,118 @@
-import { useContext, useState } from 'react';
-import Loader from '../Common_/Loader';
+import { useState, } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleLoader } from '../../context/Loader';
-import { addNewContact } from '../../context/ContactStates';
+import { Icon } from '@iconify/react';
+import { setAddContact } from '../../context/NavigateModes';
+import { setProfileAddContact } from '../../context/Profile';
+import useSubmitForm from '../../services/submitForms';
+
 
 // Add Contact 
 export default function AddContact(){
+  // State variables
   const dispatch = useDispatch();
-  const AllContact = useSelector((state) => state.AllContactsSlice);
-  const [add, setAdd] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const myProfile = useSelector((state) => state.MyProfileSlice);
+  const profile = useSelector((state) => state.ProfileSlice);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [usernameErr, setUsernameErr] = useState("");
+  const [emailErr, setEmailErr] = useState(""); 
 
-  // Submit handler
+  // Custom hooks
+  const submitForm = useSubmitForm('ADD_CONTACT', false, { userEmail: profile.email, contactName: username, contactEmail: email });
+
+  // Handle Form Submit
   async function handleSubmit(e) {
+    e.stopPropagation();
     e.preventDefault();
-    dispatch(toggleLoader(true));
 
+    // Validation
+    if (!username) setUsernameErr("Enter username");
+    if (!email) setEmailErr("Enter email");
+    if (!username || !email) return ;
 
-    if(myProfile === undefined){
-      alert('Signup or Login first');
-      dispatch(toggleLoader(false));
-      return ;
-    }
+    const response = await submitForm();
+    const status = response && response.status;
 
-    const url = process.env.REACT_APP_SERVER_ADD_CONTACT;
-    const method = "POST";
-    const headers = { "Content-Type": "application/json" };
-    const body = JSON.stringify({ userEmail:myProfile.email, contactName: name.charAt(0).toUpperCase() + name.slice(1), contactEmail:email })
-    const options = { method, headers, body }
-
-    try {
-      const response = await fetch(url, options);
+    if (status) {
       const result = await response.json();
-      if(result.message === 'Contact added successfully'){
-        console.log(result.profiles.public)
-        dispatch(addNewContact(result.profiles.public));
-      }else if(result.message === 'Contact with this email already exists'){
-        console.log('Contact with this email already exists')
+      const { message, data } = result;
+
+      console.log(message)
+      if(status === 200){
+        dispatch(setProfileAddContact(data));
+        dispatch(setAddContact(false));
       }
-      dispatch(toggleLoader(false));
-    } catch (error) {
-      console.error('Error:', error);
-      dispatch(toggleLoader(false));
+      else
+        console.log(message)
     }
-    dispatch(toggleLoader(false));
-    setAdd(!add);
-    setName('');
-    setEmail('');
   }
+  // Handle cancel add contact
+  const handleCancleAddContact = () => dispatch(setAddContact(false));
 
-  // Email change
-  function handleEmailChange(e) {
-    e.stopPropagation();
-    setEmail(e.target.value);
-  }
+  // Handle onFocus events for Email & Password
+  const handleEmailFocus = () => setUsernameErr("");
+  const handlePasswordFocus = () => setEmailErr("");
 
-  // Password change
-  function handleNameChange(e) {
-    e.stopPropagation();
-    setName(e.target.value);
-  }
+  // Handle onChange events for Email & Password
+  const handleEmailChange = (e) => setUsername(e.target.value);
+  const handlePasswordChange = (e) => setEmail(e.target.value);
 
   return (
-    <>
-      <button className='text-[#a6b0cf]' onClick={()=>setAdd(!add)}>
-        <i className="fa-solid fa-user-plus"></i>
-      </button>
-      { add &&
-        <div className='w-screen h-screen absolute top-0 left-0 xl:left-[-75px] flex justify-center items-center bg-[#0008] z-50'>
-          <div className="w-[90%] max-w-[500px] h-[360px] flex flex-col gap-3 bg-[#303841] text-white mx-auto rounded-md relative add-contact p-4 px-6">
-            <Loader />
-            <div className="w-full flex justify-between items-center py-2 border-b-[1px] border-[#a6b0cf22]">
-              <h1 className="text-xl font-semibold">Add Contacts</h1>
-              <i className="fas fa-times text-[#a6b0cf]" onClick={()=>setAdd(false)}></i>
-            </div>
-            <form onSubmit={handleSubmit} className="w-full h-full">
-              <div className="w-full h-full flex flex-col justify-between">
-                <div className="flex flex-col">
-                  <label className="mb-1">Name</label>
-                  <div className="flex border-[1px] border-gray-700 rounded-md">
-                    <i className="fas fa-user w-[50px] flex justify-center items-center text-gray-400 border-r-[1px] border-gray-700 text-[14px] flex-shrink-0"></i>
-                    <input
-                      onChange={handleNameChange}
-                      value={name}
-                      type="text"
-                      className="w-full h-[44px] bg-transparent text-[14px] font-normal px-4"
-                      placeholder="Enter your username"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="flex flex-col">
-                  <label className="mb-1">Email</label>
-                  <div className="flex border-[1px] border-gray-700 rounded-md">
-                    <i className="fas fa-envelope w-[50px] flex justify-center items-center border-r-[1px] text-gray-400 border-gray-700 text-[14px] flex-shrink-0"></i>
-                    <input
-                      onChange={handleEmailChange}
-                      value={email}
-                      type="email"
-                      className="w-full h-[44px] bg-transparent text-[14px] font-normal px-4"
-                      placeholder="Enter your email"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="w-full flex justify-between py-4 border-t-[1px] border-[#a6b0cf22]">
-                  <button className="text-[#a6b0cf] hover:text-[#7269ef]" onClick={()=>setAdd(false)}>Close</button>
-                  <button type='submit' className="h-[40px] bg-[#7269ef] font-medium rounded-sm hover:bg-[#7269efcc] px-4">
-                    Invite Contact
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
+    <div className='w-screen h-screen fixed top-0 left-0 xl:left-[-75px] flex justify-center items-center bg-[#0008] z-50'>
+      <div className="w-[90%] max-w-[500px] h-[360px] flex flex-col gap-3 mx-auto rounded-md relative add-contact p-4 px-6 text-[#a6b0cf] bg-[#303841] ">
+        <div className="w-full flex justify-between items-center py-2 border-b-[1px] border-[#a6b0cf22]">
+          <h1 className="text-xl font-semibold text-white">Add Contacts</h1>
+          <Icon icon="gridicons:cross" className="fas fa-times text-[#a6b0cf] hover:text-white" onClick={handleCancleAddContact} />
         </div>
-      }
-    </>
+        <form onSubmit={handleSubmit} className="w-full h-full">
+          <div className="w-full h-full flex flex-col justify-between">
+            <div className="flex flex-col">
+              <label className="font-medium mb-1 text-[#a6b0cf] ">Username</label>
+              <div className="flex border-[1px] border-[#a6b0cf22] rounded-[4px]">
+                <span className='w-[45px] flex-shrink-0 flex justify-center items-center text-[#a6b0cf] border-r-[1px] border-[#a6b0cf22]'>
+                  <Icon icon="ri:user-2-line" />
+                </span>
+                <input
+                  id="username"
+                  type="text"
+                  value={username}
+                  onChange={handleEmailChange}
+                  onFocus={handleEmailFocus}
+                  className="w-full h-[40px] bg-transparent text-[14px] font-[500] px-4"
+                  placeholder="Enter username"
+                />
+                { usernameErr && <Icon icon="clarity:warning-line" className="w-auto h-full text-red-600 p-[6px]" /> }
+              </div>
+              {usernameErr && <p className="text-red-600">{usernameErr}</p>}
+            </div>
+            <div className="flex flex-col">
+              <label className="font-medium mb-1 text-[#a6b0cf]">Email</label>
+              <div className="flex border-[1px] border-[#a6b0cf22] rounded-[4px]">
+                <span className='w-[45px] flex-shrink-0 flex justify-center items-center text-[#a6b0cf] border-r-[1px] border-gray-700'>
+                  <Icon icon="ic:outline-email" />
+                </span>
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={handlePasswordChange}
+                  onFocus={handlePasswordFocus}
+                  className="w-full h-[40px] bg-transparent text-[14px] font-[500] px-4"
+                  placeholder="Enter email"
+                />
+                { emailErr && <Icon icon="clarity:warning-line" className="w-auto h-full text-red-600 p-[6px]" /> }
+              </div>
+              {emailErr && <p className="text-red-600">{emailErr}</p>}
+            </div>
+            <div className=" w-full flex justify-between py-4 border-t-[1px] border-[#a6b0cf22]">
+              <button className="hover:text-white" onClick={handleCancleAddContact}>Close</button>
+              <button >
+                <input className="h-[40px] font-medium rounded-sm px-4 text-white bg-[#7269ef] hover:bg-[#7269efcc]" type='submit' value='Invite Contact' />
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 }
 

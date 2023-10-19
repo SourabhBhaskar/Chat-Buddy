@@ -1,9 +1,8 @@
-import ExpendableDiv from "../ProfilePic/ProfileExpendableDiv";
-
+import ExpendableComponent from "../Common/ExpendableComponent";
 
 // Security
 function Security() {
-    return <ExpendableDiv p={"Security"} key="security"></ExpendableDiv>;
+    return <ExpendableComponent p={"Security"} key="security"></ExpendableComponent>;
 }
 
 export default Security;

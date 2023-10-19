@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // Expendable Div
-function ExpendableDiv({ p, children }) {
+function ExpendableComponent({ p, children }) {
     const [expend, setExpend] = useState(false);
   
     return (
@@ -19,7 +19,7 @@ function ExpendableDiv({ p, children }) {
         </div>
         {expend && (
           <div
-            className={`h-[200px] border-[1px] border-t-[0px] border-gray-700 transition-all`}>
+            className={`h-auto border-[1px] border-t-[0px] border-gray-700 transition-all`}>
             {children}
           </div>
         )}
@@ -27,5 +27,5 @@ function ExpendableDiv({ p, children }) {
     );
 }
 
-export default ExpendableDiv;
+export default ExpendableComponent;
 

@@ -1,26 +1,20 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import FavoriteChats from './FavoriteChats';
 import RecentChats from './RecentChats';
-import Heading from '../Common_/Heading';
-import Search from '../Common_/Search';
+import Heading from '../Common/Heading';
+import Search from '../Common/Search';
 
 
 
 // Chats
 function Chats() {
-  const contacts = useSelector((state) => state.ContactStatesSlice).contacts;
-  const recent = contacts.filter((c) => c.isRecent === true);
-  const [ search, setSearch ] = useState(false);
-  const [ list, setList ] = useState([]);
-  const listToDisplay = search ? list : recent;
 
   return (
     <main className={`w-full h-full absolute flex flex-col move bg-inherit shadow-md p-4 pb-0 sm:p-6 sm:pb-0`}>
       <section className='relative' ><Heading text={"Chats"}/></section>
-      <section className='relative' ><Search placeholder={"Search for a chat..."} key={"chats"} ListName={"recent"} List={{list, setList}} Search={{search, setSearch}}  /></section>
+      <section className='relative' ><Search placeholder={"Search for a chat..."} key={"chats"}  /></section>
       <section className='relative' ><FavoriteChats /></section>
-      <section className='flex-grow relative'><RecentChats List={listToDisplay}/></section> 
+      <section className='flex-grow relative'><RecentChats /></section> 
     </main>
   )
 }
