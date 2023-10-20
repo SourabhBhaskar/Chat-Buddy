@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useReceiveMessage } from '../services/socketIO';
 import useCheckAuthentication from '../services/isAuthenticated';
 import Loader from '../components/Common/Loader';
 import Nav from '../components/Common/Nav';
@@ -17,7 +18,9 @@ function Home() {
     isAuthenticated();
   }, [])
 
-  const chatMode = useSelector((state) => state.ChatModeSlice);
+  const { receiveMessage } = useReceiveMessage();
+
+  const chatMode = useSelector((state) => state.NavigateModesSlice).chatMode;
   const homeNavigator = useSelector((state) => state.NavigateModesSlice).homeNavigator
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
@@ -50,9 +53,9 @@ function Home() {
           </div>
         </section>}
 
-        <section className={`flex-grow bg-[#262e35] chatroom-move `}>
-          <ChatRoom key="chat-room" />
-        </section>
+        {chatMode && <section className={`flex-grow bg-[#262e35] chatroom-move `}><ChatRoom key="chat-room" /></section> }
+        {!chatMode && <section className={`flex-grow bg-[#262e35] chatroom-move -z-40`}></section> }
+
       </main>
     </>
   )

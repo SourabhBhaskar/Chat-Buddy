@@ -7,8 +7,7 @@ import SendMessage from './SendMessage';
 
 
 function ChatRoom() {
-  const chatMode = useSelector((state) => state.NavigateModesSlice).chatMode;
-  return chatMode && (
+  return (
     <section className='w-full h-full relative flex flex-col'>
       <ChatRoomNav/>
       <ChatBox />

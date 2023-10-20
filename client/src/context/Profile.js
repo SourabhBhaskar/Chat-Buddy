@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { DummyContactList } from "./DummyData";
 import { sortArrayOfObjectsByName } from "../services/sorting";
 import { designMessage } from "../services/designMessage";
+import { redirect } from "react-router-dom";
 
 
 
@@ -40,39 +41,59 @@ function _Profile(state, action){
 // Set Current
 function ProfileCurrent(state, action){
     const currentContact = action.payload;
-    const updatedState = {
-        ...state,
-        chatRoomContact: currentContact
+    const email = currentContact.email;
+    const recentIndex = state.contacts.recent.findIndex((c) => c.email === email);
+    if(recentIndex !== -1){
+        state.contacts.recent[recentIndex].isSeen = false;
+        state.contacts.recent[recentIndex].unSeenMsgCnt = 0;
     }
+    state.chatRoomContact = { ...currentContact };
     console.log("Current Contact", currentContact);
-    return updatedState;
 }
 
 // Update Messages
 function ProfileUpdateMessage(state, action){
-    const { message, from, sendTo } = action.payload;
-    const messageToUpdate = designMessage(from, message); 
+    const { message, updateMessageTo } = action.payload;
+    const contactToUpdate = updateMessageTo.email;
+    const currentContact = state.chatRoomContact.email;
+    const updatedMessage = designMessage(message); 
 
     // All
-    const allIndex = state.contacts.all.findIndex((c) => c.email === sendTo);
+    const allIndex = state.contacts.all.findIndex((c) => c.email === contactToUpdate);
     if(allIndex !== -1)
-        state.contacts.all[allIndex].messages.push(messageToUpdate);
+        state.contacts.all[allIndex].messages.push(updatedMessage);
     
     // Favorite
-    const favoriteIndex = state.contacts.favorite.findIndex((c) => c.email === sendTo);
+    const favoriteIndex = state.contacts.favorite.findIndex((c) => c.email === contactToUpdate);
     if(favoriteIndex !== -1)
-        state.contacts.favorite[favoriteIndex].messages.push(messageToUpdate);
+        state.contacts.favorite[favoriteIndex].messages.push(updatedMessage);
 
     // Recent
-    const recentIndex = state.contacts.recent.findIndex((c) => c.email === sendTo);
+    const recentIndex = state.contacts.recent.findIndex((c) => c.email === contactToUpdate);
     if(recentIndex !== -1){
-        const recentIndexValue = state.contacts.recent[recentIndex];
-        state.contacts.recent[recentIndex].messages.push(messageToUpdate);
+        const recentIndexValue = JSON.parse(JSON.stringify(state.contacts.recent[recentIndex]));
+        recentIndexValue.messages.push(updatedMessage);
         state.contacts.recent.splice(recentIndex, 1);
         state.contacts.recent.splice(0, 0, recentIndexValue);
+    }else{
+        if(allIndex !== -1){
+            const allIndexValue = JSON.parse(JSON.stringify(state.contacts.all[allIndex]));
+            state.contacts.recent.splice(0, 0, allIndexValue);
+        }else{
+            state.contacts.recent.splice(0, 0, updateMessageTo);
+        }
     }
 
-    console.log(messageToUpdate);
+    // Chat Room Contact
+    if(contactToUpdate === currentContact){
+        state.chatRoomContact.messages.push(updatedMessage);
+    }else{
+        if(recentIndex !== -1){
+            state.contacts.recent[recentIndex].isSeen = true;
+            state.contacts.recent[recentIndex].unSeenMsgCnt += 1;
+
+        }
+    }
 }
 
 

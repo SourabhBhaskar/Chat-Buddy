@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Icon } from '@iconify/react';
-import { setProfileUpdateMessage } from '../../context/Profile';
+import { useSendMessage } from '../../services/socketIO';
 
 
 // Message Input
@@ -15,15 +15,14 @@ function Input({ inputRef }) {
 // Send Button
 function Send({ inputRef }){
   const dispatch = useDispatch();
+  const { sendMessage } = useSendMessage();
   const { chatRoomContact } = useSelector((state) => state.ProfileSlice);
 
   const handleSendMessage = () => {
     const message = inputRef.current.value.trim();
-    const sendTo = chatRoomContact.email;
-    const messageToSend = { message: message, from: 'sent', sendTo: sendTo};
-    if (messageToSend === '') return;
-    dispatch(setProfileUpdateMessage(messageToSend));
-    inputRef.current.value = '';
+    if(message === '') return
+    else inputRef.current.value = '';
+    sendMessage(message);
   };
 
   useEffect(() => {

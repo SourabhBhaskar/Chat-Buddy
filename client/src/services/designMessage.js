@@ -1,4 +1,5 @@
-export function designMessage(isSent, message) {
+export function designMessage(messageToBeUpdate) {
+  const { message, from } = messageToBeUpdate;
   const date = new Date();
   const hours = date.getHours();
   const minutes = date.getMinutes();
@@ -7,7 +8,7 @@ export function designMessage(isSent, message) {
 
   const newTime = `${formattedHours}:${minutes} ${amOrPm}`;
   const newMessage = {
-    direction: isSent === 'sent' ? 'sent' : 'received',
+    direction: from === 'sent' ? 'sent' : 'received',
     time: newTime,
     message: message,
     status: 'send',

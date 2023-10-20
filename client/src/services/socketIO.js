@@ -1,6 +1,7 @@
 import { io } from 'socket.io-client';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { setProfileUpdateMessage } from '../context/Profile';
 
 
 // Declaration
@@ -36,37 +37,40 @@ export function newConnection(contact) {
 
 
 // Send message to server
-const useEmitMessage = () => {
-  // const MyProfile = useSelector((state) => state.MyProfileSlice);
-  // const currContact = useSelector((state) => state.ContactStatesSlice).currContact;
-  // const senderId = MyProfile.email;
-  // const receiverId = currContact.email;
-  const emitMessage = (message) => {
-    // socket.emit('message', { message, from, to });
-    // console.log(`${message}, sent to ${to}`);
+export const useSendMessage = () => {
+  const dispatch = useDispatch();
+  const profile = useSelector((state) => state.ProfileSlice);
+  const from = profile.email;
+  const sendTo = JSON.parse(JSON.stringify(profile.chatRoomContact));
+  const sendMessage = (message) => {
+    const updatedMessageForClient = { message: message, from: 'sent' };
+    const updatedMessageForServer = { message: message, from: 'received' };
+    const sendMessageToClient = { message: updatedMessageForClient, updateMessageTo: sendTo };
+    const sendMessageToServer = { message: updatedMessageForServer, from: from, sendTo: sendTo.email };
+    socket.emit('message', sendMessageToServer);
+    dispatch(setProfileUpdateMessage(sendMessageToClient));
+    console.log(`Sent to ${sendTo.email} : ${message}`);
   }
-  
-  return { emitMessage };
+  return { sendMessage };
 }
 
 
 // Receive Messages from server
 export const useReceiveMessage = () => {
   const dispatch = useDispatch();
+  const receiveMessage = ({ message, from }) => {
+    const sendMessageToClient = { message: message, updateMessageTo: from };
+    dispatch(setProfileUpdateMessage(sendMessageToClient));
+    console.log(`Received from ${from.email} : ${message.message}`);
+  };
 
   useEffect(() => {
-    const handleReceiveMessage = (message) => {
-      console.log(message)
-      const profile = message.senderProfile;
-      const messageToSend = message.message;
-      // dispatch(updateUserMessage({ profile: JSON.stringify(profile), message: messageToSend, from: 'received' }));
-      // dispatch(updateChatBoxMessages({ profile: JSON.stringify(profile), message: messageToSend, from: 'received' }));
-    };
+    const handleReceiveMessage = (message) => receiveMessage(message);
     socket.on('message', handleReceiveMessage);
     return () => socket.off('message', handleReceiveMessage);
   }, []); 
 
-  return {};
+  return { receiveMessage };
 };
 
 
@@ -85,8 +89,6 @@ export const useGetUpdatedUser = () => {
 }
 
 
-// Export as a named export
-export { useEmitMessage };
   
 
 

@@ -15,7 +15,7 @@ const RecentChat = React.memo(({ Contact }) => {
   const date = Contact.last_seen.date;
   const time =  Contact.last_seen.time;
   const messages = Contact.messages;
-  const seen = Contact.seen;
+  const seen = Contact.isSeen;
   const unSeenMsgCnt = Contact.unSeenMsgCnt;
   const lastMsg = messages && messages.length>0 && messages[messages.length-1].message;
 

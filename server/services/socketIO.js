@@ -13,7 +13,6 @@ async function handleConnection(senderId, socket) {
   try {
     // Retrieve the sender's profile from the database
     const senderProfile = await User.findOne({ email: senderId});
-    console.log(senderProfile)
 
     // Update the last_seen field to 'online'
     senderProfile.last_seen = 'online';
@@ -29,22 +28,19 @@ async function handleConnection(senderId, socket) {
 
 
 // Handle incoming messages and send them to the appropriate receiver.
-async function handleMessages({ message, senderId, receiverId }) {
+async function handleMessages({ message, from, sendTo }) {
   try {
-    // Retrieve the sender's profile from the database
-    const senderProfile = await User.findOne({ email: senderId });
+    const senderProfile = await User.findOne({ email: from });
+    const profileSendToClient = senderProfile.getProfile();
+    const messageSendToClient = { message: message, from: profileSendToClient };
 
-    // Create a message object
-    const messageToSend = { senderProfile: senderProfile.getProfile(), message };
-
-    if (onlineUsers.has(receiverId)) {
-      const receiverSocket = onlineUsers.get(receiverId);
-      receiverSocket.emit("message", messageToSend);
-      console.log(`Sent message to ${receiverId}: ${messageToSend.message}`);
+    if (onlineUsers.has(sendTo)) {
+      const receiverSocket = onlineUsers.get(sendTo);
+      receiverSocket.emit("message", messageSendToClient);
+      console.log(`Message sent to ${sendTo} : ${message.message}`);
     } else {
-      console.log(`Receiver ${receiverId} is not online`);
+      console.log(`${sendTo} is not online`);
     }
-    // Push the message to the database 
   } catch (error) {
     console.error('Error handling message:', error);
   }

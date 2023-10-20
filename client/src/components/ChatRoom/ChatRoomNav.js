@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Icon } from "@iconify/react";
 import { setChatMode } from "../../context/NavigateModes";
 import defaultProfile from '../../assets/profile.jpg';
 
@@ -14,7 +15,7 @@ function Back(){
 
   return (
     <button className="inline-block text-xs text-gray-300 hover:text-white" onClick={handleClick}>
-      <i className="fa-solid fa-chevron-left" ></i>
+      <Icon icon="fluent-mdl2:back" />
     </button>
   )
 }

@@ -11,7 +11,7 @@ const DummyContactList = [
         { direction: 'sent', time: '12:00 AM', message: 'Sure thing!' },
         { direction: 'received', time: '12:00 AM', message: 'By the way, have you watched that new movie?' },
         { direction: 'sent', time: '12:00 AM', message: 'Not yet, but I heard it\'s great.' },
-      ], unSeenMsgCnt: 0, currentContact: false, seen: false, isCurrent: false, isFavorite: true, isRecent: true
+      ], unSeenMsgCnt: 0, currentContact: false, isSeen: false, isCurrent: false, isFavorite: true, isRecent: true
     },
     {
       username: "Charlie", email: "3", last_seen: {date: "09-10-2023", time: "9:00"}, profile_picture:"https://picsum.photos/id/239/100/100",  messages: [
@@ -23,9 +23,9 @@ const DummyContactList = [
         { direction: 'sent', time: '12:00 AM', message: 'Not really, it\'s been quiet.' },
         { direction: 'received', time: '12:00 AM', message: 'Let me know if anything comes up!' },
         { direction: 'sent', time: '12:00 AM', message: 'Sure thing!' },
-        { direction: 'received', time: '12:00 AM', message: 'Have , seen that ne isCurrent: false,w TV show?' },
+        { direction: 'received', time: '12:00 AM', message: 'Have , isSeen that ne isCurrent: false,w TV show?' },
         { direction: 'sent', time: '12:00 AM', message: 'Not yet, but I plan to watch it.' },
-      ], unSeenMsgCnt: 0, currentContact: false, seen: false, isCurrent: false, isFavorite: true, isRecent: true
+      ], unSeenMsgCnt: 0, currentContact: false, isSeen: false, isCurrent: false, isFavorite: true, isRecent: true
     },
     {
       username: "David", email: "4", last_seen: {date: "09-10-2023", time: "9:00"}, profile_picture:"https://picsum.photos/id/240/100/100",  messages: [
@@ -39,7 +39,7 @@ const DummyContactList = [
         { direction: 'sent', time: '12:00 AM', message: 'Thanks!' },
         { direction: 'received', time: '12:00 AM', message: 'Hey, have you heard about the new restaurant in town?' },
         { direction: 'sent', time: '12:00 AM', message: 'No, tell me more!' },
-      ], unSeenMsgCnt: 0, currentContact: false, seen: false, isCurrent: false, isFavorite: true, isRecent: true
+      ], unSeenMsgCnt: 0, currentContact: false, isSeen: false, isCurrent: false, isFavorite: true, isRecent: true
     },
     {
       username: "Eve", email: "5", last_seen: {date: "09-10-2023", time: "9:00"}, profile_picture:"https://picsum.photos/id/241/100/100",  messages: [
@@ -51,9 +51,9 @@ const DummyContactList = [
         { direction: 'sent', time: '12:00 AM', message: 'Not really, just work.' },
         { direction: 'received', time: '12:00 AM', message: 'Well, work can be exciting too!' },
         { direction: 'sent', time: '12:00 AM', message: "Haha, you're right!" },
-        { direction: 'received', time: '12:00 AM', messages: 'By the way, have , seen the lat isCurrent: false,est episode of that TV show?' },
+        { direction: 'received', time: '12:00 AM', messages: 'By the way, have , isSeen the lat isCurrent: false,est episode of that TV show?' },
         { direction: 'sent', time: '12:00 AM', message: 'Not yet, I plan to watch it tonight.' },
-      ], unSeenMsgCnt: 0, currentContact: false, seen: false, isCurrent: false, isFavorite: true, isRecent: true
+      ], unSeenMsgCnt: 0, currentContact: false, isSeen: false, isCurrent: false, isFavorite: true, isRecent: true
     },
     {
       username: "Frank", email: "6", last_seen: {date: "09-10-2023", time: "9:00"}, profile_picture:"https://picsum.photos/id/242/100/100",  messages: [
@@ -67,7 +67,7 @@ const DummyContactList = [
         { direction: 'sent', time: '12:00 AM', message: "Not yet, but I heard it's great." },
         { direction: 'received', time: '12:00 AM', message: 'We should check it out together!' },
         { direction: 'sent', time: '12:00 AM', message: 'Sounds like a plan!' },
-      ], unSeenMsgCnt: 0, currentContact: false, seen: false, isCurrent: false, isFavorite: true, isRecent: true
+      ], unSeenMsgCnt: 0, currentContact: false, isSeen: false, isCurrent: false, isFavorite: true, isRecent: true
     },
     {
       username: "Grace", email: "7", last_seen: {date: "09-10-2023", time: "9:00"}, profile_picture:"https://picsum.photos/id/243/100/100",  messages: [
@@ -77,11 +77,11 @@ const DummyContactList = [
         { direction: 'sent', time: '12:00 AM', message: 'Just the usual, work and stuff.' },
         { direction: 'received', time: '12:00 AM', message: 'We should plan a meetup soon!' },
         { direction: 'sent', time: '12:00 AM', message: 'Absolutely!' },
-        { direction: 'received', time: '12:00 AM', messages: 'By the way, have , seen the new isCurrent: false, restaurant downtown?' },
+        { direction: 'received', time: '12:00 AM', messages: 'By the way, have , isSeen the new isCurrent: false, restaurant downtown?' },
         { direction: 'sent', time: '12:00 AM', message: "Not yet, but I heard it's good." },
         { direction: 'received', time: '12:00 AM', message: "Let's try it out this weekend!" },
         { direction: 'sent', time: '12:00 AM', message: 'Sounds like a plan!' },
-      ], unSeenMsgCnt: 0, currentContact: false, seen: false, isCurrent: false, isFavorite: true, isRecent: true
+      ], unSeenMsgCnt: 0, currentContact: false, isSeen: false, isCurrent: false, isFavorite: true, isRecent: true
     },
     {
       username: "Homelander", email: "8", last_seen: {date: "09-10-2023", time: "9:00"}, profile_picture:"https://picsum.photos/id/287/100/100",  messages: [
@@ -93,9 +93,9 @@ const DummyContactList = [
         { direction: 'sent', time: '12:00 AM', message: 'Not really, just work.' },
         { direction: 'received', time: '12:00 AM', message: 'Well, work can be exciting too!' },
         { direction: 'sent', time: '12:00 AM', message: "Haha, you're right!" },
-        { direction: 'received', time: '12:00 AM', messages: 'By the way, have , seen the lat isCurrent: false,est episode of that TV show?' },
+        { direction: 'received', time: '12:00 AM', messages: 'By the way, have , isSeen the lat isCurrent: false,est episode of that TV show?' },
         { direction: 'sent', time: '12:00 AM', message: 'Not yet, I plan to watch it tonight.' },
-      ], unSeenMsgCnt: 0, currentContact: false, seen: false, isCurrent: false, isFavorite: true, isRecent: true
+      ], unSeenMsgCnt: 0, currentContact: false, isSeen: false, isCurrent: false, isFavorite: true, isRecent: true
     },
     {
       username: "Superman", email: "9", last_seen: {date: "09-10-2023", time: "9:00"}, profile_picture:"https://picsum.photos/id/288/100/100",  messages: [
@@ -109,7 +109,7 @@ const DummyContactList = [
         { direction: 'sent', time: '12:00 AM', message: 'Doing my best!' },
         { direction: 'received', time: '12:00 AM', message: 'By the way, have you heard about the new villain in town?' },
         { direction: 'sent', time: '12:00 AM', message: "No, what's the deal?" },
-      ], unSeenMsgCnt: 0, currentContact: false, seen: false, isCurrent: false, isFavorite: true, isRecent: true
+      ], unSeenMsgCnt: 0, currentContact: false, isSeen: false, isCurrent: false, isFavorite: true, isRecent: true
     },
     {
       username: "Batman", email: "10", last_seen: {date: "09-10-2023", time: "9:00"}, profile_picture:"https://picsum.photos/id/289/100/100", messages: [
@@ -123,7 +123,7 @@ const DummyContactList = [
         { direction: 'sent', time: '12:00 AM', message: "No, what's the scoop?" },
         { direction: 'received', time: '12:00 AM', message: "Let's check it out together!" },
         { direction: 'sent', time: '12:00 AM', message: 'Sounds like a plan!' },
-      ], unSeenMsgCnt: 0, currentContact: false, seen: false, isCurrent: false, isFavorite: true ,isRecent: true, 
+      ], unSeenMsgCnt: 0, currentContact: false, isSeen: false, isCurrent: false, isFavorite: true ,isRecent: true, 
     }
   ];
 
