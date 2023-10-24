@@ -2,7 +2,7 @@ import { useState, } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Icon } from '@iconify/react';
 import { setAddContact } from '../../context/NavigateModes';
-import { setProfileAddContact } from '../../context/Profile';
+import { _addContact } from '../../context/Profile';
 import useSubmitForm from '../../services/submitForms';
 
 
@@ -38,11 +38,11 @@ export default function AddContact(){
 
       console.log(message)
       if(status === 200){
-        dispatch(setProfileAddContact(data));
+        dispatch(_addContact(data));
         dispatch(setAddContact(false));
       }
-      else
-        console.log(message)
+      else if(message === 'Contact with this email already exists')
+        setEmailErr('Contact with this email already exists');
     }
   }
   // Handle cancel add contact

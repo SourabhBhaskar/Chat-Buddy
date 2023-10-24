@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import Loader from "../components/Common/Loader";
-import useCheckAuthentication from "../services/isAuthenticated";
+// import useCheckAuthentication from "../services/isAuthenticated";
 
 function Landing() {
-  const isAuthenticated = useCheckAuthentication();
-  useEffect(()=>{
-    isAuthenticated();
-  }, [])
+  // const isAuthenticated = useCheckAuthentication();
+  // useEffect(()=>{
+  //   isAuthenticated();
+  // }, [])
 
   return (
     <>

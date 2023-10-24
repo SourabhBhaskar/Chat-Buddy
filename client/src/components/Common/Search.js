@@ -49,7 +49,7 @@ function Search({ placeholder }){
   })
 
   return (
-    <div className={`h-[44px] flex-shrink-0 px-4 my-4 rounded-sm flex items-center gap-4 bg-[#a6b0cf11]`}>
+    <div className={`h-[44px] flex-shrink-0 px-4 my-4 rounded-md flex items-center gap-4 bg-[#a6b0cf11]`}>
       <button onClick={handleSearch}>
         <Icon icon='ri:search-line' className={`text-lg text-gray-400 ${inpVal && 'text-white'}`} />
       </button>

@@ -1,8 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setProfile } from "../context/Profile";
-import { connectToSocketServer, makeSocketConnection } from "./socketIO";
-
+import { _setProfile } from "../context/Profile";
 
 
 export function useHomeSetup() {
@@ -10,16 +8,9 @@ export function useHomeSetup() {
   const dispatch = useDispatch();
 
   const homeSetup = (data) => {
-    const email = data.email; 
 
     // Set my profile
-    dispatch(setProfile(data));
-
-    // Connect to socket
-    connectToSocketServer(true);
-
-    // Make a socket connection
-    makeSocketConnection(email);
+    dispatch(_setProfile(data));
 
     // Go to home
     navigate("/home");

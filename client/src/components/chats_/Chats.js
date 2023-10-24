@@ -8,7 +8,6 @@ import Search from '../Common/Search';
 
 // Chats
 function Chats() {
-
   return (
     <main className={`w-full h-full absolute flex flex-col move bg-inherit shadow-md p-4 pb-0 sm:p-6 sm:pb-0`}>
       <section className='relative' ><Heading text={"Chats"}/></section>
@@ -19,5 +18,5 @@ function Chats() {
   )
 }
 
-export default Chats;
+export default React.memo(Chats);
 

@@ -2,37 +2,34 @@ import React, { } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setChatMode } from '../../context/NavigateModes';
 import { sortArrayOfObjectsByName } from '../../services/sorting';
-import { setProfileCurrent } from '../../context/Profile';
+import { _chatRoomContact } from '../../context/Profile';
+import defaultPicture from '../../assets/profile.jpg';
 import ContactMenu from './ContactMenu';
 
 
 
 // Contact
-const Contact = React.memo(({ Index, List }) => {
+const Contact = React.memo(({ value, letter, index }) => {
   const dispatch = useDispatch();
-  const name = List[Index].username;
-  let newAlpabet = false;
-
-  // Adding alphabat 
-  if(Index === 0)
-    newAlpabet = List[0].username.slice(0,1).toUpperCase();
-  else if(Index){
-    const currAlphabet = List[Index].username.slice(0,1).toUpperCase();
-    const prevAlphabet = List[Index-1].username.slice(0,1).toUpperCase();
-    newAlpabet = currAlphabet !== prevAlphabet ? currAlphabet : false;
-  }
+  const email = value.email;
+  const username = value.username;
+  const picture = value.profile_picture ? value.profile_picture : defaultPicture;
+  const letterToDisplay =  username.slice(0, 1).toUpperCase();
 
   // Click handler
   function handleClick(){
-    dispatch(setProfileCurrent({...List[Index]}));
+    dispatch(_chatRoomContact(email));
     dispatch(setChatMode(true));
   }
 
   return (
     <>
-      { newAlpabet && <h1 className='flex items-end text-[#7269ef] font-medium w-full h-[54px] my-4'>{newAlpabet}</h1> }
-      <div className='w-full h-[44px] flex justify-between items-center text-[15px] font-[500] hover:bg-[#a6b0cf11] px-2' onClick={handleClick}>
-        <p>{name}</p>
+      { (letter || index === 0) && <h1 className='flex items-end text-[#7269ef] font-medium w-full h-[54px]'>{letterToDisplay}</h1> }
+      <div onClick={handleClick} className='flex justify-between items-center my-2 px-2 py-2 rounded-md hover:bg-[#abb4d211] transition-all'>
+        <div className='flex items-center gap-2'>
+          <img src={picture} className='w-[40px] aspect-square rounded-full flex-shrink-0' />
+          <p>{username}</p>
+        </div>
         <ContactMenu />
       </div>
     </>
@@ -40,15 +37,26 @@ const Contact = React.memo(({ Index, List }) => {
 })
 
 
-
-// Contact List
 function AllContactList(){
   const { contacts } = useSelector((state) => state.ProfileSlice);
-  const all = sortArrayOfObjectsByName(contacts.all);
-
+  const { contactsMap, all } = contacts;
+  const sortedAll = sortArrayOfObjectsByName(all);
   return (
     <div className='flex-grow overflow-scroll'>
-      {all.map((value, index)=><Contact key={value.email} Index={index} List={all}  />)}
+      { sortedAll.map((value, index)=> {
+          const key = value.email;
+          const keyValue = contactsMap[key];
+          const prevLetter = index-1>0 && sortedAll[index-1].username.slice(0, 1).toUpperCase();
+          const currLetter = sortedAll[index].username.slice(0, 1).toUpperCase();
+          let letterToSend = prevLetter !== currLetter
+          if(currLetter === '0') letterToSend = false;
+          const valueToDisplay = { 
+            username: keyValue.username, 
+            email: keyValue.email,
+            profile_picture: keyValue.profile_picture, 
+          };
+          return <Contact key={key} value={valueToDisplay} letter={letterToSend} index={index} />
+        })}
     </div>
   )
 };

@@ -87,7 +87,6 @@ function Profile() {
   const location = myProfile.location || '_';
   const last_seen = myProfile.last_seen || '_';
   const dp = myProfile.profile_picture || defaultPic;
-  console.log(myProfile)
  
   return (
     <main className='w-full h-full absolute flex flex-col gap-4 p-6 pb-0 move text-gray-200'>
@@ -115,4 +114,4 @@ function Profile() {
   )
 }
 
-export default Profile;
+export default React.memo(Profile);

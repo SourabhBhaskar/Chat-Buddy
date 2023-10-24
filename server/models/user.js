@@ -1,8 +1,7 @@
-const mongoose = require('mongoose');
-const date = require('../services/date');
-const dummyData = require('../models/dummyData');
+const mongoose = require("mongoose");
+const { custom_date  } = require("../services/date");
 
-// console.log(JSON.parse(dummyData))
+
 const profile_picture = undefined;
 const userSchema = new mongoose.Schema({
   username: { type: String, default: "" },
@@ -10,20 +9,25 @@ const userSchema = new mongoose.Schema({
   email: { type: String, default: "" },
   password: { type: String, default: "" },
   location: { type: String, default: "" },
-  last_seen: { type: Object, default: date },
+  last_seen: { type: Object, default: custom_date },
   profile_picture: { type: String, default: profile_picture },
   status: { type: String, default: "" },
   contacts: {
-    all: [],
-    favorite: [],
-    recent: []
+    contactsMap: {
+      type: Map,
+      of: Object,
+      default: new Map(),
+    }, 
+    all: ["hi"],
+    favorite: ["hi"],
+    recent: ["hi"]
   },
   groups: [],
-  setting: {}
+  setting: {},
 });
 
 
-userSchema.methods.getProfile = function () {
+userSchema.methods.getPublicData = function () {
   return {
     username: this.username,
     mobile_number: this.mobile_number,
@@ -32,15 +36,27 @@ userSchema.methods.getProfile = function () {
     last_seen: this.last_seen,
     profile_picture: this.profile_picture,
     status: this.status,
-    messages: [],
-    unSeenMsgCnt: 0,
-    isSeen: false,
-    isCurrent: false,
-    isFavorite: false,
-    isRecent: false,
   };
 };
 
-const User = mongoose.model("User", userSchema);
 
+userSchema.methods.getContactData = function () {
+  return {
+    username: this.username,
+    mobile_number: this.mobile_number,
+    email: this.email,
+    location: this.location,
+    last_seen: this.last_seen,
+    profile_picture: this.profile_picture,
+    status: this.status,
+
+    messages: [],
+    unSeenMsgCnt: 0,
+    isSeen: false,
+  };
+};
+
+
+
+const User = mongoose.model("User", userSchema);
 module.exports = { User };

@@ -1,0 +1,1 @@
+export const convertEmail = (email) => email.replace(/@/g, '_at_').replace(/\./g, '_');

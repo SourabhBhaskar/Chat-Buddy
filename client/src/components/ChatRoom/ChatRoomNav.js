@@ -4,7 +4,6 @@ import { Icon } from "@iconify/react";
 import { setChatMode } from "../../context/NavigateModes";
 import defaultProfile from '../../assets/profile.jpg';
 
-
 // Back Button
 function Back(){
   const dispatch = useDispatch();
@@ -32,21 +31,24 @@ function Menu(){
 
 
 // Profile
-const Profile = React.memo(({ profile }) => {
-  const picture = profile.profile_picture;
-  const username = profile.username;
-  const lastSeen = profile.last_seen ? profile.last_seen.date : undefined ;
+function Profile(){
+  console.log("Profile")
+  const { chatRoomContact } = useSelector((state) => state.ProfileSlice);
+  const picture = chatRoomContact.profile_picture ? chatRoomContact.profile_picture : defaultProfile;
+  const username = chatRoomContact.username;
+  const lastSeen = chatRoomContact.last_seen;
 
   return (
     <div className="flex items-center gap-2">
-      <img src={picture ? picture : defaultProfile} className='w-[40px] h-[40px] rounded-full bg-red-600' />
+      <img src={picture} className='w-[40px] h-[40px] rounded-full' />
       <div>
         <p className='text-white text-[1rem] font-medium'>{username}</p>
         <small>{lastSeen}</small>
       </div>
     </div>
-  )
-});
+  );
+}
+
 
 
 // Nav

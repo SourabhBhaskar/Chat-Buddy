@@ -1,74 +1,93 @@
 require('dotenv').config();
 const { Server } = require("socket.io");
 const { User } = require('../models/user');
-const date = require('../services/date');
+const getCurrentDateTime = require('../services/date');
 
+// Maps for sockets and data
+const socketId_to_userData = new Map();
+const socketId_to_userId = new Map();
+const userId_to_socketId = new Map();
 
-// Map to store online users and their sockets
-const onlineUsers = new Map();
+// Handle incoming messages and send them to the appropriate receiverSocketId.
+function handleMessages({ message, receiverId }, socket) {
+  const senderSocketId = socket.id;
+  const receiverSocketId = userId_to_socketId.get(receiverId);
 
-
- // Handle a new socket connection.
-async function handleConnection(senderId, socket) {
-  try {
-    // Retrieve the sender's profile from the database
-    const senderProfile = await User.findOne({ email: senderId});
-
-    // Update the last_seen field to 'online'
-    senderProfile.last_seen = 'online';
-    await senderProfile.save();
-
-    // Store the sender's socket in the onlineUsers map
-    onlineUsers.set(senderId, socket);
-    console.log(senderId, " is online");
-  } catch (error) {
-    console.error('Error updating last_seen:', error);
+  if (receiverSocketId) {
+    const data = socketId_to_userData.get(senderSocketId);
+    const updatedMessage = { message, sender: data };
+    socket.to(receiverSocketId).emit("messages", updatedMessage);
+    console.log(`Message sent to ${receiverId} : ${message}`);
+  } else {
+    console.log(`${receiverId} is not online`);
   }
 }
 
+// Handle user typing
+function handleTyping(receiver, socket) {
+  const senderSocketId = socket.id;
+  const receiverSocketId = userId_to_socketId.get(receiver);
+  if (receiverSocketId) {
+    const userId = socketId_to_userId.get(senderSocketId);
+    socket.to(receiverSocketId).emit('typing', userId);
+    console.log(`${userId} Typing........ for ${receiver}`);
+  } else {
+    console.log(`${receiver} is not online`);
+  }
+}
 
-// Handle incoming messages and send them to the appropriate receiver.
-async function handleMessages({ message, from, sendTo }) {
+// Update user
+async function updateUser(user, socketId, update) {
+  const userId = socketId_to_userId.get(socketId);
+
+  if (userId) {
+    user.last_seen = update ? 'online' : getCurrentDateTime().custom_date;
+    await user.save();
+  }
+}
+
+// Handle a new socket connection.
+async function handleConnectUser(userId, socket) {
+  const socketId = socket.id;
+  socket.broadcast.emit('last-seen', { userId, lastSeen: 'online' });
+  console.log(`Connected: ${userId} => ${socketId}`);
+
   try {
-    const senderProfile = await User.findOne({ email: from });
-    const profileSendToClient = senderProfile.getProfile();
-    const messageSendToClient = { message: message, from: profileSendToClient };
+    const user = await User.findOne({ email: userId });
 
-    if (onlineUsers.has(sendTo)) {
-      const receiverSocket = onlineUsers.get(sendTo);
-      receiverSocket.emit("message", messageSendToClient);
-      console.log(`Message sent to ${sendTo} : ${message.message}`);
-    } else {
-      console.log(`${sendTo} is not online`);
+    if (user) {
+      const userData = user.getContactData();
+      socketId_to_userData.set(socketId, userData);
+      socketId_to_userId.set(socketId, userId);
+      userId_to_socketId.set(userId, socketId);
+
+      updateUser(user, socketId, true);
     }
   } catch (error) {
-    console.error('Error handling message:', error);
+    console.error(`Error in data fetching: ${error}`);
   }
 }
-
 
 // Handle a socket disconnection
-function handleSocketExit(socket) {
-  onlineUsers.forEach(async (value, key) => {
-    if (value === socket) {
-      try {
-        // Retrieve the sender's profile from the database
-        const senderProfile = await User.findOne({ email: key });
+async function handleDisconnectToUser(userId, socket) {
+  const socketId = socket.id;
+  socket.broadcast.emit('last-seen', { userId, lastSeen: getCurrentDateTime().custom_time });
+  console.log(`Disconnected: ${userId} => ${socketId}`);
 
-        // Update the last_seen field with the current date
-        senderProfile.last_seen = date;
-        await senderProfile.save();
+  try {
+    const user = await User.findOne({ email: userId });
 
-        // Remove the user from the onlineUsers map
-        onlineUsers.delete(key);
-        console.log(key, " is offline");
-      } catch (error) {
-        console.error('Error handling socket exit:', error);
-      }
+    if (user) {
+      updateUser(user, socketId, false);
+
+      socketId_to_userData.delete(socketId);
+      socketId_to_userId.delete(socketId);
+      userId_to_socketId.delete(userId);
     }
-  });
+  } catch (error) {
+    console.error(`Error in data fetching: ${error}`);
+  }
 }
-
 
 // Configure the Socket.IO server and handler
 function configureSocketIO(server) {
@@ -80,17 +99,17 @@ function configureSocketIO(server) {
   });
 
   io.on('error', (error) => console.error('Socket.io error:', error));
-
   io.on("connection", (socket) => {
-    console.log("New connection", socket.id);
-    socket.on("connection", (senderId) => handleConnection(senderId, socket));
-    socket.on("message", handleMessages);
-    socket.on("disconnect", () => handleSocketExit(socket));
+    socket.on('typing', (receiver) => handleTyping(receiver, socket));
+    socket.on('messages', (message) => handleMessages(message, socket));
+    socket.on('connected', (userId) => handleConnectUser(userId, socket));
+    socket.on('disconnect', () => {
+      const userId = socketId_to_userId.get(socket.id);
+      handleDisconnectToUser(userId, socket);
+    });
   });
 
   return io;
 }
 
-
-// Export the configureSocketIO function
 module.exports = { configureSocketIO };

@@ -6,4 +6,4 @@ function Groups() {
   )
 }
 
-export default Groups
+export default React.memo(Groups);

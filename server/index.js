@@ -7,7 +7,7 @@ const passport = require('passport');
 const cookParser = require('cookie-parser');
 
 // Importing custom  modules
-require("./services/db").startServer();
+require("./services/db").startDB();
 const { sessionSetup } = require("./services/sessions");
 const { configureSocketIO } = require("./services/socketIO");
 const landingRouter = require("./routes/landing");

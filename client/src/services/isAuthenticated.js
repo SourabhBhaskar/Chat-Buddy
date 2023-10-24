@@ -2,11 +2,11 @@ import { useHomeSetup } from "../services/homeSetup";
 import useSubmitForm from "./submitForms";
 
 
-export default function useCheckAuthentication() {
+export function useCheckAuthentication() {
   const homeSetup = useHomeSetup();
   const submitForm = useSubmitForm('IS_AUTHENTICATED', true, {});
 
-  const checkAuthentication = async() => {
+  const isAuthenticated = async() => {
     const response = await submitForm();
     const status = response && response.status;
 
@@ -21,5 +21,5 @@ export default function useCheckAuthentication() {
     }
   };
 
-  return checkAuthentication;
+  return { isAuthenticated };
 }
