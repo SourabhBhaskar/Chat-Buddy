@@ -2,10 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialState = {
+    chatRoom: window.innerWidth >= 1280,
+    receiverProfile: false,
+    mainNavigator: 'chats',
     addContact: false,
-    chatMode: false,
     loader: false,
-    homeNavigator: 'chats'
+    themeMode: {
+        dark: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
+        light: window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches,
+        systemDefault: true
+    }
 }
 
 const NavigateModes = createSlice({
@@ -36,17 +42,68 @@ const NavigateModes = createSlice({
             return updatedState;
         },
 
-        setHomeNavigator: (state, action) => {
+        _themeMode: (state, action) => {
+            const theme = action.payload;
+            console.log(theme)
+            if(theme !== 'dark' && theme !== 'light' && theme !== 'system-default')
+                return state ;
+
+            if(theme === 'system-default')
+                return {
+                    ...state,
+                    themeMode: {
+                        dark: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
+                        light: window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches,
+                        systemDefault: true
+                    }
+                }
+            else 
+                return {
+                ...state, 
+                themeMode: {
+                    dark: theme === 'dark' ? true : false,
+                    light: theme === 'light' ? true : false,
+                    systemDefault: theme === 'system-default' ? true : false
+                }    
+            }
+        },
+        setChatRoom: (state, action) => {
             console.log(action.payload)
+            const haveToOpenChat = action.payload;
+            const updatedState = { 
+                ...state, 
+                chatRoom: haveToOpenChat,
+                receiverProfile: false
+            };
+            return updatedState;
+        },
+
+        setReceiverProfile: (state, action) => {
+            const haveToOpenReceiverProfile = action.payload;
+            const updatedState = { 
+                ...state, 
+                receiverProfile: haveToOpenReceiverProfile
+            };
+            return updatedState;
+        },
+
+        _mainNavigator: (state, action) => {
             const updatedState = {
                 ...state, 
-                homeNavigator: action.payload
+                mainNavigator: action.payload
             }
             return updatedState
-        }
+        },
     }
 })
 
 
-export const { setAddContact, setChatMode, setLoader, setHomeNavigator } = NavigateModes.actions;
-export default NavigateModes.reducer
+export const { 
+    setAddContact,  
+    setLoader, 
+    _mainNavigator,
+    _themeMode,
+    setReceiverProfile,
+    
+ } = NavigateModes.actions;
+export default NavigateModes.reducer;

@@ -1,0 +1,23 @@
+export const icons = {
+  username: "ri:user-2-line",
+  email: "ri:mail-line",
+  password: "ri:lock-2-line",
+  profile: "ri:user-2-line",
+  chats: "ri:message-3-line",
+  groups: "ri:group-line" ,
+  connections: "ri:contacts-line",
+  settings: "ri:settings-2-line",
+  darkMode: "ri:moon-line",
+  lightMode: "ri:sun-line",
+  language: "ri:global-line",
+  back: "ri-arrow-left-line",
+  search: "ri-search-line",
+  audioCall: "ri-phone-line",
+  vidoeCall: "ri-vidicon-line",
+  menu: "ri-more-2-fill",
+  oneCheck: "bi:check2",
+  twoCheck: "bi:check2-all",
+  send: "ic:round-send",
+  emoji: "ri-emotion-happy-line",
+  sendMore: "ri-attachment-line" 
+}

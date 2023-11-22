@@ -24,9 +24,9 @@
 
     /* Login */
     /* Custom checkbox styles */
-.custom-checkbox {
+  .custom-checkbox {
     appearance: none;
-    -webkit-appearance: none;
+    -webkit-appearance: none; 
     -moz-appearance: none;
     width: 20px;
     height: 20px;
@@ -34,9 +34,10 @@
     border-radius: 4px;
     outline: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3;
+    animation-timing-function: linear;
   }
-  
+
   /* Custom checkbox checked state */
   .custom-checkbox:checked {
     background-color: #7269ef;
@@ -137,7 +138,64 @@
     100%{ bottom: 0%}
   }
 
-  input::placeholder{
-    color: #a6b0cf;
+  input:focus{
+    border: 0px;
+    outline: 0px;
   }
+
+
+  /* Toggle Receiver Profile  */
+  .slide-right{
+    animation-name: animate-slide-r;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+  }
+
+  @keyframes animate-slide-r {
+    0%{left: -10%;}
+    100%{left: 0%;}
+  }
+
+  .slide-left{
+    animation-name: animate-slide-l;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+  }
+
+  @keyframes animate-slide-l {
+    0%{right: -10%;}
+    100%{right: 0%;}
+  }
+
+  .slide-top{
+    animation-name: animate-slide-t;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+  }
+
+  @keyframes animate-slide-t {
+    0%{bottom: -10%;}
+    100%{bottom: 0%;}
+  }
+
+  .slide-bottom{
+    animation-name: animate-slide-b;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+  }
+
+  @keyframes animate-slide-b {
+    0%{top: -10%;}
+    100%{top: 0%;}
+  }
+
+  .input-bottom-border:focus{
+    border-bottom: 2px solid #7269ef;
+  }
+
 }
+

@@ -1,8 +1,12 @@
-import React from 'react'
+import React from 'react';
+import { Heading } from '../Common/Heading';
+
 
 function Groups() {
   return (
-    <div className='w-full h-full move'>Groups</div>
+    <>
+      <Heading text={"Groups"} />
+    </>
   )
 }
 

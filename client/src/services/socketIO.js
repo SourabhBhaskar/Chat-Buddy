@@ -1,9 +1,9 @@
 import { io } from "socket.io-client";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useId } from "react";
+import { useEffect } from "react";
 import { _lastSeen, _typingStart, _typingEnd, _sendMessage, _receiveMessage } from "../context/Profile";
-import { useCheckAuthentication } from "./isAuthenticated";
-import { convertEmail } from "./conversion";
+// import { useIsAuthenticated } from "./useIsAuthenticated";
+
 
 // Initialize the URL from environment variables and create a socket instance.
 const URL = process.env.REACT_APP_SERVER;
@@ -12,12 +12,12 @@ export const socket = io(URL, { autoConnect: false, reconnection: true });
 // Socket Connection
 export function useSocketConnection() {
   const dispatch = useDispatch();
-  const { isAuthenticated } = useCheckAuthentication();
+  // const { isAuthenticated } = useIsAuthenticated();
   const { email, contacts } = useSelector((state) => state.ProfileSlice);
 
   const connect = async (socket) => {
-    await isAuthenticated();
-    socket.connect();
+    // const authentication = await isAuthenticated();
+    // if(authentication) socket.connect();
   };
 
   const handleConnect = () => {
@@ -62,25 +62,26 @@ export function useSocketConnection() {
   return { connect };
 }
 
+
 // Send message to server
 export const useSendMessage = () => {
   const dispatch = useDispatch();
-  const dataSlice = useSelector((state) => state.ProfileSlice);
-  const sender = dataSlice.email;
-  const receiver = dataSlice.chatRoomContact.email;
+  // const senderEmail  = useSelector((state) => state.SenderSlice).email;
+  // const receiverEmail = useSelector((state) => state.ReceiverSlice).email;
+
   const sendMessage = (message) => {
-    const messageToSend = { message: message, receiverId: receiver };
-    console.log(messageToSend)
+    // const messageToSend = { message: message, receiverId: receiverEmail };
 
-    // Send message to server
-    socket.emit("messages", messageToSend);
+    // // Send message to server
+    // socket.emit("messages", messageToSend);
 
-    // Send message to client
-    dispatch(_sendMessage(messageToSend));
+    // // Send message to client
+    // dispatch(setMessages(messageToSend));
   };
 
   return { sendMessage };
 };
+
 
 // Receive Messages from server
 export const useReceiveMessage = () => {
