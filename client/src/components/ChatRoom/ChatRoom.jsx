@@ -39,7 +39,7 @@ function ChatRoom() {
   })
 
   return (
-    <section className={`w-full h-full relative flex flex-col`}>
+    <section className='w-full h-full relative flex flex-col overflow-hidden border-2'>
       <Nav>
         <div className='w-auto h-full flex justify-center items-center'>
           { width < 1280 && <Back exit={() => dispatch(setIsChatRoomOpen(false))} />}

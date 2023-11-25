@@ -6,7 +6,7 @@ import { Icon } from "@iconify/react";
 export function Heading({ text }){
 
   return (
-    <section className={`h-[70px] text-[1.2rem] font-medium flex-shrink-0 flex items-center gap-2 px-4 text-l-primary-txt-color dark:text-d-primary-txt-color`}>
+    <section className='h-[70px] text-[1.2rem] font-medium flex-shrink-0 flex items-center gap-2 px-4 text-l-primary-txt-color dark:text-d-primary-txt-color'>
       <h1>{text}</h1>
     </section>
   )

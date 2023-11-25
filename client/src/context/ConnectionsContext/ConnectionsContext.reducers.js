@@ -38,20 +38,29 @@ export function currentConnectionReducer(state, action){
 }
 
 
-
-// Update Message
+// Send Message
 export function updateMessageReducer(state, action){
-    const { message, connection } = action.payload;
-    const currentConnection = state.currentConnection.email;
-    const updatedMessage = designMessage(message, connection === currentConnection);
+    const messages = action.payload;
+    messages.forEach(({ message, from, to }) => {
+        const updatedMessage = designMessage(message, to ? 'user' : 'connection');
+        const connectionEmail = state.currentConnection.email;
+        const messageUpdateTo = from || to;
 
-    // Updating Chat Room
-    if(currentConnection === connection){
+        // Update Chatroom Message
+        if(connectionEmail === messageUpdateTo)
         state.currentConnection.messages.push(updatedMessage);
 
-    }
+        // Update Connection Message
+        state.all[messageUpdateTo] && state.all[messageUpdateTo].messages.push(updatedMessage);
 
-    // Updating All
-    const isConnectionExist = state.all[connection];
-    console.log(action.payload)
+        // Update Recent
+        const recentIndex = state.recents.findIndex((c) => c === messageUpdateTo);
+        if(recentIndex !== -1){
+            const recentIndexValue = state.recents[recentIndex];
+            state.recents.splice(recentIndex, 1);
+            state.recents.splice(0, 0, recentIndexValue);
+        }      
+    });
 }
+
+

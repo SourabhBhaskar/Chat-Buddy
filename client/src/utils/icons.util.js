@@ -19,5 +19,11 @@ export const icons = {
   twoCheck: "bi:check2-all",
   send: "ic:round-send",
   emoji: "ri-emotion-happy-line",
-  sendMore: "ri-attachment-line" 
+  sendMore: "ri-attachment-line" ,
+  edit: "uil:edit",
+  editPicture: "clarity:edit-solid",
+  save: "lucide:check-square",
+  logout: "ri-logout-circle-r-line",
+  expend: "iconamoon:arrow-up-2",
+  cancel: "gridicons:cross"
 }

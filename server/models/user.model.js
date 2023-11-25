@@ -21,9 +21,6 @@ const userSchema = new mongoose.Schema({
 }, { minimize: false });
 
 
-// Indexing
-userSchema.index({ _id: 1 }, { index: true });
-
 // User Model
 const User = mongoose.model('User', userSchema);
 

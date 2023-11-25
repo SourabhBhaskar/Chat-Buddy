@@ -1,14 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { useTheme } from '../../../Common/Theme';
-
 
 function Name({ name }) {
-  const { primaryTxt } = useTheme();
 
   return (
-    <div className="w-full h-auto">
-      <h1 className={`w-full h-auto py-1 text-[1rem] font-[600] text-center ${primaryTxt}`}>
+    <div className="w-full h-auto border-2">
+      <h1 className='w-full h-auto py-1 text-[1rem] font-[600] text-center text-l-primary-txt-color dark:text-d-primary-txt-color'>
         {name}
       </h1>
     </div>

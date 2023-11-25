@@ -1,8 +1,7 @@
+// Imports
 import React from "react";
 import { Icon } from "@iconify/react";
 import { icons } from "../../../utils/icons.util";
-
-
 
 
 // Search Messages Button
@@ -17,4 +16,5 @@ const SearchMessages = () => {
 }
 
 
+// Export
 export default SearchMessages;

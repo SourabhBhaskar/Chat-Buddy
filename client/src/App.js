@@ -6,14 +6,13 @@ import SignUp from './pages/Signup';
 import LogIn from './pages/Login';
 import Home from './pages/Home';
 import PageNotFound from './pages/PageNotFound';
-import { useTheme } from './components/Common/Theme';
+
 
 function App() {
   const { isAuthenticated } = useSelector((state) => state.BooleanSlice);
-  const { secondaryBg } = useTheme();
 
   return (
-    <div className={`w-full h-full min-w-screen min-h-screen font-publicSans ${ secondaryBg }`}>
+    <div className='w-full h-full min-w-screen min-h-screen font-publicSans bg-l-primary-bg-color dark:bg-d-primary-bg-color'>
       <Routes>
         <Route path='/' element={<Landing />} />
         <Route path='/login' element={<LogIn />} />

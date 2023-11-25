@@ -43,6 +43,11 @@ function Chats() {
     }
   }, [itemToSearch])
 
+  useEffect(()=>{
+    setFavoriteListToDisplay(favorites.map(e => all[e]));
+    setRecentListToDisplay(recents.map(e => all[e]));
+  }, [all])
+
   return (
     <>
       <Heading text={'Chats'} />

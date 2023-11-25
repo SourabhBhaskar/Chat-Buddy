@@ -63,13 +63,13 @@ function Time({ Message }){
 
 // Messages
 export function Message({ message }) {
-    const { direction } = message;
+    const { from } = message;
   
     return (
         <>
-            { direction==='sent' && <SenderMessage Message={message}/> }
-            { direction==='received' && <ReceiverMessage Message={message} /> }
-            { direction==='time' && <Time Message={message} /> }
+            { from==='user' && <SenderMessage Message={message}/> }
+            { from==='connection' && <ReceiverMessage Message={message} /> }
+            { from==='time' && <Time Message={message} /> }
         </>
     );
 }

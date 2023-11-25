@@ -3,17 +3,21 @@ const http = require("http");
 const express = require("express");
 const cors = require('cors');
 const passport = require('passport');
-const cookieParser = require('cookie-parser'); 
+const cookieParser = require('cookie-parser');
 
 
-// Configuration
+// Built-in configuration
 require('dotenv').config();
 require('./config/passport.config');
 
 
-// Importing custom modules 
-require("./db/db").startDB();
-const { env } = require("./utils/env.util");
+// Built-in declarations
+const PORT = process.env.PORT;
+const app = express();
+const server = http.createServer(app);
+
+
+// Importing custom modules
 const { sessionSetup } = require("./middlewares/sessionSetup.middleware");
 const { routeIsNotFound } = require("./middlewares/routeIsNotFound.middleware");
 const { appMiddlewareError } = require("./middlewares/appMiddlewareError.middleware");
@@ -21,10 +25,9 @@ const { userAuthRouter } = require("./routes/userAuth.router");
 const { userConnectionRouter } = require("./routes/userConnection.router");
 
 
-// Declarations
-const PORT = env.PORT;
-const app = express();
-const server = http.createServer(app);
+// Custom configuration
+require('./db/db').startDB();
+require('./socket/socket-server').startSocketServer(server);
 
 
 // Cors options
@@ -33,7 +36,6 @@ const corsOptions = {
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 }
-
 
 
 // Middlewares for app

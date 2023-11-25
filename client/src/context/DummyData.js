@@ -11,12 +11,12 @@
 //             isSeen: false,
 //             unSeenMsgCnt: 7,
 //             messages: [
-//                 { direction: "received", time: "12:00 AM", message: "Hi, how are you?" },
-//                 { direction: "sent", time: "12:00 AM", message: "I'm good, thanks!" },
-//                 { direction: "received", time: "12:00 AM", message: "What have you been up to lately?" },
-//                 { direction: "sent", time: "12:00 AM", message: "Just working on some projects." },
-//                 { direction: "received", time: "12:00 AM", message: "Sounds interesting. Anything exciting?" },
-//                 { direction: "sent", time: "12:00 AM", message: "Not really, just the usual stuff." },
+//                 { from: "connection", time: "12:00 AM", message: "Hi, how are you?" },
+//                 { from: "user", time: "12:00 AM", message: "I'm good, thanks!" },
+//                 { from: "connection", time: "12:00 AM", message: "What have you been up to lately?" },
+//                 { from: "user", time: "12:00 AM", message: "Just working on some projects." },
+//                 { from: "connection", time: "12:00 AM", message: "Sounds interesting. Anything exciting?" },
+//                 { from: "user", time: "12:00 AM", message: "Not really, just the usual stuff." },
 //             ]
 //         },
 //         ironMan_at_example_com: {
@@ -30,12 +30,12 @@
 //             isSeen: true,
 //             unSeenMsgCnt: 2,
 //             messages: [
-//                 { direction: "received", time: "1:00 PM", message: "Hey there!" },
-//                 { direction: "sent", time: "1:05 PM", message: "Hello! What's up?" },
-//                 { direction: "received", time: "1:10 PM", message: "Just finished some experiments in the lab." },
-//                 { direction: "sent", time: "1:15 PM", message: "That sounds cool! Anything exciting?" },
-//                 { direction: "received", time: "1:20 PM", message: "Not really, just the usual superhero stuff." },
-//                 { direction: "sent", time: "1:25 PM", message: "Well, you are Iron Man after all!" },
+//                 { from: "connection", time: "1:00 PM", message: "Hey there!" },
+//                 { from: "user", time: "1:05 PM", message: "Hello! What's up?" },
+//                 { from: "connection", time: "1:10 PM", message: "Just finished some experiments in the lab." },
+//                 { from: "user", time: "1:15 PM", message: "That sounds cool! Anything exciting?" },
+//                 { from: "connection", time: "1:20 PM", message: "Not really, just the usual superhero stuff." },
+//                 { from: "user", time: "1:25 PM", message: "Well, you are Iron Man after all!" },
 //             ]
 //         },
 //      @: {
@@ -49,11 +49,11 @@
 //             isSeen: false,
 //             unSeenMsgCnt: 5,
 //             messages: [
-//                 { direction: "received", time: "3:00 PM", message: "Thor, we need your help!" },
-//                 { direction: "sent", time: "3:05 PM", message: "I'm on my way! What's the situation?" },
-//                 { direction: "received", time: "3:10 PM", message: "It's a giant monster attacking the city!" },
-//                 { direction: "sent", time: "3:15 PM", message: "I'll handle it. Hold tight!" },
-//                 { direction: "received", time: "3:20 PM", message: "Thanks, Thor! You're our hero!" },
+//                 { from: "connection", time: "3:00 PM", message: "Thor, we need your help!" },
+//                 { from: "user", time: "3:05 PM", message: "I'm on my way! What's the situation?" },
+//                 { from: "connection", time: "3:10 PM", message: "It's a giant monster attacking the city!" },
+//                 { from: "user", time: "3:15 PM", message: "I'll handle it. Hold tight!" },
+//                 { from: "connection", time: "3:20 PM", message: "Thanks, Thor! You're our hero!" },
 //             ]
 //         },
 //         thor2_at_example_com: {
@@ -67,11 +67,11 @@
 //             isSeen: false,
 //             unSeenMsgCnt: 5,
 //             messages: [
-//                 { direction: "received", time: "3:00 PM", message: "Thor, we need your help!" },
-//                 { direction: "sent", time: "3:05 PM", message: "I'm on my way! What's the situation?" },
-//                 { direction: "received", time: "3:10 PM", message: "It's a giant monster attacking the city!" },
-//                 { direction: "sent", time: "3:15 PM", message: "I'll handle it. Hold tight!" },
-//                 { direction: "received", time: "3:20 PM", message: "Thanks, Thor! You're our hero!" },
+//                 { from: "connection", time: "3:00 PM", message: "Thor, we need your help!" },
+//                 { from: "user", time: "3:05 PM", message: "I'm on my way! What's the situation?" },
+//                 { from: "connection", time: "3:10 PM", message: "It's a giant monster attacking the city!" },
+//                 { from: "user", time: "3:15 PM", message: "I'll handle it. Hold tight!" },
+//                 { from: "connection", time: "3:20 PM", message: "Thanks, Thor! You're our hero!" },
 //             ]
 //         },
 //         hulk_at_example_com: {
@@ -85,10 +85,10 @@
 //             isSeen: true,
 //             unSeenMsgCnt: 3,
 //             messages: [
-//                 { direction: "received", time: "2:00 PM", message: "Hulk, we need you for a mission!" },
-//                 { direction: "sent", time: "2:05 PM", message: "Hulk is always ready! What's the mission?" },
-//                 { direction: "received", time: "2:10 PM", message: "There's a group of villains causing chaos." },
-//                 { direction: "sent", time: "2:15 PM", message: "Hulk will smash them! I'm on my way!" },
+//                 { from: "connection", time: "2:00 PM", message: "Hulk, we need you for a mission!" },
+//                 { from: "user", time: "2:05 PM", message: "Hulk is always ready! What's the mission?" },
+//                 { from: "connection", time: "2:10 PM", message: "There's a group of villains causing chaos." },
+//                 { from: "user", time: "2:15 PM", message: "Hulk will smash them! I'm on my way!" },
 //             ]
 //         },
 //         blackWidow_at_example_com: {
@@ -102,10 +102,10 @@
 //             isSeen: false,
 //             unSeenMsgCnt: 8,
 //             messages: [
-//                 { direction: "received", time: "4:00 PM", message: "Black Widow, we need information on the enemy." },
-//                 { direction: "sent", time: "4:05 PM", message: "I'm on a mission. I'll get the intel you need." },
-//                 { direction: "received", time: "4:10 PM", message: "Be careful, Natasha. We're counting on you." },
-//                 { direction: "sent", time: "4:15 PM", message: "I always am." },
+//                 { from: "connection", time: "4:00 PM", message: "Black Widow, we need information on the enemy." },
+//                 { from: "user", time: "4:05 PM", message: "I'm on a mission. I'll get the intel you need." },
+//                 { from: "connection", time: "4:10 PM", message: "Be careful, Natasha. We're counting on you." },
+//                 { from: "user", time: "4:15 PM", message: "I always am." },
 //             ]
 //         },
 //         hawkeye_at_example_com: {
@@ -119,10 +119,10 @@
 //             isSeen: true,
 //             unSeenMsgCnt: 4,
 //             messages: [
-//                 { direction: "received", time: "5:00 PM", message: "Hawkeye, we need your precision skills." },
-//                 { direction: "sent", time: "5:05 PM", message: "I'm always ready. What's the target?" },
-//                 { direction: "received", time: "5:10 PM", message: "There's a threat at the border. We need your strategic mind." },
-//                 { direction: "sent", time: "5:15 PM", message: "I'll handle it. I've got a quiver full of arrows ready." },
+//                 { from: "connection", time: "5:00 PM", message: "Hawkeye, we need your precision skills." },
+//                 { from: "user", time: "5:05 PM", message: "I'm always ready. What's the target?" },
+//                 { from: "connection", time: "5:10 PM", message: "There's a threat at the border. We need your strategic mind." },
+//                 { from: "user", time: "5:15 PM", message: "I'll handle it. I've got a quiver full of arrows ready." },
 //             ]
 //         },
 //         drStrange_at_example_com: {
@@ -136,10 +136,10 @@
 //             isSeen: false,
 //             unSeenMsgCnt: 6,
 //             messages: [
-//                 { direction: "received", time: "6:00 PM", message: "Doctor Strange, we need your mystical help." },
-//                 { direction: "sent", time: "6:05 PM", message: "I sense a disturbance. I'll investigate." },
-//                 { direction: "received", time: "6:10 PM", message: "Be cautious. The threat is magical in nature." },
-//                 { direction: "sent", time: "6:15 PM", message: "I'm prepared. I'll keep you updated." },
+//                 { from: "connection", time: "6:00 PM", message: "Doctor Strange, we need your mystical help." },
+//                 { from: "user", time: "6:05 PM", message: "I sense a disturbance. I'll investigate." },
+//                 { from: "connection", time: "6:10 PM", message: "Be cautious. The threat is magical in nature." },
+//                 { from: "user", time: "6:15 PM", message: "I'm prepared. I'll keep you updated." },
 //             ]
 //         },
 //         blackPanther_at_example_com: {
@@ -153,10 +153,10 @@
 //             isSeen: true,
 //             unSeenMsgCnt: 1,
 //             messages: [
-//                 { direction: "received", time: "7:00 PM", message: "T'Challa, we need your leadership." },
-//                 { direction: "sent", time: "7:05 PM", message: "I'm always ready to defend Wakanda. What's the issue?" },
-//                 { direction: "received", time: "7:10 PM", message: "There's a threat at the border. We need your strategic mind." },
-//                 { direction: "sent", time: "7:15 PM", message: "I'll handle it. Wakanda forever!" },
+//                 { from: "connection", time: "7:00 PM", message: "T'Challa, we need your leadership." },
+//                 { from: "user", time: "7:05 PM", message: "I'm always ready to defend Wakanda. What's the issue?" },
+//                 { from: "connection", time: "7:10 PM", message: "There's a threat at the border. We need your strategic mind." },
+//                 { from: "user", time: "7:15 PM", message: "I'll handle it. Wakanda forever!" },
 //             ]
 //         },
 //         spiderMan_at_example_com: {
@@ -170,10 +170,10 @@
 //             isSeen: false,
 //             unSeenMsgCnt: 9,
 //             messages: [
-//                 { direction: "received", time: "8:00 PM", message: "Hey, Spidey! We need your help." },
-//                 { direction: "sent", time: "8:05 PM", message: "Sure thing! What's the situation?" },
-//                 { direction: "received", time: "8:10 PM", message: "There's a villain causing chaos downtown." },
-//                 { direction: "sent", time: "8:15 PM", message: "I'll be there in a web-slinging minute!" },
+//                 { from: "connection", time: "8:00 PM", message: "Hey, Spidey! We need your help." },
+//                 { from: "user", time: "8:05 PM", message: "Sure thing! What's the situation?" },
+//                 { from: "connection", time: "8:10 PM", message: "There's a villain causing chaos downtown." },
+//                 { from: "user", time: "8:15 PM", message: "I'll be there in a web-slinging minute!" },
 //             ]
 //         },
 //         loki_at_example_com: {
@@ -187,10 +187,10 @@
 //             isSeen: true,
 //             unSeenMsgCnt: 3,
 //             messages: [
-//                 { direction: "received", time: "9:00 PM", message: "Loki, what are you up to now?" },
-//                 { direction: "sent", time: "9:05 PM", message: "Just a little mischief. Nothing to worry about." },
-//                 { direction: "received", time: "9:10 PM", message: "We've heard that before. What's your game, Loki?" },
-//                 { direction: "sent", time: "9:15 PM", message: "Oh, you'll find out soon enough." },
+//                 { from: "connection", time: "9:00 PM", message: "Loki, what are you up to now?" },
+//                 { from: "user", time: "9:05 PM", message: "Just a little mischief. Nothing to worry about." },
+//                 { from: "connection", time: "9:10 PM", message: "We've heard that before. What's your game, Loki?" },
+//                 { from: "user", time: "9:15 PM", message: "Oh, you'll find out soon enough." },
 //             ]
 //         },
 //     },
@@ -236,12 +236,12 @@ export const dummyContactsData = {
             isSeen: false,
             unSeenMsgCnt: 7,
             messages: [
-                { direction: "received", time: "12:00 AM", message: "Hi, how are you?" },
-                { direction: "sent", time: "12:00 AM", message: "I'm good, thanks!" },
-                { direction: "received", time: "12:00 AM", message: "What have you been up to lately?" },
-                { direction: "sent", time: "12:00 AM", message: "Just working on some projects." },
-                { direction: "received", time: "12:00 AM", message: "Sounds interesting. Anything exciting?" },
-                { direction: "sent", time: "12:00 AM", message: "Not really, just the usual stuff." },
+                { from: "connection", time: "12:00 AM", message: "Hi, how are you?" },
+                { from: "user", time: "12:00 AM", message: "I'm good, thanks!" },
+                { from: "connection", time: "12:00 AM", message: "What have you been up to lately?" },
+                { from: "user", time: "12:00 AM", message: "Just working on some projects." },
+                { from: "connection", time: "12:00 AM", message: "Sounds interesting. Anything exciting?" },
+                { from: "user", time: "12:00 AM", message: "Not really, just the usual stuff." },
             ]
         },
         {
@@ -255,12 +255,12 @@ export const dummyContactsData = {
             isSeen: true,
             unSeenMsgCnt: 2,
             messages: [
-                { direction: "received", time: "1:00 PM", message: "Hey there!" },
-                { direction: "sent", time: "1:05 PM", message: "Hello! What's up?" },
-                { direction: "received", time: "1:10 PM", message: "Just finished some experiments in the lab." },
-                { direction: "sent", time: "1:15 PM", message: "That sounds cool! Anything exciting?" },
-                { direction: "received", time: "1:20 PM", message: "Not really, just the usual superhero stuff." },
-                { direction: "sent", time: "1:25 PM", message: "Well, you are Iron Man after all!" },
+                { from: "connection", time: "1:00 PM", message: "Hey there!" },
+                { from: "user", time: "1:05 PM", message: "Hello! What's up?" },
+                { from: "connection", time: "1:10 PM", message: "Just finished some experiments in the lab." },
+                { from: "user", time: "1:15 PM", message: "That sounds cool! Anything exciting?" },
+                { from: "connection", time: "1:20 PM", message: "Not really, just the usual superhero stuff." },
+                { from: "user", time: "1:25 PM", message: "Well, you are Iron Man after all!" },
             ]
         },
         {
@@ -274,11 +274,11 @@ export const dummyContactsData = {
             isSeen: false,
             unSeenMsgCnt: 5,
             messages: [
-                { direction: "received", time: "3:00 PM", message: "Thor, we need your help!" },
-                { direction: "sent", time: "3:05 PM", message: "I'm on my way! What's the situation?" },
-                { direction: "received", time: "3:10 PM", message: "It's a giant monster attacking the city!" },
-                { direction: "sent", time: "3:15 PM", message: "I'll handle it. Hold tight!" },
-                { direction: "received", time: "3:20 PM", message: "Thanks, Thor! You're our hero!" },
+                { from: "connection", time: "3:00 PM", message: "Thor, we need your help!" },
+                { from: "user", time: "3:05 PM", message: "I'm on my way! What's the situation?" },
+                { from: "connection", time: "3:10 PM", message: "It's a giant monster attacking the city!" },
+                { from: "user", time: "3:15 PM", message: "I'll handle it. Hold tight!" },
+                { from: "connection", time: "3:20 PM", message: "Thanks, Thor! You're our hero!" },
             ]
         },
         {
@@ -292,11 +292,11 @@ export const dummyContactsData = {
             isSeen: false,
             unSeenMsgCnt: 5,
             messages: [
-                { direction: "received", time: "3:00 PM", message: "Thor, we need your help!" },
-                { direction: "sent", time: "3:05 PM", message: "I'm on my way! What's the situation?" },
-                { direction: "received", time: "3:10 PM", message: "It's a giant monster attacking the city!" },
-                { direction: "sent", time: "3:15 PM", message: "I'll handle it. Hold tight!" },
-                { direction: "received", time: "3:20 PM", message: "Thanks, Thor! You're our hero!" },
+                { from: "connection", time: "3:00 PM", message: "Thor, we need your help!" },
+                { from: "user", time: "3:05 PM", message: "I'm on my way! What's the situation?" },
+                { from: "connection", time: "3:10 PM", message: "It's a giant monster attacking the city!" },
+                { from: "user", time: "3:15 PM", message: "I'll handle it. Hold tight!" },
+                { from: "connection", time: "3:20 PM", message: "Thanks, Thor! You're our hero!" },
             ]
         },
         {
@@ -310,10 +310,10 @@ export const dummyContactsData = {
             isSeen: true,
             unSeenMsgCnt: 3,
             messages: [
-                { direction: "received", time: "2:00 PM", message: "Hulk, we need you for a mission!" },
-                { direction: "sent", time: "2:05 PM", message: "Hulk is always ready! What's the mission?" },
-                { direction: "received", time: "2:10 PM", message: "There's a group of villains causing chaos." },
-                { direction: "sent", time: "2:15 PM", message: "Hulk will smash them! I'm on my way!" },
+                { from: "connection", time: "2:00 PM", message: "Hulk, we need you for a mission!" },
+                { from: "user", time: "2:05 PM", message: "Hulk is always ready! What's the mission?" },
+                { from: "connection", time: "2:10 PM", message: "There's a group of villains causing chaos." },
+                { from: "user", time: "2:15 PM", message: "Hulk will smash them! I'm on my way!" },
             ]
         },
         {
@@ -327,10 +327,10 @@ export const dummyContactsData = {
             isSeen: false,
             unSeenMsgCnt: 8,
             messages: [
-                { direction: "received", time: "4:00 PM", message: "Black Widow, we need information on the enemy." },
-                { direction: "sent", time: "4:05 PM", message: "I'm on a mission. I'll get the intel you need." },
-                { direction: "received", time: "4:10 PM", message: "Be careful, Natasha. We're counting on you." },
-                { direction: "sent", time: "4:15 PM", message: "I always am." },
+                { from: "connection", time: "4:00 PM", message: "Black Widow, we need information on the enemy." },
+                { from: "user", time: "4:05 PM", message: "I'm on a mission. I'll get the intel you need." },
+                { from: "connection", time: "4:10 PM", message: "Be careful, Natasha. We're counting on you." },
+                { from: "user", time: "4:15 PM", message: "I always am." },
             ]
         },
         {
@@ -344,10 +344,10 @@ export const dummyContactsData = {
             isSeen: true,
             unSeenMsgCnt: 4,
             messages: [
-                { direction: "received", time: "5:00 PM", message: "Hawkeye, we need your precision skills." },
-                { direction: "sent", time: "5:05 PM", message: "I'm always ready. What's the target?" },
-                { direction: "received", time: "5:10 PM", message: "There's a threat at the border. We need your strategic mind." },
-                { direction: "sent", time: "5:15 PM", message: "I'll handle it. I've got a quiver full of arrows ready." },
+                { from: "connection", time: "5:00 PM", message: "Hawkeye, we need your precision skills." },
+                { from: "user", time: "5:05 PM", message: "I'm always ready. What's the target?" },
+                { from: "connection", time: "5:10 PM", message: "There's a threat at the border. We need your strategic mind." },
+                { from: "user", time: "5:15 PM", message: "I'll handle it. I've got a quiver full of arrows ready." },
             ]
         },
         {
@@ -361,10 +361,10 @@ export const dummyContactsData = {
             isSeen: false,
             unSeenMsgCnt: 6,
             messages: [
-                { direction: "received", time: "6:00 PM", message: "Doctor Strange, we need your mystical help." },
-                { direction: "sent", time: "6:05 PM", message: "I sense a disturbance. I'll investigate." },
-                { direction: "received", time: "6:10 PM", message: "Be cautious. The threat is magical in nature." },
-                { direction: "sent", time: "6:15 PM", message: "I'm prepared. I'll keep you updated." },
+                { from: "connection", time: "6:00 PM", message: "Doctor Strange, we need your mystical help." },
+                { from: "user", time: "6:05 PM", message: "I sense a disturbance. I'll investigate." },
+                { from: "connection", time: "6:10 PM", message: "Be cautious. The threat is magical in nature." },
+                { from: "user", time: "6:15 PM", message: "I'm prepared. I'll keep you updated." },
             ]
         },
         {
@@ -378,10 +378,10 @@ export const dummyContactsData = {
             isSeen: true,
             unSeenMsgCnt: 1,
             messages: [
-                { direction: "received", time: "7:00 PM", message: "T'Challa, we need your leadership." },
-                { direction: "sent", time: "7:05 PM", message: "I'm always ready to defend Wakanda. What's the issue?" },
-                { direction: "received", time: "7:10 PM", message: "There's a threat at the border. We need your strategic mind." },
-                { direction: "sent", time: "7:15 PM", message: "I'll handle it. Wakanda forever!" },
+                { from: "connection", time: "7:00 PM", message: "T'Challa, we need your leadership." },
+                { from: "user", time: "7:05 PM", message: "I'm always ready to defend Wakanda. What's the issue?" },
+                { from: "connection", time: "7:10 PM", message: "There's a threat at the border. We need your strategic mind." },
+                { from: "user", time: "7:15 PM", message: "I'll handle it. Wakanda forever!" },
             ]
         },
         {
@@ -395,10 +395,10 @@ export const dummyContactsData = {
             isSeen: false,
             unSeenMsgCnt: 9,
             messages: [
-                { direction: "received", time: "8:00 PM", message: "Hey, Spidey! We need your help." },
-                { direction: "sent", time: "8:05 PM", message: "Sure thing! What's the situation?" },
-                { direction: "received", time: "8:10 PM", message: "There's a villain causing chaos downtown." },
-                { direction: "sent", time: "8:15 PM", message: "I'll be there in a web-slinging minute!" },
+                { from: "connection", time: "8:00 PM", message: "Hey, Spidey! We need your help." },
+                { from: "user", time: "8:05 PM", message: "Sure thing! What's the situation?" },
+                { from: "connection", time: "8:10 PM", message: "There's a villain causing chaos downtown." },
+                { from: "user", time: "8:15 PM", message: "I'll be there in a web-slinging minute!" },
             ]
         },
         {
@@ -412,10 +412,10 @@ export const dummyContactsData = {
             isSeen: true,
             unSeenMsgCnt: 3,
             messages: [
-                { direction: "received", time: "9:00 PM", message: "Loki, what are you up to now?" },
-                { direction: "sent", time: "9:05 PM", message: "Just a little mischief. Nothing to worry about." },
-                { direction: "received", time: "9:10 PM", message: "We've heard that before. What's your game, Loki?" },
-                { direction: "sent", time: "9:15 PM", message: "Oh, you'll find out soon enough." },
+                { from: "connection", time: "9:00 PM", message: "Loki, what are you up to now?" },
+                { from: "user", time: "9:05 PM", message: "Just a little mischief. Nothing to worry about." },
+                { from: "connection", time: "9:10 PM", message: "We've heard that before. What's your game, Loki?" },
+                { from: "user", time: "9:15 PM", message: "Oh, you'll find out soon enough." },
             ]
         },
     ],
