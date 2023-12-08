@@ -11,7 +11,7 @@ const RecentChat = React.memo(({ value }) => {
   const { username, profile_picture, last_seen, unSeenMsgCnt, isSeen, messages } = value;
   const pictureToDisplay = profile_picture ? profile_picture : defaultPicture;
   const isOnline = last_seen === 'online' || last_seen === 'typing...' ? true : false;
-  const lastMessage = messages.length ? messages[messages.length-1].message : '';
+  const lastMessage = messages && messages.length ? messages[messages.length-1].message : '';
 
   // handleClick
   function handleClick(){
@@ -31,7 +31,7 @@ const RecentChat = React.memo(({ value }) => {
         </div>
         <div className='w-[80px] h-[44px] flex-shrink-0 flex flex-col justify-between items-center'>
           <p className={`${ isOnline ? 'text-green-600 text-[13px]' : 'text-l-secondary-txt-color dark:text-d-secondary-txt-color'} text-[11px] text-center`}>{last_seen}</p>
-          {isSeen && <div className={`w-full h-full flex justify-center items-center`}>
+          {!isSeen && <div className={`w-full h-full flex justify-center items-center`}>
             <p className='flex items-center px-1 text-xs text-[#ef476f] bg-[#ef476f22] rounded-full'>{unSeenMsgCnt}</p>
           </div>}
         </div>

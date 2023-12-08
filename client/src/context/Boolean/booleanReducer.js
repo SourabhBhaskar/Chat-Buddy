@@ -44,7 +44,7 @@ export function isChatRoomOpenReducer(state, action){
 
 
 // Receiver Profile
-export function isReceiverProfileOpenReducer(state, action){
+export function isConnectionProfileOpenReducer(state, action){
     const haveToOpenReceiverProfile = action.payload;
     const updatedState = { 
         ...state, 

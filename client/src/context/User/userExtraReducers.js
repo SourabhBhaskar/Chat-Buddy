@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { formSubmitter } from "../../utils/formSubmitter.util";
 
 
 const findUrl = (urlName) => {
@@ -25,17 +26,38 @@ const findUrl = (urlName) => {
 
 // Update user on server
 export const updateUser = createAsyncThunk('user/update', async (data) => {
-    const { name } = data;
-    const url = findUrl(name);
-    const method = 'PUT';
-    const headers = { 'Content-Type': 'application/json' };
-    const body = JSON.stringify(data);
-    const options = { method, headers, body, credentials: "include"}
-    const response = await fetch(url, options);
-    const result = await response.json();
-    console.log(result)
-    if(response.ok) return data;
-    else return result;
+    const { name, value } = data;
+
+    // Form Submission
+    const options = {
+        url: findUrl(name),
+        method: "PUT",
+        credential: true,
+    }
+
+    console.log(value)
+    if(name === 'Profile Picture'){
+        options['file'] = { name: 'picture', value };
+    }else{
+        options['data'] = { name, value };
+        options['headers'] = { "Content-Type": "application/json" };
+    }
+
+    const { result, error } = await formSubmitter({ ...options });
+    
+    if (!error) {
+        const { data, message, error } = result;
+        if (!error) {
+            console.log(message)
+            return data;
+        } else {
+            console.log("Server Error:", error);
+            alert(error)
+        }
+    } else {
+        console.log("Client Error:", error);
+        alert(`Unable to update ${name}`);
+    }
   });
   
 

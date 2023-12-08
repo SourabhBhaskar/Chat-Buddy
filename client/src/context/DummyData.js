@@ -1,226 +1,4 @@
-// export const dummyContactsData = {
-//     all: {
-//         captanAmerica_at_example_com: {
-//             username: 'Captain America',
-//             mobile_number: '3001',
-//             email: 'captanAmerica@example.com',
-//             profile_picture: 'https://picsum.photos/id/237/100/100',
-//             last_seen: 'online',
-//             location: 'New York',
-//             status: 'Available',
-//             isSeen: false,
-//             unSeenMsgCnt: 7,
-//             messages: [
-//                 { from: "connection", time: "12:00 AM", message: "Hi, how are you?" },
-//                 { from: "user", time: "12:00 AM", message: "I'm good, thanks!" },
-//                 { from: "connection", time: "12:00 AM", message: "What have you been up to lately?" },
-//                 { from: "user", time: "12:00 AM", message: "Just working on some projects." },
-//                 { from: "connection", time: "12:00 AM", message: "Sounds interesting. Anything exciting?" },
-//                 { from: "user", time: "12:00 AM", message: "Not really, just the usual stuff." },
-//             ]
-//         },
-//         ironMan_at_example_com: {
-//             username: 'Iron Man',
-//             mobile_number: '3002',
-//             email: 'ironMan@example.com',
-//             profile_picture: 'https://picsum.photos/id/238/100/100',
-//             last_seen: '10-09-2024',
-//             location: 'Malibu',
-//             status: 'Away',
-//             isSeen: true,
-//             unSeenMsgCnt: 2,
-//             messages: [
-//                 { from: "connection", time: "1:00 PM", message: "Hey there!" },
-//                 { from: "user", time: "1:05 PM", message: "Hello! What's up?" },
-//                 { from: "connection", time: "1:10 PM", message: "Just finished some experiments in the lab." },
-//                 { from: "user", time: "1:15 PM", message: "That sounds cool! Anything exciting?" },
-//                 { from: "connection", time: "1:20 PM", message: "Not really, just the usual superhero stuff." },
-//                 { from: "user", time: "1:25 PM", message: "Well, you are Iron Man after all!" },
-//             ]
-//         },
-//      @: {
-//             username: 'Thor',
-//             mobile_number: '3003',
-//             email: 'thor@example.com',
-//             profile_picture: 'https://picsum.photos/id/239/100/100',
-//             last_seen: 'online',
-//             location: 'Asgard',
-//             status: 'In a battle',
-//             isSeen: false,
-//             unSeenMsgCnt: 5,
-//             messages: [
-//                 { from: "connection", time: "3:00 PM", message: "Thor, we need your help!" },
-//                 { from: "user", time: "3:05 PM", message: "I'm on my way! What's the situation?" },
-//                 { from: "connection", time: "3:10 PM", message: "It's a giant monster attacking the city!" },
-//                 { from: "user", time: "3:15 PM", message: "I'll handle it. Hold tight!" },
-//                 { from: "connection", time: "3:20 PM", message: "Thanks, Thor! You're our hero!" },
-//             ]
-//         },
-//         thor2_at_example_com: {
-//             username: 'Thor',
-//             mobile_number: '3003',
-//             email: 'thor2@example.com',
-//             profile_picture: 'https://picsum.photos/id/239/100/100',
-//             last_seen: 'online',
-//             location: 'Asgard',
-//             status: 'In a battle',
-//             isSeen: false,
-//             unSeenMsgCnt: 5,
-//             messages: [
-//                 { from: "connection", time: "3:00 PM", message: "Thor, we need your help!" },
-//                 { from: "user", time: "3:05 PM", message: "I'm on my way! What's the situation?" },
-//                 { from: "connection", time: "3:10 PM", message: "It's a giant monster attacking the city!" },
-//                 { from: "user", time: "3:15 PM", message: "I'll handle it. Hold tight!" },
-//                 { from: "connection", time: "3:20 PM", message: "Thanks, Thor! You're our hero!" },
-//             ]
-//         },
-//         hulk_at_example_com: {
-//             username: 'Hulk',
-//             mobile_number: '3004',
-//             email: 'hulk@example.com',
-//             profile_picture: 'https://picsum.photos/id/240/100/100',
-//             last_seen: 'typing...',
-//             location: 'Gamma Base',
-//             status: 'Smashing',
-//             isSeen: true,
-//             unSeenMsgCnt: 3,
-//             messages: [
-//                 { from: "connection", time: "2:00 PM", message: "Hulk, we need you for a mission!" },
-//                 { from: "user", time: "2:05 PM", message: "Hulk is always ready! What's the mission?" },
-//                 { from: "connection", time: "2:10 PM", message: "There's a group of villains causing chaos." },
-//                 { from: "user", time: "2:15 PM", message: "Hulk will smash them! I'm on my way!" },
-//             ]
-//         },
-//         blackWidow_at_example_com: {
-//             username: 'Black Widow',
-//             mobile_number: '3005',
-//             email: 'blackWidow@example.com',
-//             profile_picture: 'https://picsum.photos/id/241/100/100',
-//             last_seen: '20-02-2012',
-//             location: 'Unknown',
-//             status: 'Undercover',
-//             isSeen: false,
-//             unSeenMsgCnt: 8,
-//             messages: [
-//                 { from: "connection", time: "4:00 PM", message: "Black Widow, we need information on the enemy." },
-//                 { from: "user", time: "4:05 PM", message: "I'm on a mission. I'll get the intel you need." },
-//                 { from: "connection", time: "4:10 PM", message: "Be careful, Natasha. We're counting on you." },
-//                 { from: "user", time: "4:15 PM", message: "I always am." },
-//             ]
-//         },
-//         hawkeye_at_example_com: {
-//             username: 'Hawkeye',
-//             mobile_number: '3006',
-//             email: 'hawkeye@example.com',
-//             profile_picture: 'https://picsum.photos/id/242/100/100',
-//             last_seen: '10-05-2024',
-//             location: 'S.H.I.E.L.D. Headquarters',
-//             status: 'On a mission',
-//             isSeen: true,
-//             unSeenMsgCnt: 4,
-//             messages: [
-//                 { from: "connection", time: "5:00 PM", message: "Hawkeye, we need your precision skills." },
-//                 { from: "user", time: "5:05 PM", message: "I'm always ready. What's the target?" },
-//                 { from: "connection", time: "5:10 PM", message: "There's a threat at the border. We need your strategic mind." },
-//                 { from: "user", time: "5:15 PM", message: "I'll handle it. I've got a quiver full of arrows ready." },
-//             ]
-//         },
-//         drStrange_at_example_com: {
-//             username: 'Doctor Strange',
-//             mobile_number: '3007',
-//             email: 'drStrange@example.com',
-//             profile_picture: 'https://picsum.photos/id/243/100/100',
-//             last_seen: '10-04-2024',
-//             location: 'Sanctum Sanctorum',
-//             status: 'In meditation',
-//             isSeen: false,
-//             unSeenMsgCnt: 6,
-//             messages: [
-//                 { from: "connection", time: "6:00 PM", message: "Doctor Strange, we need your mystical help." },
-//                 { from: "user", time: "6:05 PM", message: "I sense a disturbance. I'll investigate." },
-//                 { from: "connection", time: "6:10 PM", message: "Be cautious. The threat is magical in nature." },
-//                 { from: "user", time: "6:15 PM", message: "I'm prepared. I'll keep you updated." },
-//             ]
-//         },
-//         blackPanther_at_example_com: {
-//             username: 'Black Panther',
-//             mobile_number: '3008',
-//             email: 'blackPanther@example.com',
-//             profile_picture: 'https://picsum.photos/id/244/100/100',
-//             last_seen: '10-03-2024',
-//             location: 'Wakanda',
-//             status: 'Protecting the kingdom',
-//             isSeen: true,
-//             unSeenMsgCnt: 1,
-//             messages: [
-//                 { from: "connection", time: "7:00 PM", message: "T'Challa, we need your leadership." },
-//                 { from: "user", time: "7:05 PM", message: "I'm always ready to defend Wakanda. What's the issue?" },
-//                 { from: "connection", time: "7:10 PM", message: "There's a threat at the border. We need your strategic mind." },
-//                 { from: "user", time: "7:15 PM", message: "I'll handle it. Wakanda forever!" },
-//             ]
-//         },
-//         spiderMan_at_example_com: {
-//             username: 'Spider-Man',
-//             mobile_number: '3009',
-//             email: 'spiderMan@example.com',
-//             profile_picture: 'https://picsum.photos/id/225/100/100',
-//             last_seen: '10-02-2024',
-//             location: 'Queens',
-//             status: 'Swinging around',
-//             isSeen: false,
-//             unSeenMsgCnt: 9,
-//             messages: [
-//                 { from: "connection", time: "8:00 PM", message: "Hey, Spidey! We need your help." },
-//                 { from: "user", time: "8:05 PM", message: "Sure thing! What's the situation?" },
-//                 { from: "connection", time: "8:10 PM", message: "There's a villain causing chaos downtown." },
-//                 { from: "user", time: "8:15 PM", message: "I'll be there in a web-slinging minute!" },
-//             ]
-//         },
-//         loki_at_example_com: {
-//             username: 'Loki',
-//             mobile_number: '3010',
-//             email: 'loki@example.com',
-//             profile_picture: 'https://picsum.photos/id/146/100/100',
-//             last_seen: '10-01-2024',
-//             location: 'Asgard (allegedly)',
-//             status: 'Mischief mode',
-//             isSeen: true,
-//             unSeenMsgCnt: 3,
-//             messages: [
-//                 { from: "connection", time: "9:00 PM", message: "Loki, what are you up to now?" },
-//                 { from: "user", time: "9:05 PM", message: "Just a little mischief. Nothing to worry about." },
-//                 { from: "connection", time: "9:10 PM", message: "We've heard that before. What's your game, Loki?" },
-//                 { from: "user", time: "9:15 PM", message: "Oh, you'll find out soon enough." },
-//             ]
-//         },
-//     },
-//     favorites: [ 
-//         'captanAmerica_at_example_com',
-//         'ironMan_at_example_com',
-//       @',
-//         'hulk_at_example_com',
-//         'blackWidow_at_example_com',
-//         'hawkeye_at_example_com',
-//         'drStrange_at_example_com',
-//         'blackPanther_at_example_com',
-//         'spiderMan_at_example_com',
-//         'loki_at_example_com',
-//         'thor2_at_example_com'
-//     ],
-//     recents: [  
-//         'captanAmerica_at_example_com',
-//         'ironMan_at_example_com',
-//       @',
-//         'hulk_at_example_com',
-//         'blackWidow_at_example_com',
-//         'hawkeye_at_example_com',
-//         'drStrange_at_example_com',
-//         'blackPanther_at_example_com',
-//         'spiderMan_at_example_com',
-//         'loki_at_example_com',
-//         'thor2_at_example_com'
-//      ]
-// }
+
 
 
 export const dummyContactsData = {
@@ -236,12 +14,12 @@ export const dummyContactsData = {
             isSeen: false,
             unSeenMsgCnt: 7,
             messages: [
-                { from: "connection", time: "12:00 AM", message: "Hi, how are you?" },
-                { from: "user", time: "12:00 AM", message: "I'm good, thanks!" },
-                { from: "connection", time: "12:00 AM", message: "What have you been up to lately?" },
-                { from: "user", time: "12:00 AM", message: "Just working on some projects." },
-                { from: "connection", time: "12:00 AM", message: "Sounds interesting. Anything exciting?" },
-                { from: "user", time: "12:00 AM", message: "Not really, just the usual stuff." },
+                { id:'1', status: 'read', from: "connection", time: "12:00 AM", message: "Hi, how are you?" },
+                { id:'2', status: 'read', from: "user", time: "12:00 AM", message: "I'm good, thanks!" },
+                { id:'3', status: 'read', from: "connection", time: "12:00 AM", message: "What have you been up to lately?" },
+                { id:'4', status: 'read', from: "user", time: "12:00 AM", message: "Just working on some projects." },
+                { id:'5', status: 'read', from: "connection", time: "12:00 AM", message: "Sounds interesting. Anything exciting?" },
+                { id:'6', status: 'read', from: "user", time: "12:00 AM", message: "Not really, just the usual stuff." },
             ]
         },
         {
@@ -253,14 +31,14 @@ export const dummyContactsData = {
             location: 'Malibu',
             status: 'Away',
             isSeen: true,
-            unSeenMsgCnt: 2,
+            unSeenMsgCnt: 0,
             messages: [
-                { from: "connection", time: "1:00 PM", message: "Hey there!" },
-                { from: "user", time: "1:05 PM", message: "Hello! What's up?" },
-                { from: "connection", time: "1:10 PM", message: "Just finished some experiments in the lab." },
-                { from: "user", time: "1:15 PM", message: "That sounds cool! Anything exciting?" },
-                { from: "connection", time: "1:20 PM", message: "Not really, just the usual superhero stuff." },
-                { from: "user", time: "1:25 PM", message: "Well, you are Iron Man after all!" },
+                { id:'1', status: 'read', from: "connection", time: "1:00 PM", message: "Hey there!" },
+                { id:'2', status: 'read', from: "user", time: "1:05 PM", message: "Hello! What's up?" },
+                { id:'3', status: 'read', from: "connection", time: "1:10 PM", message: "Just finished some experiments in the lab." },
+                { id:'4', status: 'read', from: "user", time: "1:15 PM", message: "That sounds cool! Anything exciting?" },
+                { id:'5', status: 'read', from: "connection", time: "1:20 PM", message: "Not really, just the usual superhero stuff." },
+                { id:'6', status: 'read', from: "user", time: "1:25 PM", message: "Well, you are Iron Man after all!" },
             ]
         },
         {
@@ -274,11 +52,11 @@ export const dummyContactsData = {
             isSeen: false,
             unSeenMsgCnt: 5,
             messages: [
-                { from: "connection", time: "3:00 PM", message: "Thor, we need your help!" },
-                { from: "user", time: "3:05 PM", message: "I'm on my way! What's the situation?" },
-                { from: "connection", time: "3:10 PM", message: "It's a giant monster attacking the city!" },
-                { from: "user", time: "3:15 PM", message: "I'll handle it. Hold tight!" },
-                { from: "connection", time: "3:20 PM", message: "Thanks, Thor! You're our hero!" },
+                { id:'1', status: 'read', from: "connection", time: "3:00 PM", message: "Thor, we need your help!" },
+                { id:'2', status: 'read', from: "user", time: "3:05 PM", message: "I'm on my way! What's the situation?" },
+                { id:'3', status: 'read', from: "connection", time: "3:10 PM", message: "It's a giant monster attacking the city!" },
+                { id:'4', status: 'read', from: "user", time: "3:15 PM", message: "I'll handle it. Hold tight!" },
+                { id:'5', status: 'read', from: "connection", time: "3:20 PM", message: "Thanks, Thor! You're our hero!" },
             ]
         },
         {
@@ -292,11 +70,11 @@ export const dummyContactsData = {
             isSeen: false,
             unSeenMsgCnt: 5,
             messages: [
-                { from: "connection", time: "3:00 PM", message: "Thor, we need your help!" },
-                { from: "user", time: "3:05 PM", message: "I'm on my way! What's the situation?" },
-                { from: "connection", time: "3:10 PM", message: "It's a giant monster attacking the city!" },
-                { from: "user", time: "3:15 PM", message: "I'll handle it. Hold tight!" },
-                { from: "connection", time: "3:20 PM", message: "Thanks, Thor! You're our hero!" },
+                { id:'1', status: 'read', from: "connection", time: "3:00 PM", message: "Thor, we need your help!" },
+                { id:'2', status: 'read', from: "user", time: "3:05 PM", message: "I'm on my way! What's the situation?" },
+                { id:'3', status: 'read', from: "connection", time: "3:10 PM", message: "It's a giant monster attacking the city!" },
+                { id:'4', status: 'read', from: "user", time: "3:15 PM", message: "I'll handle it. Hold tight!" },
+                { id:'5', status: 'read', from: "connection", time: "3:20 PM", message: "Thanks, Thor! You're our hero!" },
             ]
         },
         {
@@ -307,13 +85,13 @@ export const dummyContactsData = {
             last_seen: 'typing...',
             location: 'Gamma Base',
             status: 'Smashing',
-            isSeen: true,
+            isSeen: false,
             unSeenMsgCnt: 3,
             messages: [
-                { from: "connection", time: "2:00 PM", message: "Hulk, we need you for a mission!" },
-                { from: "user", time: "2:05 PM", message: "Hulk is always ready! What's the mission?" },
-                { from: "connection", time: "2:10 PM", message: "There's a group of villains causing chaos." },
-                { from: "user", time: "2:15 PM", message: "Hulk will smash them! I'm on my way!" },
+                { id:'1', status: 'read', from: "connection", time: "2:00 PM", message: "Hulk, we need you for a mission!" },
+                { id:'2', status: 'read', from: "user", time: "2:05 PM", message: "Hulk is always ready! What's the mission?" },
+                { id:'3', status: 'read', from: "connection", time: "2:10 PM", message: "There's a group of villains causing chaos." },
+                { id:'4', status: 'read', from: "user", time: "2:15 PM", message: "Hulk will smash them! I'm on my way!" },
             ]
         },
         {
@@ -324,13 +102,13 @@ export const dummyContactsData = {
             last_seen: '20-02-2012',
             location: 'Unknown',
             status: 'Undercover',
-            isSeen: false,
-            unSeenMsgCnt: 8,
+            isSeen: true,
+            unSeenMsgCnt: 0,
             messages: [
-                { from: "connection", time: "4:00 PM", message: "Black Widow, we need information on the enemy." },
-                { from: "user", time: "4:05 PM", message: "I'm on a mission. I'll get the intel you need." },
-                { from: "connection", time: "4:10 PM", message: "Be careful, Natasha. We're counting on you." },
-                { from: "user", time: "4:15 PM", message: "I always am." },
+                { id:'1', status: 'read', from: "connection", time: "4:00 PM", message: "Black Widow, we need information on the enemy." },
+                { id:'2', status: 'read', from: "user", time: "4:05 PM", message: "I'm on a mission. I'll get the intel you need." },
+                { id:'3', status: 'read', from: "connection", time: "4:10 PM", message: "Be careful, Natasha. We're counting on you." },
+                { id:'4', status: 'read', from: "user", time: "4:15 PM", message: "I always am." },
             ]
         },
         {
@@ -342,12 +120,12 @@ export const dummyContactsData = {
             location: 'S.H.I.E.L.D. Headquarters',
             status: 'On a mission',
             isSeen: true,
-            unSeenMsgCnt: 4,
+            unSeenMsgCnt: 0,
             messages: [
-                { from: "connection", time: "5:00 PM", message: "Hawkeye, we need your precision skills." },
-                { from: "user", time: "5:05 PM", message: "I'm always ready. What's the target?" },
-                { from: "connection", time: "5:10 PM", message: "There's a threat at the border. We need your strategic mind." },
-                { from: "user", time: "5:15 PM", message: "I'll handle it. I've got a quiver full of arrows ready." },
+                { id:'1', status: 'read', from: "connection", time: "5:00 PM", message: "Hawkeye, we need your precision skills." },
+                { id:'2', status: 'read', from: "user", time: "5:05 PM", message: "I'm always ready. What's the target?" },
+                { id:'3', status: 'read', from: "connection", time: "5:10 PM", message: "There's a threat at the border. We need your strategic mind." },
+                { id:'4', status: 'read', from: "user", time: "5:15 PM", message: "I'll handle it. I've got a quiver full of arrows ready." },
             ]
         },
         {
@@ -361,10 +139,10 @@ export const dummyContactsData = {
             isSeen: false,
             unSeenMsgCnt: 6,
             messages: [
-                { from: "connection", time: "6:00 PM", message: "Doctor Strange, we need your mystical help." },
-                { from: "user", time: "6:05 PM", message: "I sense a disturbance. I'll investigate." },
-                { from: "connection", time: "6:10 PM", message: "Be cautious. The threat is magical in nature." },
-                { from: "user", time: "6:15 PM", message: "I'm prepared. I'll keep you updated." },
+                { id:'1', status: 'read', from: "connection", time: "6:00 PM", message: "Doctor Strange, we need your mystical help." },
+                { id:'2', status: 'read', from: "user", time: "6:05 PM", message: "I sense a disturbance. I'll investigate." },
+                { id:'3', status: 'read', from: "connection", time: "6:10 PM", message: "Be cautious. The threat is magical in nature." },
+                { id:'4', status: 'read', from: "user", time: "6:15 PM", message: "I'm prepared. I'll keep you updated." },
             ]
         },
         {
@@ -375,13 +153,13 @@ export const dummyContactsData = {
             last_seen: '10-03-2024',
             location: 'Wakanda',
             status: 'Protecting the kingdom',
-            isSeen: true,
+            isSeen: false,
             unSeenMsgCnt: 1,
             messages: [
-                { from: "connection", time: "7:00 PM", message: "T'Challa, we need your leadership." },
-                { from: "user", time: "7:05 PM", message: "I'm always ready to defend Wakanda. What's the issue?" },
-                { from: "connection", time: "7:10 PM", message: "There's a threat at the border. We need your strategic mind." },
-                { from: "user", time: "7:15 PM", message: "I'll handle it. Wakanda forever!" },
+                { id:'1', status: 'read', from: "connection", time: "7:00 PM", message: "T'Challa, we need your leadership." },
+                { id:'2', status: 'read', from: "user", time: "7:05 PM", message: "I'm always ready to defend Wakanda. What's the issue?" },
+                { id:'3', status: 'read', from: "connection", time: "7:10 PM", message: "There's a threat at the border. We need your strategic mind." },
+                { id:'4', status: 'read', from: "user", time: "7:15 PM", message: "I'll handle it. Wakanda forever!" },
             ]
         },
         {
@@ -392,13 +170,13 @@ export const dummyContactsData = {
             last_seen: '10-02-2024',
             location: 'Queens',
             status: 'Swinging around',
-            isSeen: false,
-            unSeenMsgCnt: 9,
+            isSeen: true,
+            unSeenMsgCnt: 0,
             messages: [
-                { from: "connection", time: "8:00 PM", message: "Hey, Spidey! We need your help." },
-                { from: "user", time: "8:05 PM", message: "Sure thing! What's the situation?" },
-                { from: "connection", time: "8:10 PM", message: "There's a villain causing chaos downtown." },
-                { from: "user", time: "8:15 PM", message: "I'll be there in a web-slinging minute!" },
+                { id:'1', status: 'read', from: "connection", time: "8:00 PM", message: "Hey, Spidey! We need your help." },
+                { id:'2', status: 'read', from: "user", time: "8:05 PM", message: "Sure thing! What's the situation?" },
+                { id:'3', status: 'read', from: "connection", time: "8:10 PM", message: "There's a villain causing chaos downtown." },
+                { id:'4', status: 'read', from: "user", time: "8:15 PM", message: "I'll be there in a web-slinging minute!" },
             ]
         },
         {
@@ -409,13 +187,13 @@ export const dummyContactsData = {
             last_seen: '10-01-2024',
             location: 'Asgard (allegedly)',
             status: 'Mischief mode',
-            isSeen: true,
+            isSeen: false,
             unSeenMsgCnt: 3,
             messages: [
-                { from: "connection", time: "9:00 PM", message: "Loki, what are you up to now?" },
-                { from: "user", time: "9:05 PM", message: "Just a little mischief. Nothing to worry about." },
-                { from: "connection", time: "9:10 PM", message: "We've heard that before. What's your game, Loki?" },
-                { from: "user", time: "9:15 PM", message: "Oh, you'll find out soon enough." },
+                { id:'1', status: 'read', from: "connection", time: "9:00 PM", message: "Loki, what are you up to now?" },
+                { id:'2', status: 'read', from: "user", time: "9:05 PM", message: "Just a little mischief. Nothing to worry about." },
+                { id:'3', status: 'read', from: "connection", time: "9:10 PM", message: "We've heard that before. What's your game, Loki?" },
+                { id:'4', status: 'read', from: "user", time: "9:15 PM", message: "Oh, you'll find out soon enough." },
             ]
         },
     ],

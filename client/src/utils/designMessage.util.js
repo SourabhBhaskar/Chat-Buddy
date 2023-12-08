@@ -6,7 +6,7 @@ export function designMessage(message, from) {
   const formattedHours = hours % 12 || 12;
 
   const time = `${formattedHours}:${minutes} ${amOrPm}`;
-  const messageForUser = { from, time, message, status: 'send' };
-  const messageForConnection = { from, time, message };
-  return from === 'user' ? messageForUser : messageForConnection;
+  const messageFromUser = { from, time, message, status: 'send' };
+  const messageFromConnection = { from, time, message };
+  return from === 'user' ? messageFromUser : messageFromConnection;
 }

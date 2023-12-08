@@ -1,22 +1,42 @@
 // Imports
-const { socketId_userId, userId_socketId, userId_userData, userId_messages } = require("./store");
+const { 
+  userId_socketId,
+  userId_messages,
+ } = require("./store");
+
+// Acknowledgement
+function sendAcknowledgment({ socket, messages }){
+
+}
 
 
 // Handle Text Message
-function handleTextMessage({ socket, message: { message, from, to }}){
-    const to_socketId = userId_socketId.get(to);
-    const to_userId = to;
-    if(!to_socketId){
-      if(userId_messages.has(to_userId)){
-        userId_messages.get(to_userId).push({ message, from });
-      }else
-        userId_messages.set(to_userId, [{ message, from }]);
-      // console.log(`${to} is not online`);
-      console.log(userId_messages)
-    }else{
-      socket.to(to_socketId).emit('text/message', [{ message, from }]);
-      console.log(`${from} sent "${message}" to ${to}`);
+function handleTextMessage({ socket, message }){
+    const from_userId = message.from;
+    const to_userId = message.to;
+    const to_socketId = userId_socketId.get(to_userId);
+
+    // If receiver is online
+    if(to_socketId){
+      // Send message to receiver
+      socket.to(to_socketId).emit('text/message', message);
+      console.log(`${from_userId} sent "${message}" to ${to_userId}`);
+
+      // Messages delivered 
+      // socket.emit('messages/status', { connection: to_userId, status: 'delivered', time: Date.now() });
     }
+    
+    // If receiver is not online
+    if(!to_socketId){
+      // if(!userId_messages.has(to_userId)){
+      //   userId_messages.set(to_userId, [{ ...message }]);
+      // }else{
+      //   userId_messages.get(to_userId).push({ ...message });
+      // }
+      // console.log(`${message.to} is not online`);
+      // socket.emit('messages/status', { connection: to_userId, status: 'send', time: Date.now() });
+    }
+  
   }
 
 

@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import Profile from './Profile';
 import UserSlice from './User/userSlice';
 import BooleanSlice from './Boolean/booleanSlice';
 import StringSlice from './String/StringSlice';
@@ -12,7 +11,6 @@ const store = configureStore({
         ConnectionsSlice: ConnectionsSlice,
         BooleanSlice: BooleanSlice,
         StringSlice: StringSlice,
-        ProfileSlice: Profile,
     }
 })
 

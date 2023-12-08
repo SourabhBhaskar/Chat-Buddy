@@ -58,8 +58,8 @@ function Login() {
         initialHomeSetup(data);
         console.log(message);
       } else {
-        typeof error === "string" && error.toLocaleLowerCase().indexOf("email") !== -1 && setEmailErr(error);
-        typeof error === "string" && error.toLocaleLowerCase().indexOf("password") !== -1 && setPasswordErr(error);
+        typeof error === "string" && error.toLowerCase().indexOf("email") !== -1 && setEmailErr(error);
+        typeof error === "string" && error.toLowerCase().indexOf("password") !== -1 && setPasswordErr(error);
         console.log("Server Error:", error);
       }
     } else {

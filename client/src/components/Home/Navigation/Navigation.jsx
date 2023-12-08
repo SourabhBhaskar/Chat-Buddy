@@ -36,10 +36,10 @@ function Navigation() {
 
         <SubSection>
             <IconButton
-            key="profile"
+            key="user-profile"
             icon={icons.profile}
-            isSelected={navWindow === "profile"}
-            onClick={() => dispatch(setNavWindow("profile"))}
+            isSelected={navWindow === "user-profile"}
+            onClick={() => dispatch(setNavWindow("user-profile"))}
             />
             <IconButton
             key="chats"

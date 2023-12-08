@@ -6,10 +6,10 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
   username: { type: String },
   email: { type: String, required: true, unique: true, index: true },
-  phone: { type: String, default: '' },
+  mobile_number: { type: String, default: '' },
   password: { type: String, required: true },
   profile_picture: { type: String, default: '' },
-  status: { type: String, default: 'offline' },
+  status: { type: String, default: 'Available' },
   description: { type: String, default: '' },
   last_seen: { type: Date, default: Date.now() },
   location: { type: String, default: '' },

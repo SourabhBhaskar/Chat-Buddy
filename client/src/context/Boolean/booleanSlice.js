@@ -4,7 +4,7 @@ import {
     isAuthenticatedReducer,
     isAddingContactReducer,
     isChatRoomOpenReducer,
-    isReceiverProfileOpenReducer,
+    isConnectionProfileOpenReducer,
     isDarkModeOn,
  } from './booleanReducer';
 
@@ -15,7 +15,7 @@ const initialState = {
     isAuthenticated: false,
     isAddingContact: false,
     isChatRoomOpen: window.innerWidth >= 1280,
-    isReceiverProfileOpen: false,
+    isConnectionProfileOpen: false,
 }
 
 
@@ -29,7 +29,7 @@ const Boolean = createSlice({
         setIsAuthenticated: isAuthenticatedReducer,
         setIsAddingContact: isAddingContactReducer,
         setIsChatRoomOpen: isChatRoomOpenReducer,
-        setIsReceiverProfileOpen: isReceiverProfileOpenReducer,
+        setIsConnectionProfileOpen: isConnectionProfileOpenReducer,
         setIsDarkModeOn : isDarkModeOn
     }
 })
@@ -41,7 +41,7 @@ export const {
     setIsAuthenticated,
     setIsAddingContact,
     setIsChatRoomOpen,
-    setIsReceiverProfileOpen,
+    setIsConnectionProfileOpen,
     setIsDarkModeOn
  } = Boolean.actions;
 export default Boolean.reducer;

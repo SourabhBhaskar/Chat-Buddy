@@ -25,5 +25,6 @@ export const icons = {
   save: "lucide:check-square",
   logout: "ri-logout-circle-r-line",
   expend: "iconamoon:arrow-up-2",
-  cancel: "gridicons:cross"
+  cancel: "gridicons:cross",
+  addContact: "ri:user-add-line"
 }

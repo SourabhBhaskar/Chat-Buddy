@@ -16,7 +16,6 @@ export function initialUserSetupReducer(state, action){
         description: user.description,
         last_seen: user.last_seen
     } 
-    console.log("User : ", user);
     return updatedState;
 }
 
@@ -24,7 +23,7 @@ export function initialUserSetupReducer(state, action){
 // Update User
 export function updateUserReducer(state, action){
     const { name, value } = action.payload || {};
-    console.log(name, value, action.payload)
+
     switch(name){
         case 'Username':
             return { ...state, username: value };

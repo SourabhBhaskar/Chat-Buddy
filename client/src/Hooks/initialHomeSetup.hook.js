@@ -1,16 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { connectToSocket, useReceiveMessageFromSocket } from "../socket/socket-client";
+import { connectToSocket } from "../socket/socket-client";
 import { setIsAuthenticated } from "../context/Boolean/booleanSlice";
 import { setInitialUserSetup } from "../context/User/userSlice";
 import { setInitialConnectionsSetup } from "../context/ConnectionsContext/ConnectionsContext.slice";
+import { useReceiveMessageFromSocket } from "../socket/socket-client";
 
 
 // Initial Setup
 export function useInitialHomeSetup(){
+    useReceiveMessageFromSocket();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    useReceiveMessageFromSocket();
 
     const initialHomeSetup = (user) => {
         console.log(user);
@@ -18,7 +19,6 @@ export function useInitialHomeSetup(){
             username,
             email,
             phone,
-            password,
             profile_picture,
             status,
             description,

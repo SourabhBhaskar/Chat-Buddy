@@ -1,9 +1,9 @@
 // Imports
 const { Server } = require("socket.io");
-const { socketId_userId, userId_socketId, userId_userData } = require("./store");
 const { handleConnectedUser } = require("./handleConnectedUser");
 const { handleDisconnectedUser} = require("./handleDisconnectedUser");
 const { handleTextMessage } = require("./handleTextMessage");
+const { handleMessagesStatus } = require("./handleMessagesStatus");
 
 
 // Socket IO Configuration
@@ -17,6 +17,7 @@ const startSocketServer = (server) => {
 
   io.on('connection', (socket)=>{
     socket.on('message/text', (message) => handleTextMessage({ socket, message }));
+    socket.on('message/status', (status) => handleMessagesStatus({ socket, status }));
     socket.on('disconnect', () => handleDisconnectedUser({ socket }));
     socket.on('connected', (user) => handleConnectedUser({ socket, user }));
   })

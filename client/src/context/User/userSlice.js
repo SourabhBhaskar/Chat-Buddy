@@ -24,7 +24,7 @@ const UserSlice = createSlice({
     name: 'UserSlice',
     reducers: {
         setInitialUserSetup: initialUserSetupReducer,
-        setUpdateUserReducer: updateUserReducer
+        setUpdateUser: updateUserReducer
     },
     extraReducers: (builder) => {
         builder.addCase(updateUser.fulfilled, updateUserReducer);
@@ -35,6 +35,6 @@ const UserSlice = createSlice({
 // Export
 export const { 
     setInitialUserSetup,
-    setUpdateUserReducer
+    setUpdateUser
  } = UserSlice.actions;
 export default UserSlice.reducer;

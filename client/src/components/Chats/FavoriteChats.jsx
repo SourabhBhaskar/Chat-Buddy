@@ -13,8 +13,8 @@ const FavoriteChat = React.memo(({ value }) => {
   const pictureToDisplay = profile_picture ? profile_picture : defaultPicture;
 
   function handleClick(){
-    dispatch(setCurrentConnection(value))
     dispatch(setIsChatRoomOpen(true));
+    dispatch(setCurrentConnection(value))
   }
 
   return (
