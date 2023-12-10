@@ -48,7 +48,7 @@ function Login() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       data: { email, password },
-      credential: credential,
+      credential: true,
       loaderCallback: (isLoading) => dispatch(setIsLoading(isLoading)),
     });
 

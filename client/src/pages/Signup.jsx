@@ -52,7 +52,7 @@ function Signup() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       data: { username, email, password },
-      credential: credential,
+      credential: true,
       loaderCallback: (isLoading) => dispatch(setIsLoading(isLoading))
     });
     
