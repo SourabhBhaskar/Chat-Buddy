@@ -33,7 +33,8 @@ require('./socket/socket-server').startSocketServer(server);
 
 // Cors options
 const corsOptions = {
-  origin: process.env.CLIENT_URI,
+  // origin: process.env.CLIENT_URI,
+  origin: "*",
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 }
