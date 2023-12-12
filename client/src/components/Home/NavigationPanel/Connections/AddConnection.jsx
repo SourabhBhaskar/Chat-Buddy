@@ -1,18 +1,20 @@
 // Imports
-import React, { useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { gsap } from 'gsap/gsap-core';
+import { Icon } from '@iconify/react';
 import { icons } from '../../../../utils/icons.util';
 import Label from '../Common/Label';
 import IconInput from '../Common/IconInput';
 import TextArea from '../Common/TextArea';
-import { Icon } from '@iconify/react';
 import { formSubmitter } from '../../../../utils/formSubmitter.util';
-import { useDispatch } from 'react-redux';
 import  { setIsLoading } from "../../../../context/Boolean/booleanSlice"
 import { setAddNewConnection } from '../../../../context/ConnectionsContext/ConnectionsContext.slice';
 
 
 // Add Connection
-function AddConnection({ exit }) {
+function AddConnection({ isAdding, exit }) {
+  const addContaction = useRef(null);
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [emailErr, setEmailErr] = useState('');
@@ -38,7 +40,7 @@ function AddConnection({ exit }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         data: { email, message },
-        credential: true,
+        credentials: true,
         loaderCallback: (isLoading) => dispatch(setIsLoading(isLoading)),
     });
 
@@ -57,8 +59,24 @@ function AddConnection({ exit }) {
     }
   }
 
+  useEffect(() => {
+    const connection = addContaction.current;
+    gsap.fromTo(
+        connection,
+        { y: isAdding ? "80" : "0" },
+        {
+            y: isAdding ? "0" : "40",
+            duration: 0.5,
+            ease: "ease",
+            opacity: isAdding ? 1 : 0,
+            display: isAdding ? "flex" : "none",
+        }
+    );
+
+  }, [isAdding]);
+
   return (
-    <div className='w-screen h-screen fixed left-0 top-0 flex justify-center items-center p-4 z-20 bg-[#00000022] dark:bg-[#00000044]'>
+    <div ref={addContaction} className='w-screen h-screen fixed hidden left-0 top-0 justify-center items-center p-4 z-20 bg-[#00000022] dark:bg-[#000a]'>
         <form onSubmit={handleSubmit} className='w-full max-w-[500px] h-auto border-[1px] flex flex-col gap-4 p-8 rounded-md border-l-primary-border dark:border-d-primary-border bg-l-primary-bg-color dark:bg-d-primary-bg-color shadow-lg '>
             <div className='flex justify-between border-b-[1px] border-l-primary-border dark:border-d-primary-border pb-4'>
                 <h1 className='text-xl font-medium text-l-primary-txt-color dark:text-d-primary-txt-color'>Add Connection</h1>

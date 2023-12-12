@@ -6,7 +6,7 @@ import React from 'react';
 function ConnectionsList({ children }) {
 
   return (
-    <section className='flex-grow overflow-scroll hide-scrollbar mx-4 mt-4'>
+    <section className='flex-grow overflow-scroll mt-4 hide-scrollbar'>
       {children}
     </section>
   );

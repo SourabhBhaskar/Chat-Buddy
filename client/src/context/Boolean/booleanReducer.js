@@ -58,8 +58,17 @@ export function isConnectionProfileOpenReducer(state, action){
 export function isDarkModeOn(state, action){
     const updatedState = {
         ...state,
-        isDarkModeOn: !isDarkModeOn
+        isDarkModeOn: !action.payload
     }
 
     return updatedState;
+}
+
+
+// Picture Uploading
+export function isPictureUploadingReducer(state, action){
+    return {
+        ...state,
+        isPictureUploading: action.payload
+    }
 }

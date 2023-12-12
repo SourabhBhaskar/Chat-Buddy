@@ -1,40 +1,29 @@
-// Imports
+import React from "react";
 import { Icon } from "@iconify/react";
+import { icons } from "../../../../utils/icons.util";
 
-
-// Only Heading
-export function Heading({ text }){
-
+function Heading({ headingText, headingType, btnIcon, handleBtnClick }){
   return (
-    <section className={`py-6 text-[1.2rem] font-medium flex-shrink-0 flex items-center gap-2 px-4 text-l-primary-txt-color dark:text-d-primary-txt-color`}>
-      <h1>{text}</h1>
+    <section className='w-full h-[80px] flex-shrink-0 font-medium text-[1.2rem] text-l-primary-txt-color dark:text-d-primary-txt-color'>
+      { headingType === 'simple-heading' && <h1 className="w-full h-full flex justify-start items-center">{headingText}</h1> }
+      { headingType === 'heading-with-front-btn' && 
+      <div className="w-full h-full flex justify-start items-center gap-2">
+        <button onClick={handleBtnClick} >
+          <Icon icon={icons[btnIcon]} className='text-l-secondary-txt-color hover:text-l-primary-txt-color dark:text-d-secondary-txt-color dark:hover:text-d-primary-txt-color' />
+        </button>
+        <h1>{headingText}</h1>
+      </div>}
+      { headingType === 'heading-with-right-btn' &&
+        <div className="w-full h-full flex justify-between items-center">
+          <h1>{headingText}</h1>
+          <button onClick={handleBtnClick}  >
+            <Icon icon={icons[btnIcon]} className='text-l-secondary-txt-color hover:text-l-primary-txt-color dark:text-d-secondary-txt-color dark:hover:text-d-primary-txt-color' />
+          </button>
+        </div>}
     </section>
   )
 }
 
-
-// Button with Heading
-export function BtnHeading({ text, exit }){
-  const handleBackClick = () =>  exit();
-
-  return (
-    <section className={`h-[70px] text-[1.2rem] font-medium flex-shrink-0 flex items-center gap-2 px-4 text-l-primary-txt-color dark:text-d-primary-txt-color`}>
-      <button onClick={handleBackClick} ><Icon icon="ic:sharp-arrow-back" className='text-l-secondary-txt-color hover:text-l-primary-txt-color dark:text-d-secondary-txt-color dark:hover:text-d-primary-txt-color' /></button>
-      <h1>{text}</h1>
-    </section>
-  )
-}
+export default React.memo(Heading);
 
 
-// Heading With Button but with space between
-export function Heading_Btn({text, icon, handleClick }){
-
-  return (
-    <section className={`h-[70px] text-[1.2rem] font-medium flex-shrink-0 flex justify-between items-center gap-2 px-4 text-l-primary-txt-color dark:text-d-primary-txt-color`}>
-      <h1>{text}</h1>
-      <button onClick={handleClick} className="" >
-        <Icon icon={icon} className='text-l-secondary-txt-color hover:text-l-primary-txt-color dark:text-d-secondary-txt-color dark:hover:text-d-primary-txt-color' />
-      </button>
-    </section>
-  )
-}

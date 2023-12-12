@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema({
     favorites: [{ type: String }],
     recents: [{ type: String }],
   },
+  connections_data: [{ type: Object }]
 }, { minimize: false });
 
 

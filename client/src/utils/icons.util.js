@@ -26,5 +26,6 @@ export const icons = {
   logout: "ri-logout-circle-r-line",
   expend: "iconamoon:arrow-up-2",
   cancel: "gridicons:cross",
-  addContact: "ri:user-add-line"
+  addContact: "ri:user-add-line",
+  block: "ri:forbid-line"
 }

@@ -23,7 +23,7 @@ function Search({ placeholder, setItemToSearch }) {
 
 
   return (
-    <div className={`h-[44px] my-2 mx-4 flex-shrink-0 rounded-md overflow-hidden flex items-center gap-4 relative bg-l-primary-hoverBg-color dark:bg-d-primary-hoverBg-color`}>
+    <div className={`h-[44px] flex-shrink-0 rounded-md overflow-hidden flex items-center gap-4 relative bg-l-primary-hoverBg-color dark:bg-d-primary-hoverBg-color`}>
       <Icon icon='ri:search-line' className={`w-12 h-full p-3 absolute ${inpVal ? 'text-l-primary-txt-color dark:text-d-primary-txt-color' : ' text-l-secondary-txt-color dark:text-d-secondary-txt-color'}`} />
       <input
         onChange={handleChange}

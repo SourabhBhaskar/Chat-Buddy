@@ -1,10 +1,9 @@
 // Imports
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Heading_Btn } from "../Common/Headings";
+import Heading from "../Common/Headings";
 import Search from "../Common/Search";
 import ConnectionsList from "./ConnectionsList";
-import { icons } from "../../../../utils/icons.util";
 import GroupedConnections from "./GroupedConnections";
 import Connection from "./Connection";
 import Menu from "./Menu";
@@ -54,10 +53,11 @@ function Connections() {
     <>
       <Loader />
       <div className="w-full h-full flex flex-col overflow-hidden">
-        <Heading_Btn
-          text="Contacts"
-          icon={icons.addContact}
-          handleClick={handleAddConnection}
+        <Heading
+          headingText="Contacts"
+          headingType="heading-with-right-btn"
+          btnIcon="addContact"
+          handleBtnClick={handleAddConnection}
         />
         <Search
           placeholder={"Search for a contact"}
@@ -81,9 +81,7 @@ function Connections() {
             <Empty message="Connection not found" />
           )}
         </ConnectionsList>
-        {isAddingConnection && (
-          <AddConnection exit={() => setIsAddingConnection(false)} />
-        )}
+        <AddConnection isAdding={isAddingConnection} exit={() => setIsAddingConnection(false)} />
       </div>
     </>
   );

@@ -61,11 +61,11 @@ export function addNewConnectionReducer(state, action){
 
 // Set Current Connection
 export function currentConnectionReducer(state, action){
-    const newConnection = action.payload;
-    const allConnections = state.all;
-    allConnections[newConnection.email].isSeen = true;
-    allConnections[newConnection.email].unSeenMsgCnt = 0;
-    state.currentConnection = allConnections[newConnection.email];
+    const connectionEmail = action.payload.email;
+    const connection = state.all[connectionEmail];
+    connection.isSeen = true;
+    connection.unSeenMsgCnt = 0;
+    state.currentConnection = { ...state.currentConnection, ...connection  };
 }
 
 
@@ -159,3 +159,36 @@ export function messagesStatusReducer(state, action){
 }
 
 
+// Update Connection
+export function updateConnectionReducer(state, action){
+    const { name, value } = action.payload || {};
+    const connection = state.currentConnection;
+
+    switch(name){
+        case "Notifications":
+            connection.notifications = !value;
+            state.all[connection.email].notifications = !value;
+            break;
+        case "Block":
+            connection.block = !value;
+            state.all[connection.email].block = !value;
+    }
+    // switch(name){
+    //     case 'Username':
+    //         return { ...state, username: value };
+    //     case 'Mobile Number':
+    //         return { ...state, mobile_number: value };
+    //     case 'Email':
+    //         return { ...state, email: value };
+    //     case 'Password':
+    //         return { ...state, password: value };
+    //     case 'Status':
+    //         return { ...state, status: value };
+    //     case 'Location':
+    //         return { ...state, location: value };
+    //     case 'Profile Picture':
+    //         return { ...state, profile_picture: value };
+    //     default: 
+    //         return { ...state };
+    // }
+}

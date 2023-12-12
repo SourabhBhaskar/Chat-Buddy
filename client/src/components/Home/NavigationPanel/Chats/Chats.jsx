@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Heading } from '../Common/Headings';
+import Heading from '../Common/Headings';
 import Search from '../Common/Search';
 import FavoriteChats from './FavoriteChats';
 import RecentChats from './RecentChats';

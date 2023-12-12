@@ -10,8 +10,9 @@ export const formSubmitter = async (value) => {
     loaderCallback = null 
   } = (value && typeof value === "object") ? value : {};
 
-  if (loaderCallback) 
+  if (loaderCallback){
     loaderCallback(true);
+  }
 
   const options = {
     method,

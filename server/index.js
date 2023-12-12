@@ -22,8 +22,10 @@ const { sessionSetup } = require("./middlewares/sessionSetup.middleware");
 const { routeIsNotFound } = require("./middlewares/routeIsNotFound.middleware");
 const { appMiddlewareError } = require("./middlewares/appMiddlewareError.middleware");
 const { userAuthRouter } = require("./routes/userAuth.router");
-const { userConnectionRouter } = require("./routes/userConnection.router");
 const { userUpdateRouter } = require("./routes/userUpdate.router");
+const { userConnectionRouter } = require("./routes/userConnection.router");
+const { userConnectionUpdateRouter } = require("./routes/userConnectionUpdate.router");
+
 
 
 // Custom configuration
@@ -47,13 +49,14 @@ app.use(cookieParser());
 app.use(sessionSetup);
 app.use(passport.initialize());
 app.use(passport.session());
-// app.use(appMiddlewareError);
+app.use(appMiddlewareError);
 
 
 // Routes
 app.use('/user/auth', userAuthRouter);
-app.use('/user/connections/', userConnectionRouter);
 app.use('/user/update', userUpdateRouter);
+app.use('/user/connections/', userConnectionRouter);
+app.use('/user/connections/update', userConnectionUpdateRouter);
 app.use(routeIsNotFound);
 
 

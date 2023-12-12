@@ -2,35 +2,61 @@
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateUser } from "../../../../../../context/User/userExtraReducers";
+import { base64StringToFile } from "../../../../../../utils/base64StringToFile.util";
 import ViewPicture from "./ViewPicture";
 import UploadedPictureButton from "./UploadedPictureButton";
 import TakePicture from "./TakePicture";
 import defaultPic from "../../../../../../assets/profile.jpg";
-import { base64StringToFile } from "../../../../../../utils/base64StringToFile.util";
+import EditOption from "./EditOption";
+import { icons } from "../../../../../../utils/icons.util";
 
 
 // Edit Picture
-function EditPicture() {
+function EditPicture({ handleSubmit }) {
   const dispatch = useDispatch();
-  const EditOption = [
-    "View photo",
-    "Take photo",
-    "Upload photo",
-    "Remove photo",
-  ];
   const { profile_picture } = useSelector((state) => state.UserSlice);
-  const [pictureBase64, setPictureBase64] = useState(profile_picture);
+  const [pictureBase64, setPictureBase64] = useState("");
   const [pictureFile, setPictureFile] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [view1, setView1] = useState(false);
-  const [view2, setView2] = useState(false);
-  const [take, setTake] = useState(false);
+  const [isViewing, setIsViewing] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [isTaking, setIsTaking] = useState(false);
 
-  // Handle Editing
-  const handleIsEditing = (e) => {
-    e.stopPropagation();
-    setIsEditing(!isEditing);
+  // Handle Exit
+  const handleExit = () => {
+    setIsViewing(false);
+    setIsTaking(false);
+    setIsUploading(false);
+    setPictureFile("");
+    setPictureBase64("");
+  }
+
+  // Handle Update Picture
+  const handleUpdatePicture = ({ picture, pictureType=""}) => {
+    const pictureFile = pictureType === "file" ? picture : base64StringToFile(picture, 'profile-picture');
+    handleSubmit({ name: "Profile Picture", value: pictureFile });
+    handleExit();
+  }
+
+  // Handle Editing Choice
+  const handleEditOption = (option) => {
+    setIsEditing(false);
+    switch (option) {
+      case "View photo":
+        setIsViewing(true);
+        break;
+      case "Take photo":
+        setIsTaking(true);
+        break;
+      case "Upload photo":
+        setIsUploading(true);
+        const imgInp = document.getElementById("imgInput");
+        imgInp.click();
+        break;
+      case "Remove photo":
+        handleUpdatePicture({ picture: defaultPic });
+        break;
+    }
   };
 
   // Handle Picture Change
@@ -41,37 +67,11 @@ function EditPicture() {
       const reader = new FileReader();
       reader.onload = (e) => {
         const base64Image = e.target.result;
-        setPictureBase64(base64Image);
         setPictureFile(file);
-        setView2(true);
+        setPictureBase64(base64Image);
+        setIsViewing(true);
       };
       reader.readAsDataURL(file);
-    }
-  };
-
-  // Handle save base64 picture
-  const handleSaveBase64Picture = (picture) => {
-    const pictureFile = base64StringToFile(picture, 'profile-picture');
-    dispatch(updateUser({ name: "Profile Picture", value: pictureFile }));
-  }
-
-  // Handle Editing Choice
-  const handleEditedingChoice = (option) => {
-    setIsEditing(false);
-    switch (option) {
-      case "View photo":
-        setView1(true);
-        break;
-      case "Take photo":
-        setTake(true);
-        break;
-      case "Upload photo":
-        const imgInp = document.getElementById("imgInput");
-        imgInp.click();
-        break;
-      case "Remove photo":
-        handleSaveBase64Picture(defaultPic);
-        break;
     }
   };
 
@@ -84,57 +84,37 @@ function EditPicture() {
         accept="image/*"
         style={{ display: "none" }}
       />
-      <div className="absolute right-0 bottom-0 rounded-full transition-all z-20 flex justify-center items-center bg-l-primary-bg-color hover:bg-l-primary-hoverBg-color dark:bg-d-primary-bg-color dark:hover:text-l-primary-txt-color text-l-primary-txt-color dark:text-d-primary-txt-color">
+      <div className="absolute right-0 bottom-0 rounded-full transition-all z-20 flex justify-center items-center bg-l-primary-bg-color dark:bg-d-primary-bg-color hover:bg-opacity-80 ">
         <button
-          onClick={handleIsEditing}
-          className="text-[15px] p-2 transition-all duration-300 rounded-full">
-          <Icon icon="clarity:edit-solid" />
+          onClick={() => setIsEditing(!isEditing)}
+          className="text-[15px] p-2 transition-all duration-300 rounded-full text-l-primary-txt-color dark:text-d-primary-txt-color">
+          <Icon icon={ !isEditing ? icons.editPicture : icons.cancel} />
         </button>
-        {isEditing && (
-          <div className="w-auto absolute left-[-90px] top-[50px] rounded-md overflow-scroll shadow-lg border-[1px] p-4 hide-scrollbar dark:bg-d-primary-bg-color bg-l-primary-bg-color border-l-primary-border dark:border-d-primary-border ">
-            {EditOption.map((value) => (
-              <p
-                onClick={() => handleEditedingChoice(value)}
-                className="w-full h-auto truncate p-2 text-center rounded-md transition-all cursor-pointer overflow-hidden hover:bg-l-primary-hoverBg-color text-l-secondary-txt-color hover:text-l-primary-txt-color dark:hover:bg-d-primary-hoverBg-color dark:text-d-secondary-txt-color dark:hover:text-d-primary-txt-color"
-                key={value}>
-                {value}
-              </p>
-            ))}
-          </div>
-        )}
+        <EditOption isEditing={isEditing} setEditOption={handleEditOption} />
       </div>
 
-      {view1 && (
-        <ViewPicture
-          picture={pictureBase64 || defaultPic}
-          exit={() => setView1(false)}
-        />
-      )}
+      <ViewPicture
+        isViewing={isViewing}
+        exit={handleExit}
+        picture={pictureBase64 || profile_picture || defaultPic}
+      >
+        { isUploading && <UploadedPictureButton
+          save={() => handleUpdatePicture({ picture: pictureFile, pictureType: "file"})}
+          exit={handleExit}
+        />}
+      </ViewPicture>
 
-      {view2 && (
-        <ViewPicture
-          picture={pictureBase64 || defaultPic}
-          exit={() => setView2(false)}>
-          <UploadedPictureButton
-            save={() =>
-              dispatch(
-                updateUser({ name: "Profile Picture", value: pictureFile })
-              )
-            }
-            exit={() => setView2(false)}
-          />
-        </ViewPicture>
-      )}
 
-      {take && (
+      {isTaking && (
         <TakePicture
-          savePicture={(picture) => handleSaveBase64Picture(picture) }
-          exit={() => setTake(false)}
+          savePicture={(picture) => handleUpdatePicture({ picture })}
+          exit={handleExit}
         />
       )}
     </>
   );
 }
 
+
 // Export
-export default EditPicture;
+export default React.memo(EditPicture);

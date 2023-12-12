@@ -3,7 +3,6 @@ import {
     initialUserSetupReducer,
     updateUserReducer
  } from './userReducers';
- import { updateUser } from './userExtraReducers';
 
 
 // Initial State
@@ -25,9 +24,6 @@ const UserSlice = createSlice({
     reducers: {
         setInitialUserSetup: initialUserSetupReducer,
         setUpdateUser: updateUserReducer
-    },
-    extraReducers: (builder) => {
-        builder.addCase(updateUser.fulfilled, updateUserReducer);
     }
 })
 
