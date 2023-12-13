@@ -36,9 +36,8 @@ const FavoriteChat = React.memo(({ value }) => {
 
 // Favorite Chat List
 function FavoriteChats({ List, children }) {
-
   return (
-    <div className='px-4'>
+    <div className=''>
       <h1 className='py-4 font-semibold text-l-primary-hoverTxt-color dark:text-d-primary-txt-color'>Favorite Chats</h1>
       <div className='w-full h-[90px] flex gap-4 overflow-x-scroll hide-scrollbar'>
         { List.length 

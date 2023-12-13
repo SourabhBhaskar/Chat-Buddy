@@ -1,0 +1,1 @@
+export const emailSanitizer = (email) => email.replace(/[@.]/g, '_');

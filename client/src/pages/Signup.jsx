@@ -5,10 +5,9 @@ import { formSubmitter } from "../utils/formSubmitter.util";
 import { setIsLoading } from "../context/Boolean/booleanSlice";
 import { useInitialHomeSetup } from "../Hooks/initialHomeSetup.hook";
 import Loader from "../components/Common/Loader";
-import Main from "../components/Auth/Main";
 import Header from "../components/Auth/Header";
-import FormContainer from "../components/Common/FormContainer";
-import LabeledInput from "../components/Common/LabeledInput";
+import FormContainer from "../components/Auth/FormContainer";
+import LabeledInput from "../components/Auth/LabeledInput";
 import Submit from "../components/Auth/Submit";
 import RememberMe from "../components/Auth/RememberMe";
 import Footer from "../components/Auth/Footer";
@@ -73,10 +72,8 @@ function Signup() {
   }
 
   return (
-    <>
-      <Loader />
-      <Main>
-        <Header page="Signup" description="Welcom to Chat-Buddy" />
+    <main className="w-full h-full min-w-screen min-h-screen flex flex-col justify-center items-center bg-l-secondary-bg-color  dark:bg-d-secondary-bg-color">
+        <Header page="Signup" description="Welcome to Chat-Buddy" />
         <FormContainer handleSubmit={handleSubmit}>
           <LabeledInput
             label="Username"
@@ -109,11 +106,10 @@ function Signup() {
             setError={setPasswordErr}
           />
           <RememberMe />
-          <Submit value="Login" />
+          <Submit value="Submit" />
         </FormContainer>
         <Footer goto="Login" description="Already a user ?" handleNavigate={handleNavigate} />
-      </Main>
-    </>
+    </main>
   );
 }
 

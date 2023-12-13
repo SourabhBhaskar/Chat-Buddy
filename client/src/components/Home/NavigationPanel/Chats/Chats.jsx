@@ -31,7 +31,6 @@ function Chats() {
   const [itemToSearch, setItemToSearch] = useState('');
   
   useEffect(()=>{
-    console.log("Searching...");
     const foundInFavorites = favoriteListToDisplay.filter(chat => chat.username.toLowerCase() === itemToSearch);
     const foundInRecents = recentListToDisplay.filter(chat => chat.username.toLowerCase() === itemToSearch)
     if(itemToSearch){
@@ -49,8 +48,8 @@ function Chats() {
   }, [all])
 
   return (
-    <>
-      <Heading text={'Chats'} />
+    <div className="w-full h-full flex flex-col overflow-hidden">
+      <Heading headingText={"Chats"} headingType="simple-heading" />
       <Search placeholder="Search for a chat" setItemToSearch={setItemToSearch} />
       <FavoriteChats List={favoriteListToDisplay}>
         <NotFound />
@@ -58,7 +57,7 @@ function Chats() {
       <RecentChats List={recentListToDisplay}>
         <NotFound />
       </RecentChats>
-    </>
+    </div>
   )
 }
 

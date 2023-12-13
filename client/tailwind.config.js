@@ -41,7 +41,7 @@ module.exports = {
       
         // Light Color
         'l-primary-bg-color' : '#ffffff',
-        'l-secondary-bg-color': '#f5f7fb',
+        'l-secondary-bg-color': '#f0f2f5',
 
         'l-primary-hoverBg-color': '#e6ebf5',
         'l-secondary-hoverBg-color': '',

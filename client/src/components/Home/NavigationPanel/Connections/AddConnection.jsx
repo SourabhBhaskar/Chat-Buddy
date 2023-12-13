@@ -76,39 +76,44 @@ function AddConnection({ isAdding, exit }) {
   }, [isAdding]);
 
   return (
-    <div ref={addContaction} className='w-screen h-screen fixed hidden left-0 top-0 justify-center items-center p-4 z-20 bg-[#00000022] dark:bg-[#000a]'>
-        <form onSubmit={handleSubmit} className='w-full max-w-[500px] h-auto border-[1px] flex flex-col gap-4 p-8 rounded-md border-l-primary-border dark:border-d-primary-border bg-l-primary-bg-color dark:bg-d-primary-bg-color shadow-lg '>
-            <div className='flex justify-between border-b-[1px] border-l-primary-border dark:border-d-primary-border pb-4'>
-                <h1 className='text-xl font-medium text-l-primary-txt-color dark:text-d-primary-txt-color'>Add Connection</h1>
-                <button onClick={exit} className='text-l-secondary-txt-color dark:text-d-secondary-txt-color hover:text-l-primary-txt-color dark:hover:text-d-primary-txt-color'>
-                    <Icon icon={icons.cancel} />
+    <div ref={addContaction} className={`w-screen h-screen fixed left-0 top-0 z-50 justify-center items-center hidden bg-[#0002] dark:bg-[#fff2]`}>
+        <div className='w-full max-w-[500px] p-6 mx-auto font-medium text-md sm:text-sm text-l-primary-txt-color dark:text-d-primary-txt-color'>
+            <form id='authForm' onSubmit={handleSubmit} className='w-full flex flex-col gap-4 p-6 rounded-md shadow-xl border-[1px] border-l-primary-bg-color dark:border-d-primary-border bg-l-primary-bg-color dark:bg-d-primary-bg-color'>
+                <div className='flex justify-between border-b-[1px] border-l-primary-border dark:border-d-primary-border pb-4'>
+                    <h1 className='text-xl font-medium text-l-primary-txt-color dark:text-d-primary-txt-color'>Add Connection</h1>
+                    <button onClick={exit} className='text-l-secondary-txt-color dark:text-d-secondary-txt-color hover:text-l-primary-txt-color dark:hover:text-d-primary-txt-color'>
+                        <Icon icon={icons.cancel} />
+                    </button>
+                </div>
+                <div>
+                    <Label htmlFor="email" value="Email" />
+                    <IconInput
+                        id="email"
+                        type="email"
+                        name="email"
+                        value={email}
+                        icon={icons.email}
+                        placeholder="Enter connection's email"
+                        onChange={handleEmailChange}
+                        onFocus={handleEmailFocus}
+                    />
+                    { isAdding && emailErr && <p className='text-red-600 text-sm absolute'>{emailErr}</p> }
+
+                </div>
+                <div className='h-[100px] flex flex-col'>
+                    <Label htmlFor="message" value="Message for connection" />
+                    <TextArea onChange={handleMessageChange} />
+                </div>
+                <button className='w-full'>
+                    <input className="w-full h-[40px] bg-[#7269ef] font-bold rounded-sm hover:bg-[#7269efcc] flex-shrink-0 text-white" type="submit" value="Add" />
                 </button>
-            </div>
-            <div>
-                <Label htmlFor="email" value="Email" />
-                <IconInput
-                    id="email"
-                    type="email"
-                    name="email"
-                    value={email}
-                    icon={icons.email}
-                    placeholder="Enter connection's email"
-                    onChange={handleEmailChange}
-                    onFocus={handleEmailFocus}
-                />
-                { emailErr && <p className='text-red-600 text-sm'>{emailErr}</p> }
-            </div>
-            <div className='h-[100px] flex flex-col'>
-                <Label htmlFor="message" value="Message for connection" />
-                <TextArea onChange={handleMessageChange} />
-            </div>
-            <button className='w-full'>
-                <input className="w-full h-[40px] bg-[#7269ef] font-bold rounded-sm hover:bg-[#7269efcc] flex-shrink-0 text-white" type="submit" value="Add" />
-            </button>
-        </form>
-    </div>)
+            </form>
+        </div>
+    </div>
+    )
 }
 
 
 // Export
 export default AddConnection;
+

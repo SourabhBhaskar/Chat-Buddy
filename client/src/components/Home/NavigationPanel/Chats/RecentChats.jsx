@@ -46,7 +46,7 @@ const RecentChat = React.memo(({ value }) => {
 function RecentChats({ List, children }){
 
   return (
-    <section className='w-full h-full px-4 flex flex-col overflow-hidden'> 
+    <section className='w-full h-full flex flex-col overflow-hidden'> 
       <h1 className={`py-2 font-semibold flex-shrink-0 text-l-primary-txt-color dark:text-d-primary-txt-color`}>Recent Chats</h1>
       <div className='flex-grow overflow-y-scroll hide-scrollbar'>
         { List.length 

@@ -34,7 +34,7 @@ const findUrl = (urlName) => {
 
 
 // Sender Profile
-function UserProfile() {
+function ConnectionProfile() {
   const dispatch = useDispatch();
   const {
     username,
@@ -44,7 +44,6 @@ function UserProfile() {
     location,
     profile_picture,
     last_seen,
-
     notifications,
     block
   } = useSelector((state) => state.ConnectionsSlice).currentConnection;
@@ -54,7 +53,7 @@ function UserProfile() {
       url: findUrl(name),
       method: "PUT",
       credentials: true,
-      data: { connection: email, data: { name, value }},
+      data: { connectionId: email, data: { name, value }},
       headers: { "Content-Type": "application/json" }
     };
 
@@ -134,4 +133,4 @@ function UserProfile() {
 }
 
 // Export
-export default UserProfile;
+export default ConnectionProfile;

@@ -6,9 +6,8 @@ import { formSubmitter } from "../utils/formSubmitter.util";
 import { useInitialHomeSetup } from "../Hooks/initialHomeSetup.hook";
 import Loader from "../components/Common/Loader";
 import Header from "../components/Auth/Header";
-import Main from "../components/Auth/Main";
-import FormContainer from "../components/Common/FormContainer";
-import LabeledInput from "../components/Common/LabeledInput";
+import FormContainer from "../components/Auth/FormContainer";
+import LabeledInput from "../components/Auth/LabeledInput";
 import RememberMe from "../components/Auth/RememberMe";
 import Submit from "../components/Auth/Submit";
 import Footer from "../components/Auth/Footer";
@@ -69,41 +68,38 @@ function Login() {
   }
 
   return (
-    <>
-      <Loader />
-      <Main>
-        <Header page="Login" description="Welcom back to Chat-Buddy" />
-        <FormContainer handleSubmit={handleSubmit}>
-          <LabeledInput
-            label="Email"
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            value={email}
-            handleValueChange={handleEmailchange}
-            error={emailErr}
-            setError={setEmailErr}
-          />
-          <LabeledInput
-            label="Password"
-            type="password"
-            name="password"
-            placeholder="Enter your password"
-            value={password}
-            handleValueChange={handlePasswordChange}
-            error={passwordErr}
-            setError={setPasswordErr}
-          />
-          <RememberMe credential={credential} setCredential={setCredential}/>
-          <Submit value="Login" />
-        </FormContainer>
-        <Footer
-          goto="Signup"
-          description="New to Chat-Buddy?"
-          handleNavigate={handleNavigate}
+    <main className="w-full h-full min-w-screen min-h-screen flex flex-col justify-center items-center bg-l-secondary-bg-color dark:bg-d-secondary-bg-color">
+      <Header page="Login" description="Welcom back to Chat-Buddy" />
+      <FormContainer handleSubmit={handleSubmit}>
+        <LabeledInput
+          label="Email"
+          type="email"
+          name="email"
+          placeholder="Enter your email"
+          value={email}
+          handleValueChange={handleEmailchange}
+          error={emailErr}
+          setError={setEmailErr}
         />
-      </Main>
-    </>
+        <LabeledInput
+          label="Password"
+          type="password"
+          name="password"
+          placeholder="Enter your password"
+          value={password}
+          handleValueChange={handlePasswordChange}
+          error={passwordErr}
+          setError={setPasswordErr}
+        />
+        <RememberMe credential={credential} setCredential={setCredential}/>
+        <Submit value="Login" />
+      </FormContainer>
+      <Footer
+        goto="Signup"
+        description="New to Chat-Buddy?"
+        handleNavigate={handleNavigate}
+      />
+    </main>
   );
 }
 

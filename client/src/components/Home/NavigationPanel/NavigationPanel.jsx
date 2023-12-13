@@ -10,7 +10,7 @@ import Connections from './Connections/Connections';
 function NavigationPanel() {
 const { navWindow } = useSelector(state => state.StringSlice);
   return (
-    <div className='w-full h-full px-4 bg-l-secondary-bg-color dark:bg-d-secondary-bg-color'>
+    <div className='w-full h-full px-4 bg-l-secondary-bg-color dark:bg-d-secondary-bg-color shadow-md border-x-[1px] border-l-primary-border dark:border-d-primary-border'>
       { navWindow === 'user-profile' && <UserProfile /> }
       { navWindow === 'chats' && <Chats />}
       { navWindow === 'connections' && <Connections /> }

@@ -5,36 +5,41 @@ import { dummyContactsData } from "../DummyData";
 // Initial Setup
 export function initialConnectionsSetupReducer(state, action){
     const { all, favorites, recents } = action.payload.connections;
-    
+
     // Updated all, favorites, recents
-    const updated_all = all.concat(dummyContactsData.all);
+    const updated_all = { ...all, ...dummyContactsData.all };
     const updated_favorites = favorites.concat(dummyContactsData.favorites);
     const updated_recents = recents.concat(dummyContactsData.recents);
 
-    // All
-    const custom_all = {};
-    updated_all.forEach(connection => custom_all[connection.email] = connection);
-    updated_all.sort((a, b) => a.username.toLowerCase().localeCompare(b.username.toLowerCase()));
-
     // Sorted All
-    const sorted_all = {};
-    updated_all.forEach((connection) => {
-        const key = connection.username.slice(0, 1).toUpperCase();
-        (sorted_all[key])
-        ? sorted_all[key].push(connection.email)
-        : sorted_all[key] = [connection.email];
-    })
+    const groupedAll = {};
+    for(let i in updated_all){
+        const email = updated_all[i].email;
+        const key = updated_all[i].username.slice(0, 1).toUpperCase();
+        (groupedAll[key])
+        ? groupedAll[key].push(email)
+        : groupedAll[key] = [email];
+    }
 
     // Updated state
     const updatedState = {
         ...state,
-        all: custom_all,
+        all: updated_all,
         favorites: updated_favorites,
         recents: updated_recents,
-        sortedAll: sorted_all,
+        groupedAll: groupedAll,
     }
     
     return updatedState;
+}
+
+// Set Current Connection
+export function currentConnectionReducer(state, action){
+    const connectionId = action.payload.email;
+    const connection = state.all[connectionId];
+    connection.isSeen = true;
+    connection.unSeenMsgCnt = 0;
+    state.currentConnection = { ...state.currentConnection, ...connection  };
 }
 
 
@@ -46,27 +51,18 @@ export function addNewConnectionReducer(state, action){
     state.all[newConnection.email] = newConnection;
 
     // Sorted All
-    const updated_sortedAll = {};
+    const updated_groupedAll = {};
     Object.values({ ...state.all })
         .sort((a, b) => a.username.toLowerCase().localeCompare(b.username.toLowerCase()))
         .forEach((connection) => {
             const key = connection.username.slice(0, 1).toUpperCase();
-            (updated_sortedAll[key])
-            ? updated_sortedAll[key].push(connection.email)
-            : updated_sortedAll[key] = [connection.email];
+            (updated_groupedAll[key])
+            ? updated_groupedAll[key].push(connection.email)
+            : updated_groupedAll[key] = [connection.email];
         })
-    state.sortedAll = updated_sortedAll;
+    state.groupedAll = updated_groupedAll;
 }
 
-
-// Set Current Connection
-export function currentConnectionReducer(state, action){
-    const connectionEmail = action.payload.email;
-    const connection = state.all[connectionEmail];
-    connection.isSeen = true;
-    connection.unSeenMsgCnt = 0;
-    state.currentConnection = { ...state.currentConnection, ...connection  };
-}
 
 
 // Send Message
@@ -90,7 +86,9 @@ export function sendMessageReducer(state, action){
         const recentIndexValue = recentConnections[recentIndex];
         recentConnections.splice(recentIndex, 1);
         recentConnections.splice(0, 0, recentIndexValue);
-    }      
+    }else if(allConnections[message.to]){
+        state.recents = [message.to, ...state.recents ];
+    }
 }
 
 
@@ -173,22 +171,4 @@ export function updateConnectionReducer(state, action){
             connection.block = !value;
             state.all[connection.email].block = !value;
     }
-    // switch(name){
-    //     case 'Username':
-    //         return { ...state, username: value };
-    //     case 'Mobile Number':
-    //         return { ...state, mobile_number: value };
-    //     case 'Email':
-    //         return { ...state, email: value };
-    //     case 'Password':
-    //         return { ...state, password: value };
-    //     case 'Status':
-    //         return { ...state, status: value };
-    //     case 'Location':
-    //         return { ...state, location: value };
-    //     case 'Profile Picture':
-    //         return { ...state, profile_picture: value };
-    //     default: 
-    //         return { ...state };
-    // }
 }

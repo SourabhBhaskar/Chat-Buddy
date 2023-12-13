@@ -2,8 +2,9 @@
 
 
 export const dummyContactsData = {
-    all: [
-        {
+    all: {
+        "captanAmerica@example.com":{
+            _id: "1a",
             username: 'Captain America',
             mobile_number: '3001',
             email: 'captanAmerica@example.com',
@@ -22,7 +23,8 @@ export const dummyContactsData = {
                 { id:'6', status: 'read', from: "user", time: "12:00 AM", message: "Not really, just the usual stuff." },
             ]
         },
-        {
+        "ironMan@example.com":{
+            _id: "2a",
             username: 'Iron Man',
             mobile_number: '3002',
             email: 'ironMan@example.com',
@@ -41,7 +43,8 @@ export const dummyContactsData = {
                 { id:'6', status: 'read', from: "user", time: "1:25 PM", message: "Well, you are Iron Man after all!" },
             ]
         },
-        {
+        "thor@example.com":{
+            _id: "3a",
             username: 'Thor',
             mobile_number: '3003',
             email: 'thor@example.com',
@@ -59,7 +62,8 @@ export const dummyContactsData = {
                 { id:'5', status: 'read', from: "connection", time: "3:20 PM", message: "Thanks, Thor! You're our hero!" },
             ]
         },
-        {
+        "thor2@example.com":{
+            _id: "4a",
             username: 'Thor',
             mobile_number: '3003',
             email: 'thor2@example.com',
@@ -77,7 +81,8 @@ export const dummyContactsData = {
                 { id:'5', status: 'read', from: "connection", time: "3:20 PM", message: "Thanks, Thor! You're our hero!" },
             ]
         },
-        {
+        "hulk@example.com":{
+            _id: "5a",
             username: 'Hulk',
             mobile_number: '3004',
             email: 'hulk@example.com',
@@ -94,7 +99,8 @@ export const dummyContactsData = {
                 { id:'4', status: 'read', from: "user", time: "2:15 PM", message: "Hulk will smash them! I'm on my way!" },
             ]
         },
-        {
+        "blackWidow@example.com":{
+            _id: "6a",
             username: 'Black Widow',
             mobile_number: '3005',
             email: 'blackWidow@example.com',
@@ -111,7 +117,8 @@ export const dummyContactsData = {
                 { id:'4', status: 'read', from: "user", time: "4:15 PM", message: "I always am." },
             ]
         },
-        {
+        "hawkeye@example.com":{
+            _id: "7a",
             username: 'Hawkeye',
             mobile_number: '3006',
             email: 'hawkeye@example.com',
@@ -128,7 +135,8 @@ export const dummyContactsData = {
                 { id:'4', status: 'read', from: "user", time: "5:15 PM", message: "I'll handle it. I've got a quiver full of arrows ready." },
             ]
         },
-        {
+        "drStrange@example.com":{
+            _id: "8a",
             username: 'Doctor Strange',
             mobile_number: '3007',
             email: 'drStrange@example.com',
@@ -145,7 +153,8 @@ export const dummyContactsData = {
                 { id:'4', status: 'read', from: "user", time: "6:15 PM", message: "I'm prepared. I'll keep you updated." },
             ]
         },
-        {
+        "blackPanther@example.com":{
+            _id: "9a",
             username: 'Black Panther',
             mobile_number: '3008',
             email: 'blackPanther@example.com',
@@ -162,7 +171,8 @@ export const dummyContactsData = {
                 { id:'4', status: 'read', from: "user", time: "7:15 PM", message: "I'll handle it. Wakanda forever!" },
             ]
         },
-        {
+        "spiderMan@example.com":{
+            _id: "10a",
             username: 'Spider-Man',
             mobile_number: '3009',
             email: 'spiderMan@example.com',
@@ -179,7 +189,8 @@ export const dummyContactsData = {
                 { id:'4', status: 'read', from: "user", time: "8:15 PM", message: "I'll be there in a web-slinging minute!" },
             ]
         },
-        {
+        "loki@example.com":{
+            _id: "11a",
             username: 'Loki',
             mobile_number: '3010',
             email: 'loki@example.com',
@@ -196,31 +207,8 @@ export const dummyContactsData = {
                 { id:'4', status: 'read', from: "user", time: "9:15 PM", message: "Oh, you'll find out soon enough." },
             ]
         },
-    ],
-    favorites: [ 
-        'captanAmerica@example.com',
-        'ironMan@example.com',
-        'thor@example.com',
-        'hulk@example.com',
-        'blackWidow@example.com',
-        'hawkeye@example.com',
-        'drStrange@example.com',
-        'blackPanther@example.com',
-        'spiderMan@example.com',
-        'loki@example.com',
-        'thor2@example.com'
-    ],
-    recents: [  
-        'captanAmerica@example.com',
-        'ironMan@example.com',
-        'thor@example.com',
-        'hulk@example.com',
-        'blackWidow@example.com',
-        'hawkeye@example.com',
-        'drStrange@example.com',
-        'blackPanther@example.com',
-        'spiderMan@example.com',
-        'loki@example.com',
-        'thor2@example.com'
-     ]
+    },
+    favorites: ["captanAmerica@example.com", "ironMan@example.com", "thor@example.com", "thor2@example.com", "hulk@example.com", "blackWidow@example.com", "hawkeye@example.com", "drStrange@example.com", "blackPanther@example.com", "spiderMan@example.com", "loki@example.com"],
+    recents: ["captanAmerica@example.com", "ironMan@example.com", "thor@example.com", "thor2@example.com", "hulk@example.com", "blackWidow@example.com", "hawkeye@example.com", "drStrange@example.com", "blackPanther@example.com", "spiderMan@example.com", "loki@example.com"]
+
 }

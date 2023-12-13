@@ -1,6 +1,6 @@
 // Imports
-import React, { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Heading from "../Common/Headings";
 import Search from "../Common/Search";
 import ConnectionsList from "./ConnectionsList";
@@ -11,9 +11,10 @@ import Empty from "../Common/Empty";
 import AddConnection from "./AddConnection";
 import Loader from "../../../Common/Loader";
 
+
 // Connections
 function Connections() {
-  const { all, sortedAll } = useSelector((state) => state.ConnectionsSlice);
+  const { all, groupedAll } = useSelector((state) => state.ConnectionsSlice);
   const [listToDisplay, setListToDisplay] = useState([]);
   const [itemToSearch, setItemToSearch] = useState("");
   const [isAddingConnection, setIsAddingConnection] = useState(false);
@@ -23,7 +24,7 @@ function Connections() {
   useEffect(() => {
     if (itemToSearch) {
       const letter = itemToSearch.slice(0, 1).toUpperCase();
-      const values = sortedAll[letter];
+      const values = groupedAll[letter];
       const foundConnections = {};
       if (values) {
         values.forEach((key) => {
@@ -39,14 +40,14 @@ function Connections() {
       }
       setListToDisplay(Object.entries(foundConnections));
     } else {
-      setListToDisplay(Object.entries(sortedAll));
+      setListToDisplay(Object.entries(groupedAll));
     }
   }, [itemToSearch]);
 
   
   // Update Connection List
   useEffect(() => {
-    setListToDisplay(Object.entries(sortedAll))
+    setListToDisplay(Object.entries(groupedAll))
   }, [all]);
 
   return (
