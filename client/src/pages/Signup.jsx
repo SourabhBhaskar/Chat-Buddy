@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { formSubmitter } from "../utils/formSubmitter.util";
 import { setIsLoading } from "../context/Boolean/booleanSlice";
-import { useInitialHomeSetup } from "../Hooks/initialHomeSetup.hook";
-import Loader from "../components/Common/Loader";
+import { useInitialSetup } from "../Hooks/useInitialSetup.hook";
 import Header from "../components/Auth/Header";
 import FormContainer from "../components/Auth/FormContainer";
 import LabeledInput from "../components/Auth/LabeledInput";
@@ -17,12 +16,11 @@ import Footer from "../components/Auth/Footer";
 function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { initialHomeSetup } = useInitialHomeSetup();
+  const { initialSetup } = useInitialSetup();
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [credential, setCredential] = useState(false);
 
   const [usernameErr, setUsernameErr] = useState('');
   const [emailErr, setEmailErr] = useState('');
@@ -58,7 +56,7 @@ function Signup() {
     if(!error){
       const { data, message, error } = result;
       if(!error){
-        initialHomeSetup(data);
+        initialSetup(data);
         console.log(message);
       }else{
         (typeof error === 'string') && error.toLocaleLowerCase().indexOf('email') !== -1 && setEmailErr(error);

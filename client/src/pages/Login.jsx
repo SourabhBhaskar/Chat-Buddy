@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setIsLoading } from "../context/Boolean/booleanSlice";
 import { formSubmitter } from "../utils/formSubmitter.util";
-import { useInitialHomeSetup } from "../Hooks/initialHomeSetup.hook";
-import Loader from "../components/Common/Loader";
+import { useInitialSetup } from "../Hooks/useInitialSetup.hook";
 import Header from "../components/Auth/Header";
 import FormContainer from "../components/Auth/FormContainer";
 import LabeledInput from "../components/Auth/LabeledInput";
@@ -16,7 +15,7 @@ import Footer from "../components/Auth/Footer";
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { initialHomeSetup } = useInitialHomeSetup();
+  const { initialSetup } = useInitialSetup();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -54,7 +53,7 @@ function Login() {
     if (!error) {
       const { data, message, error } = result;
       if (!error) {
-        initialHomeSetup(data);
+        initialSetup(data);
         console.log(message);
       } else {
         typeof error === "string" && error.toLowerCase().indexOf("email") !== -1 && setEmailErr(error);

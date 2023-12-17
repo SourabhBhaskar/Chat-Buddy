@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsConnectionProfileOpen } from "../../../../context/Boolean/booleanSlice";
 import { formSubmitter } from "../../../../utils/formSubmitter.util";
-import { setUpdateConnection } from "../../../../context/ConnectionsContext/ConnectionsContext.slice";
+import { setUpdateConnection } from "../../../../context/Connections/Connections.slice";
 import defaultPic from "../../../../assets/profile.jpg";
 import Profile from "./Profile";
 import Heading from "../Common/Headings";

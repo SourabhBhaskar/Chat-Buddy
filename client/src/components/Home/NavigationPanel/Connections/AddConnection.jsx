@@ -9,7 +9,7 @@ import IconInput from '../Common/IconInput';
 import TextArea from '../Common/TextArea';
 import { formSubmitter } from '../../../../utils/formSubmitter.util';
 import  { setIsLoading } from "../../../../context/Boolean/booleanSlice"
-import { setAddNewConnection } from '../../../../context/ConnectionsContext/ConnectionsContext.slice';
+import { setAddNewConnection } from '../../../../context/Connections/Connections.slice';
 
 
 // Add Connection
@@ -47,6 +47,7 @@ function AddConnection({ isAdding, exit }) {
     if(!error) {
         const { data, message, error } = result;
         if (!error) {
+          console.log(message, data)
           dispatch(setAddNewConnection(data));
           exit();
         } else {

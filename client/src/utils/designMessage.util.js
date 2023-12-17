@@ -1,4 +1,5 @@
 export function designMessage(message, from) {
+  console.log(from)
   const date = new Date();
   const hours = date.getHours();
   const minutes = date.getMinutes();

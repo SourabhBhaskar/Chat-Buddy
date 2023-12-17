@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import UserSlice from './User/userSlice';
 import BooleanSlice from './Boolean/booleanSlice';
 import StringSlice from './String/StringSlice';
-import ConnectionsSlice from './ConnectionsContext/ConnectionsContext.slice';
+import ConnectionsSlice from './Connections/Connections.slice';
 
 
 const store = configureStore({

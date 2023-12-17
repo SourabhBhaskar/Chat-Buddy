@@ -1,6 +1,6 @@
 // Imports
-import React, { useEffect, useRef, useSyncExternalStore } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Icon } from '@iconify/react';
 import { icons } from '../../../utils/icons.util';
 import { setIsChatRoomOpen } from '../../../context/Boolean/booleanSlice';
@@ -9,24 +9,26 @@ import UserInfo from './UserInfo/UserInfo';
 import IconButton from './Common/IconButton';
 import Info from './UserInfo/Info/Info';
 import ConversationMessages from './ConversationMessages/ConversationMessages';
-import Message from './ConversationMessages/Message';
 
 import MessageSender from './MessageSender/MessageSender';
+import Files from './MessageSender/Files';
 import MessageInput from './MessageSender/MessageInput';
+import Emoji from './MessageSender/Emoji';
+import SendMore from './MessageSender/SendMore';
 import MessageSendButton from './MessageSender/MessageSendButton';
 
 
 // Conversation Panel
 function ConversationPanel() {
+  const dispatch = useDispatch();
   const messagesRef = useRef(null);
   const inputRef = useRef(null);
-  const dispatch = useDispatch();
+  const [files, setFiles] = useState([])
   
   const handleConversationPanel = () => dispatch(setIsChatRoomOpen(false));
 
   return (
     <section className='w-full h-full absolute flex flex-col text-l-primary-txt-color dark:text-d-primary-txt-color'>
-      
       <UserInfo>
         <SubFlexDiv>
           <IconButton onClick={handleConversationPanel}>
@@ -52,15 +54,12 @@ function ConversationPanel() {
 
       <ConversationMessages messagesRef={messagesRef} />
 
-      <MessageSender>
+      <MessageSender files={files} setFiles={setFiles}>
+        <Files files={files} setFiles={setFiles} />
         <MessageInput inputRef={inputRef} />
-        <IconButton>
-          <Icon icon={icons.emoji} />
-        </IconButton>
-        <IconButton>
-          <Icon icon={icons.sendMore} />
-        </IconButton>
-        <MessageSendButton inputRef={inputRef} />
+        <Emoji />
+        <SendMore files={files} setFiles={setFiles} />
+        <MessageSendButton inputRef={inputRef} files={files} setFiles={setFiles} />
       </MessageSender>
 
     </section>

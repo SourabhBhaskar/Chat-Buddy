@@ -2,7 +2,7 @@ import React from 'react';
 import defaultPicture from '../../../../assets/profile.jpg';
 import {  useDispatch } from 'react-redux';
 import { setIsChatRoomOpen } from '../../../../context/Boolean/booleanSlice';
-import { setCurrentConnection } from '../../../../context/ConnectionsContext/ConnectionsContext.slice';
+import { setCurrentConnection } from '../../../../context/Connections/Connections.slice';
 
 
 // Recent Chat

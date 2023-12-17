@@ -4,15 +4,13 @@ import Loader from '../components/Common/Loader';
 import Navigation from '../components/Home/Navigation/Navigation';
 import NavigationPanel from '../components/Home/NavigationPanel/NavigationPanel';
 import ConversationPanel from '../components/Home/ConversationPanel/ConversationPanel';
-import ConnectionProfile from '../components/Home/NavigationPanel/Profile/ConnectionProfile';
-import { useMessagesStatusOut, useMessagesStatusIn } from '../socket/socket-client';
+import ConnectionProfile from '../components/Home/NavigationPanel/Profile/ConnectionProfile'; 
+import { useSocket } from '../socket/socket-client';
 
 
 // Home
 function Home() {
-  useMessagesStatusOut();
-  useMessagesStatusIn();
-  const { navWindow } = useSelector(state => state.StringSlice);
+  // useSocket();
   const { isChatRoomOpen, isReceiverProfileOpen } = useSelector(state => state.BooleanSlice);
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);

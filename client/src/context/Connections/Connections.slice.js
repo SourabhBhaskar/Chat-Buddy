@@ -4,11 +4,11 @@ import {
     initialConnectionsSetupReducer,
     currentConnectionReducer,
     sendMessageReducer,
-    receiveMessageReducer,
+    receiveMessagesReducer,
     messagesStatusReducer,
     addNewConnectionReducer,
     updateConnectionReducer
- } from "./ConnectionsContext.reducers";
+ } from "./Connections.reducers";
 
 
 
@@ -41,7 +41,7 @@ const ConnectionsSlice = createSlice({
         setInitialConnectionsSetup: initialConnectionsSetupReducer,
         setCurrentConnection: currentConnectionReducer,
         setSendMessage: sendMessageReducer,
-        setReceiveMessage: receiveMessageReducer,
+        setReceiveMessages: receiveMessagesReducer,
         setMessagesStatus: messagesStatusReducer,
         setAddNewConnection: addNewConnectionReducer,
         setUpdateConnection: updateConnectionReducer
@@ -54,7 +54,7 @@ export const {
     setInitialConnectionsSetup,
     setCurrentConnection,
     setSendMessage,
-    setReceiveMessage,
+    setReceiveMessages,
     setMessagesStatus,
     setAddNewConnection,
     setUpdateConnection

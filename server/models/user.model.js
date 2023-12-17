@@ -18,6 +18,8 @@ const userSchema = new mongoose.Schema(
       favorites: [{ type: String }],
       recents: [{ type: String }],
     },
+    groups: { type: Object, default: {}},
+    settings: { type: Object, default: {}}
   },
   { minimize: false }
 );

@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { Icon } from '@iconify/react';
 import { icons } from '../../utils/icons.util';
-
 
 
 function LabeledInput({ 
@@ -14,6 +13,7 @@ function LabeledInput({
   error, 
   setError 
 }){
+
   return (
     <div className="flex flex-col">
       <label className="">{label}</label>

@@ -2,7 +2,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import defaultPic from '../../../../assets/profile.jpg';
-import { setCurrentConnection } from '../../../../context/ConnectionsContext/ConnectionsContext.slice';
+import { setCurrentConnection } from '../../../../context/Connections/Connections.slice';
 import { setIsChatRoomOpen } from '../../../../context/Boolean/booleanSlice';
 
 

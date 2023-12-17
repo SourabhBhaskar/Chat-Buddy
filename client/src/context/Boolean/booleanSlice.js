@@ -13,7 +13,7 @@ import {
 // Initial State
 const initialState = {
     isLoading: false,
-    isAuthenticated: true,
+    isAuthenticated: false,
     isAddingContact: false,
     isChatRoomOpen: window.innerWidth >= 1280,
     isConnectionProfileOpen: false,

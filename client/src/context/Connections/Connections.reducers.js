@@ -46,6 +46,7 @@ export function currentConnectionReducer(state, action){
 // Add Connection
 export function addNewConnectionReducer(state, action){
     const newConnection = action.payload;
+    console.log(newConnection)
 
     // All
     state.all[newConnection.email] = newConnection;
@@ -93,7 +94,7 @@ export function sendMessageReducer(state, action){
 
 
 // Receive Messages
-export function receiveMessageReducer(state, action){
+export function receiveMessagesReducer(state, action){
     const messages = action.payload;
     const currentConnection = state.currentConnection;
     const allConnections = state.all;
@@ -119,7 +120,9 @@ export function receiveMessageReducer(state, action){
             const recentIndexValue = recentConnections[recentIndex];
             recentConnections.splice(recentIndex, 1);
             recentConnections.splice(0, 0, recentIndexValue);
-        }      
+        }else{
+            
+        }     
     });
 }
 

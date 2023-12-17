@@ -16,6 +16,7 @@ export function initialUserSetupReducer(state, action){
         description: user.description,
         last_seen: user.last_seen
     } 
+    console.log("User updated :",user.email);
     return updatedState;
 }
 

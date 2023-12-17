@@ -8,12 +8,11 @@ const addUserConnection = async (req, res) => {
   try {
     const userEmail = req.user.email;
     const connectionEmail = req.body.email;
-    const connectionMessage = req.body.message;
 
     // Check, Is connection exists in database
     const connection = await User.findOne(
       { email: connectionEmail },
-      { password: 0, connections: 0, groups: 0, settings: 0 }
+      { __v: 0, password: 0, connections: 0, groups: 0, settings: 0 }
     );
     if (!connection) {
       return res
@@ -39,10 +38,19 @@ const addUserConnection = async (req, res) => {
     
     if (!addingNewConnection.modifiedCount)
       return res.status(409).json({ error: "User already exists" });
-
+      console.log(connection)
     return res
       .status(201)
-      .json({ message: "Connection added successfully", data: connection });
+      .json({
+        message: "Connection added successfully", 
+        data: { 
+          ...connection.toObject(),             
+          isSeen: true,
+          unSeenMsgCnt: 0,
+          messages: [],
+          notifications: true,
+          isBlocked: false
+        }});
   } catch (error) {
     console.error("Error creating user contact:", error);
     return res.status(500).json({ error: "Internal Server Error" });

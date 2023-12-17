@@ -1,6 +1,6 @@
 import React from "react";
 import Loader from "../components/Common/Loader";
-import { useIsUserAuthenticated } from "../Hooks/isAuthenticated.hook";
+import { useIsUserAuthenticated } from "../Hooks/useIsAuthenticated.hook";
 
 
 function Landing() {
