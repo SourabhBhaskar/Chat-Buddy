@@ -55,7 +55,7 @@ function Files({ files, setFiles }) {
         <div ref={fileSliderRef} className='flex gap-2 overflow-scroll hide-scrollbar transition-all'>
           {files.map((file, index) => <File key={file.name + index} file={file} fileIndex={index} removeFile={removeFile} />)}           
         </div>
-        <button onClick={() => setFiles([])} className='h-full aspect-square flex justify-center items-center rounded-md font-semibold'>
+        <button onClick={() => setFiles([])} className='h-full aspect-square flex justify-center items-center rounded-md'>
           Clear All
         </button>
     </div>

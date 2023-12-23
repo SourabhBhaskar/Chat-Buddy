@@ -10,7 +10,7 @@ import { useSocket } from '../socket/socket-client';
 
 // Home
 function Home() {
-  // useSocket();
+  useSocket();
   const { isChatRoomOpen, isReceiverProfileOpen } = useSelector(state => state.BooleanSlice);
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);

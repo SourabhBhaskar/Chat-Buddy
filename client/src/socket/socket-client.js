@@ -27,5 +27,4 @@ export function useSocket(){
       socket.off('messages');
     }
   }, [email])
-
 }

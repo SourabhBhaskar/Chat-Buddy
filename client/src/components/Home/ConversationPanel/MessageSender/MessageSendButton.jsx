@@ -37,7 +37,7 @@ function MessageSendButton({ inputRef, files, setFiles }) {
     <button
       onClick={handleSendMessage}
       className='h-[45px] px-6 rounded-md text-xl text-white bg-[#7269ef] hover:bg-[#7269efee]'>
-      <Icon icon={icons.send} />
+      <Icon icon={icons.messageSender} />
     </button>
   );
 }

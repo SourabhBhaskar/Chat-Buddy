@@ -11,41 +11,23 @@ export const useIsUserAuthenticated = () => {
     const { initialSetup } = useInitialSetup();
 
     const isUserAuthenticated = async () => {
+        const { result, error } = await formSubmitter({
+            url:  process.env.REACT_APP_SERVER_AUTH,
+            method: "GET", 
+            loaderCallback: (isLoading) => dispatch(setIsLoading(isLoading))
+        })
 
-        initialSetup({
-            username: 'Sourabh Bhaskar',
-            email: 'sourabhbhaskar71@gmail.com',
-            phone: '7000849686',
-            profile_picture: 'https://picsum.photos/id/7/100/100',
-            status: 'offline',
-            last_seen: '07-07-2007',
-            location: 'Bangloare',        
-            isSeen: true,
-            unSeenMsgCnt: 0,
-            messages: [],
-            connections: {
-                all: {},
-                favorites: [],
-                recents: [],
+        if(!error){
+            const { data, message, error } = result;
+            if(!error){
+                initialSetup(data);
+                console.log(message);
+            }else{
+                console.log("Server Error:", error);
             }
-        });
-        // const { result, error } = await formSubmitter({
-        //     url:  process.env.REACT_APP_SERVER_AUTH,
-        //     method: "GET", 
-        //     loaderCallback: (isLoading) => dispatch(setIsLoading(isLoading))
-        // })
-
-        // if(!error){
-        //     const { data, message, error } = result;
-        //     if(!error){
-        //         initialSetup(data);
-        //         console.log(message);
-        //     }else{
-        //         console.log("Server Error:", error);
-        //     }
-        // }else{
-        //     console.log("Client Error:", error);
-        // }
+        }else{
+            console.log("Client Error:", error);
+        }
     }
 
     useEffect(()=>{

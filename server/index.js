@@ -25,6 +25,7 @@ const { userAuthRouter } = require("./routes/userAuth.router");
 const { userUpdateRouter } = require("./routes/userUpdate.router");
 const { userConnectionRouter } = require("./routes/userConnection.router");
 const { userConnectionUpdateRouter } = require("./routes/userConnectionUpdate.router");
+const { uploadFilesRouter } = require("./routes/uploadFiles.router");
 
 
 
@@ -57,6 +58,7 @@ app.use('/user/auth', userAuthRouter);
 app.use('/user/update', userUpdateRouter);
 app.use('/user/connections/', userConnectionRouter);
 app.use('/user/connections/update', userConnectionUpdateRouter);
+app.use('/upload', uploadFilesRouter);
 app.use(routeIsNotFound);
 
 

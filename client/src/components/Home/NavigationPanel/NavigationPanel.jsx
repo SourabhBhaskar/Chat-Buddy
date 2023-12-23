@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import UserProfile from './Profile/UserProfile';
 import Chats from './Chats/Chats';
 import Connections from './Connections/Connections';
+import Settings from './Settings/Settings';
 
 
 // Navigation Panel
@@ -14,6 +15,7 @@ const { navWindow } = useSelector(state => state.StringSlice);
       { navWindow === 'user-profile' && <UserProfile /> }
       { navWindow === 'chats' && <Chats />}
       { navWindow === 'connections' && <Connections /> }
+      { navWindow === 'settings' && <Settings />}
     </div>
   )
 }
