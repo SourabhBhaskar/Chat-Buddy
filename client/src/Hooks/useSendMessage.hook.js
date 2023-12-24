@@ -18,7 +18,7 @@ export function useSendMessage(){
             type: type === 'file' ? message.type.split('/')[0] : type,
             from: user.email,
             to: currConnection.email,
-            status: type === 'file' ? 'sending' : 'sent',
+            status: 'sending',
             time: {
                 send: Date.now(),
                 delivered: '',

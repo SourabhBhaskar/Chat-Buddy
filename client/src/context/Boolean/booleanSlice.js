@@ -6,7 +6,8 @@ import {
     isChatRoomOpenReducer,
     isConnectionProfileOpenReducer,
     isDarkModeOn,
-    isPictureUploadingReducer
+    isPictureUploadingReducer,
+    viewPictureReducer
  } from './booleanReducer';
 
 
@@ -18,6 +19,7 @@ const initialState = {
     isChatRoomOpen: window.innerWidth >= 1280,
     isConnectionProfileOpen: false,
     isPictureUploading: null,
+    viewPicture: null
 }
 
 
@@ -33,7 +35,8 @@ const Boolean = createSlice({
         setIsChatRoomOpen: isChatRoomOpenReducer,
         setIsConnectionProfileOpen: isConnectionProfileOpenReducer,
         setIsDarkModeOn : isDarkModeOn,
-        setIsPictureUploading: isPictureUploadingReducer
+        setIsPictureUploading: isPictureUploadingReducer,
+        setViewPicture: viewPictureReducer
     }
 })
 
@@ -46,6 +49,7 @@ export const {
     setIsChatRoomOpen,
     setIsConnectionProfileOpen,
     setIsDarkModeOn,
-    setIsPictureUploading
+    setIsPictureUploading,
+    setViewPicture
  } = Boolean.actions;
 export default Boolean.reducer;

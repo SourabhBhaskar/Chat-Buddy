@@ -2,7 +2,6 @@ export async function uploadOnCloudinary(file) {
   const formData = new FormData();
   formData.append("file", file);
   formData.append("upload_preset", process.env.REACT_APP_CLOUDNARY_PRESET);
-  formData.append("public_id", "H" + Date.now());
 
   try {
     const response = await fetch(

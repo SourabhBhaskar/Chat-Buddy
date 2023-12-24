@@ -72,3 +72,12 @@ export function isPictureUploadingReducer(state, action){
         isPictureUploading: action.payload
     }
 }
+
+
+// View Picture
+export function viewPictureReducer(state, action){
+    return {
+        ...state,
+        viewPicture: action.payload
+    }
+}

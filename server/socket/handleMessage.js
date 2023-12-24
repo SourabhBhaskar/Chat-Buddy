@@ -15,7 +15,7 @@ function handleMessage({ socket, message, cb }){
 
   // If receiver is online
   if(to_socketId){
-    socket.to(to_socketId).emit('messages', message);
+    socket.to(to_socketId).emit('messages', [message]);
     cb('delivered');
   }else{
   //   if(!userId_messages.has(to_userId)){

@@ -6,12 +6,13 @@ import NavigationPanel from '../components/Home/NavigationPanel/NavigationPanel'
 import ConversationPanel from '../components/Home/ConversationPanel/ConversationPanel';
 import ConnectionProfile from '../components/Home/NavigationPanel/Profile/ConnectionProfile'; 
 import { useSocket } from '../socket/socket-client';
+import ViewPicture from '../components/Common/ViewPicture';
 
 
 // Home
 function Home() {
   useSocket();
-  const { isChatRoomOpen, isReceiverProfileOpen } = useSelector(state => state.BooleanSlice);
+  const { isChatRoomOpen, isReceiverProfileOpen, viewPicture } = useSelector(state => state.BooleanSlice);
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
 
@@ -27,8 +28,8 @@ function Home() {
   return (
     <>
       <Loader />
-      <main className='w-screen h-screen relative flex flex-col xl:flex-row overflow-hidden'>
-        
+      <ViewPicture /> 
+      <main className='w-screen h-screen relative flex flex-col xl:flex-row overflow-hidden'>   
         {(!isChatRoomOpen || width >= 1280) &&
         <section className="w-full xl:w-[75px] h-[60px] xl:h-full relative flex-shrink-0 order-last xl:order-first">
           <Navigation />
@@ -47,7 +48,6 @@ function Home() {
         <section className='flex-grow xl:flex-grow-0 xl:flex-shrink-0 xl:w-[385px] relative overflow-hidden'>
           <ConnectionProfile />
         </section>}
-
       </main>
     </>
   )
