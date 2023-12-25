@@ -10,28 +10,30 @@ function MessageSendButton({ inputRef, files, setFiles }) {
   const { sendMessage } = useSendMessage();
   
   const handleSendMessage = () => {
+    // Text Message
     const textMessage = inputRef.current.value.trim();
-    if(!files.length && !textMessage){
-      return ;
-    }else if(files.length){
+    if(textMessage)
+      sendMessage(textMessage);
+
+    // File Message
+    if(files.length){
       files.forEach(file => {
-        sendMessage({ message: file, type: 'file' });
+        sendMessage(file);
       });
       setFiles([]);
-    }else{
-      sendMessage({ message: textMessage, type: 'text'});
-      inputRef.current.value = "";
     }
+
+    inputRef.current.value = "";
   };
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === "Enter") 
+      if (e.key === "Enter")
         handleSendMessage();
     }
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [sendMessage]);
+  }, [files]);
 
   return (
     <button

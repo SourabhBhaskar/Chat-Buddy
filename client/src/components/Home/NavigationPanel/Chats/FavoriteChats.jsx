@@ -19,7 +19,7 @@ const FavoriteChat = React.memo(({ value }) => {
 
   return (
     <div className='w-[70px] h-[70px] flex-shrink-0 flex justify-center relative group cursor-pointer' onClick={handleClick}>
-      <div className='w-auto h-auto flex justify-center absolute'>         
+      <div className='w-auto h-auto flex justify-center absolute z-10'>         
         <img className='w-[40px] aspect-square rounded-full' src={pictureToDisplay} alt={username} />
         <div className='absolute right-0 bottom-0'>
           <Icon icon="pajamas:status-active" className={`text-[11px] border-2 border-black rounded-full ${last_seen === 'online' || last_seen === 'typing...' ? 'text-green-400' : 'text-red-600'}`}/>

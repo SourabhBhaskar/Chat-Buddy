@@ -2,7 +2,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { 
     themeMode,
-    navWindow
+    navWindow,
+    viewPictureReducer
  } from "./StringReducer";
 
 
@@ -13,7 +14,8 @@ const initialState = {
         dark: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
         light: window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches,
         systemDefault: true
-    }
+    },
+    viewPicture: ''
 };
 
 
@@ -23,7 +25,8 @@ const StringSlice = createSlice({
     initialState: initialState,
     reducers: {
         setThemeMode: themeMode,
-        setNavWindow: navWindow
+        setNavWindow: navWindow,
+        setViewPicture: viewPictureReducer
     }
 });
 
@@ -31,6 +34,7 @@ const StringSlice = createSlice({
 // Exports
 export const { 
     setThemeMode,
-    setNavWindow
+    setNavWindow,
+    setViewPicture,
 } = StringSlice.actions;
 export default StringSlice.reducer;

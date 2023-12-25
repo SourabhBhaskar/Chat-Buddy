@@ -67,81 +67,12 @@ export function addNewConnectionReducer(state, action){
 
 
 
-// Send Message
-export function sendMessageReducer(state, action){
-    const message = action.payload;
-    const allConnections = state.all;
-    const recentConnections = state.recents;
-
-    // Update Connection Message
-    if(allConnections[message.to])
-        allConnections[message.to].messages.push(message);
-
-    // Update Recent
-    const recentIndex = recentConnections.findIndex((c) => c === message.to);
-    if(recentIndex !== -1){
-        const recentIndexValue = recentConnections[recentIndex];
-        recentConnections.splice(recentIndex, 1);
-        recentConnections.splice(0, 0, recentIndexValue);
-    }else if(allConnections[message.to]){
-        state.recents = [message.to, ...state.recents ];
-    }
-}
-
-
-// Receive Messages
-export function receiveMessagesReducer(state, action){
-    const messages = action.payload;
-    const currentConnection = state.currentConnection;
-    const allConnections = state.all;
-    const recentConnections = state.recents;
-
-    messages.forEach((message) => {
-        // Update All 
-        if(allConnections[message.from]){
-            allConnections[message.from].messages.push(message);
-            if(currentConnection.email !== message.from){
-                allConnections[message.from].isSeen = false;
-                allConnections[message.from].unSeenMsgCnt += 1;
-            }
-        }
-
-        // Update Recent
-        const recentIndex = recentConnections.findIndex((c) => c === message.from);
-        if(recentIndex !== -1){
-            const recentIndexValue = recentConnections[recentIndex];
-            recentConnections.splice(recentIndex, 1);
-            recentConnections.splice(0, 0, recentIndexValue);
-        }else{
-            
-        }     
-    });
-}
 
 
 
-// Update Send Message Status
-export function messageStatusReducer(state, action){
-    const { id, to, status } = action.payload;
-    const allConnections = state.all;
-    const connection = allConnections[to];
 
-    if(connection){
-        const messages = connection.messages;
-        for(let i=messages.length-1; i>=0; i-- ){
-            if(messages[i].id === id){
-                messages[i].status = status;
-                if(status === 'send')
-                    messages[i].time.send = Date.now();
-                else if(status === 'delivered')
-                    messages[i].time.delivered = Date.now();
-                else if(status === 'seen')
-                    messages[i].time.seen = Date.now();
-                break;
-            }
-        }
-    }
-}
+
+
 
 
 // Update Connection

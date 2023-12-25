@@ -3,12 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { 
     initialConnectionsSetupReducer,
     currentConnectionReducer,
-    sendMessageReducer,
-    receiveMessagesReducer,
-    messageStatusReducer,
     addNewConnectionReducer,
-    updateConnectionReducer
+    updateConnectionReducer,
  } from "./Connections.reducers";
+ import { sendMessageReducer } from "./sendMessage.reducer";
+ import { messageStatusReducer } from "./messageStatus.reducer";
+ import { receiveMessageReducer } from "./receiveMessage.reducer";
 
 
 
@@ -41,7 +41,7 @@ const ConnectionsSlice = createSlice({
         setInitialConnectionsSetup: initialConnectionsSetupReducer,
         setCurrentConnection: currentConnectionReducer,
         setSendMessage: sendMessageReducer,
-        setReceiveMessages: receiveMessagesReducer,
+        setReceiveMessage: receiveMessageReducer,
         setMessageStatus: messageStatusReducer,
         setAddNewConnection: addNewConnectionReducer,
         setUpdateConnection: updateConnectionReducer
@@ -54,7 +54,7 @@ export const {
     setInitialConnectionsSetup,
     setCurrentConnection,
     setSendMessage,
-    setReceiveMessages,
+    setReceiveMessage,
     setMessageStatus,
     setAddNewConnection,
     setUpdateConnection

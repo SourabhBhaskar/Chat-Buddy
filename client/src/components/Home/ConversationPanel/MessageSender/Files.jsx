@@ -8,6 +8,7 @@ import { gsap } from "gsap/gsap-core";
 const File =  React.memo(({ file, removeFile }) => {
     const fileType = file.type.split('/')[0];
     const [fileURL, setFileURL] = useState(URL.createObjectURL(file));
+
     return (
       <div className='flex-shrink-0 shadow-md h-full aspect-square relative rounded-md overflow-hidden'>
         <Icon onClick={() => removeFile(file.name)} icon={icons.cancel} className='absolute right-0 z-10 cursor-pointer ' />
@@ -25,6 +26,7 @@ function Files({ files, setFiles }) {
     const fileRef = useRef(null);
     const fileSliderRef = useRef(null);
     
+    // Remove file
     const removeFile = (fileNmae) => {
         const updatedFiles = files.filter((file) => file.name !== fileNmae);
         setFiles(updatedFiles);
@@ -64,4 +66,4 @@ function Files({ files, setFiles }) {
 
 
 
-export default React.memo(Files);
+export default Files;

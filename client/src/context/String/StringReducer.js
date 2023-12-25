@@ -35,3 +35,15 @@ export function navWindow(state, action){
     }
     return updatedState;
 }
+
+
+// View Picture
+export function viewPictureReducer(state, action){
+    const picture = action.payload;
+    const updatedState = {
+        ...state,
+        viewPicture: picture
+    }
+    
+    return updatedState;
+}

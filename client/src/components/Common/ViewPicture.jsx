@@ -4,14 +4,15 @@ import { Icon } from '@iconify/react';
 import { icons } from '../../utils/icons.util';
 import defaultPic from "../../assets/profile.jpg";
 import { useDispatch, useSelector } from 'react-redux';
-import { setViewPicture } from '../../context/Boolean/booleanSlice';
+import { setViewPicture } from '../../context/String/StringSlice';
 import { formSubmitter } from '../../utils/formSubmitter.util';
 import { MiddlewareArray } from '@reduxjs/toolkit';
 
 
-function ViewPicture({ picture }) {
+function ViewPicture() {
   const dispatch = useDispatch();
-  const { viewPicture } = useSelector(state => state.BooleanSlice);
+  const { viewPicture } = useSelector(state => state.StringSlice);
+  const [picture, setPicture] = useState(viewPicture);
   const parentViewRef = useRef(null);
   const childViewRef = useRef(null);
   const [width, setWidth] = useState(window.innerWidth);
@@ -36,9 +37,13 @@ function ViewPicture({ picture }) {
     if(viewPicture){
       gsap.to(parentElement, { display: 'flex'});
       gsap.fromTo(childElement, child_state1, child_state2);
+      setPicture(viewPicture)
     }else{
       gsap.fromTo(childElement, child_state2, child_state1);
       gsap.to(parentElement, { display: 'none'});
+      setTimeout(() => {
+        setPicture('')
+      }, 1000);
     }
 
   }, [viewPicture])
@@ -47,7 +52,7 @@ function ViewPicture({ picture }) {
     <div ref={parentViewRef} className={`w-screen h-screen hidden fixed z-50 justify-center items-center bg-[#fff7] dark:bg-[#0007]`}>
       <div ref={childViewRef} className={`${width < height ? 'w-full' : 'h-full'} aspect-square flex-col gap-2 z-50`}>
         <div className='flex justify-end'>
-          <button onClick={() => dispatch(setViewPicture(false))}>
+          <button onClick={() => dispatch(setViewPicture(''))}>
             <Icon icon={icons.cancel} className='text-xl text-l-primary-txt-color dark:text-d-primary-txt-color ' />
           </button>
         </div>

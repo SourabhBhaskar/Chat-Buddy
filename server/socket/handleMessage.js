@@ -8,22 +8,22 @@ const {
 
 
 // Handle Text Message
-function handleMessage({ socket, message, cb }){
-  const from_userId = message.from;
+function handleMessage({ socket, message }){
+  const from_socketId = socket.id;
   const to_userId = message.to;
   const to_socketId = userId_socketId.get(to_userId);
 
   // If receiver is online
   if(to_socketId){
-    socket.to(to_socketId).emit('messages', [message]);
-    cb('delivered');
+    socket.to(to_socketId).emit('message', message);
+    socket.emit('message/status', { id: message.id, to: message.to, status: 'delivered'});
   }else{
   //   if(!userId_messages.has(to_userId)){
   //     userId_messages.set(to_userId, [{ ...message }]);
   //   }else{
   //     userId_messages.get(to_userId).push({ ...message });
   //   }
-    cb('sent');
+    socket.emit('message/status', { id: message.id, to: message.to, status: 'sent'});
   }
   
 }
