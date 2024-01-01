@@ -23,12 +23,14 @@ export function useSocket(){
     socket.on('disconnect', () => console.log("Disconnected from server"));
     socket.on('message', (message) => receiveMessage(message));
     socket.on('message/status', (status) => messageStatus(status));
+    socket.on('user/status', (status) => console.log(status));
     return () => {
       socket.disconnect();
       socket.off('connect');
       socket.off('disconnect');
       socket.off('messages');
       socket.off('message/status');
+      socket.off('user/status');
     }
   }, [email])
 }

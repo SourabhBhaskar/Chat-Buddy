@@ -9,7 +9,7 @@ import Connection from "./Connection";
 import Menu from "./Menu";
 import Empty from "../Common/Empty";
 import AddConnection from "./AddConnection";
-import Loader from "../../../Common/Loader";
+
 
 
 // Connections
@@ -52,7 +52,6 @@ function Connections() {
 
   return (
     <>
-      <Loader />
       <div className="w-full h-full flex flex-col overflow-hidden">
         <Heading
           headingText="Contacts"

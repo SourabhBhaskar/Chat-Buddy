@@ -9,6 +9,7 @@ import {
  import { sendMessageReducer } from "./sendMessage.reducer";
  import { messageStatusReducer } from "./messageStatus.reducer";
  import { receiveMessageReducer } from "./receiveMessage.reducer";
+ import { userStatusReducer } from "./userStatus.reducer";
 
 
 
@@ -44,7 +45,8 @@ const ConnectionsSlice = createSlice({
         setReceiveMessage: receiveMessageReducer,
         setMessageStatus: messageStatusReducer,
         setAddNewConnection: addNewConnectionReducer,
-        setUpdateConnection: updateConnectionReducer
+        setUpdateConnection: updateConnectionReducer,
+        setUserStatus: userStatusReducer
     }
 })
 
@@ -57,6 +59,7 @@ export const {
     setReceiveMessage,
     setMessageStatus,
     setAddNewConnection,
-    setUpdateConnection
+    setUpdateConnection,
+    setUserStatus
 } = ConnectionsSlice.actions;
 export default ConnectionsSlice.reducer;

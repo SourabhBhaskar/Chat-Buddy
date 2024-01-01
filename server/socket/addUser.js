@@ -16,6 +16,7 @@ async function addUser({ socket, user }){
   }
 
   try {
+    await User.updateOne({ email: userId }, { last_seen: 'online' });
     const userData = await User.findOne({ email: userId }, { _id: 0, __v: 0, connections: 0, password: 0, groups: 0, settings: 0 });
     socketId_user.set(socketId, userData);
     userId_socketId.set(userId, socketId);

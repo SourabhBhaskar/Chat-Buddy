@@ -3,6 +3,7 @@ import defaultPicture from '../../../../assets/profile.jpg';
 import {  useDispatch } from 'react-redux';
 import { setIsChatRoomOpen } from '../../../../context/Boolean/booleanSlice';
 import { setCurrentConnection } from '../../../../context/Connections/Connections.slice';
+import { socket } from '../../../../socket/socket-client';
 
 
 // Recent Chat
@@ -17,6 +18,7 @@ const RecentChat = React.memo(({ value }) => {
   function handleClick(){
     dispatch(setCurrentConnection(value))
     dispatch(setIsChatRoomOpen(true));
+    socket.emit('user/status', value.email);
   }
 
   return (

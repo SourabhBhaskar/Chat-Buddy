@@ -21,6 +21,12 @@ export function receiveMessageReducer(state, action){
         recentConnections.splice(recentIndex, 1);
         recentConnections.splice(0, 0, recentIndexValue);
     }else{
-        
+        const connection = message.from;
+        const isExit = state.all[connection];
+        if(isExit){
+            recentConnections.splice(0, 0, connection);
+        }else{
+
+        }
     }     
 }

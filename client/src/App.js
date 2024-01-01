@@ -6,7 +6,6 @@ import SignUp from './pages/Signup';
 import LogIn from './pages/Login';
 import Home from './pages/Home';
 import PageNotFound from './pages/PageNotFound';
-import Loader from './components/Common/Loader';
 
 
 function App() {
@@ -14,7 +13,6 @@ function App() {
 
   return (
     <div className='w-full h-full min-w-screen min-h-screen font-publicSans bg-l-primary-bg-color dark:bg-d-primary-bg-color'>
-      <Loader />
       <Routes>
         <Route path='/' element={<Landing />} />
         <Route path='/login' element={<LogIn />} />

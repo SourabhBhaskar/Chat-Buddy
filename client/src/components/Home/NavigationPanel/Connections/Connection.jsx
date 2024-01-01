@@ -4,16 +4,18 @@ import { useDispatch } from 'react-redux';
 import defaultPic from '../../../../assets/profile.jpg';
 import { setCurrentConnection } from '../../../../context/Connections/Connections.slice';
 import { setIsChatRoomOpen } from '../../../../context/Boolean/booleanSlice';
+import { socket } from '../../../../socket/socket-client';
 
 
 // Connection
 function Connection({ children, value }) {
   const dispatch = useDispatch();
-  const { username, profile_picture } = value;
+  const { username, email, profile_picture } = value;
 
   const handleClick = () => {
     dispatch(setCurrentConnection(value));
     dispatch(setIsChatRoomOpen(true));
+    socket.emit('user/status', email);
   }
 
   return (

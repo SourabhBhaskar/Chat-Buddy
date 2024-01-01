@@ -31,23 +31,34 @@ export function useSendMessage() {
           seen: "",
         },
       };
-
       dispatch(setSendMessage({ ...updatedMessage }));
 
       if (messageType() !== "text") {
         const result = await uploadOnCloudinary(message);
-        if (result){
+        if (result) {
           updatedMessage.message = result.url;
-          dispatch(setMessageStatus({ id: updatedMessage.id, to: updatedMessage.to, status: 'error' }));
-        }else{
+          dispatch(
+            setMessageStatus({
+              id: updatedMessage.id,
+              to: updatedMessage.to,
+              status: "error",
+            })
+          );
+        } else {
           updatedMessage.status = "error";
-          dispatch(setMessageStatus({ id: updatedMessage.id, to: updatedMessage.to, status: 'error' }));
-          return ;
+          dispatch(
+            setMessageStatus({
+              id: updatedMessage.id,
+              to: updatedMessage.to,
+              status: "error",
+            })
+          );
+          return;
         }
       }
       socket.emit("message", updatedMessage);
     },
-    [currConnection.email]
+    [currConnection]
   );
 
   return { sendMessage };

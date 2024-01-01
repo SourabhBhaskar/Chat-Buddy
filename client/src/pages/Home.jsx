@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import Loader from '../components/Common/Loader';
 import Navigation from '../components/Home/Navigation/Navigation';
 import NavigationPanel from '../components/Home/NavigationPanel/NavigationPanel';
 import ConversationPanel from '../components/Home/ConversationPanel/ConversationPanel';
 import ConnectionProfile from '../components/Home/NavigationPanel/Profile/ConnectionProfile'; 
 import { useSocket } from '../socket/socket-client';
 import ViewPicture from '../components/Common/ViewPicture';
+
 
 
 // Home
@@ -27,7 +27,6 @@ function Home() {
   
   return (
     <>
-      <Loader />
       <ViewPicture /> 
       <main className='w-screen h-screen relative flex flex-col xl:flex-row overflow-hidden'>   
         {(!isChatRoomOpen || width >= 1280) &&

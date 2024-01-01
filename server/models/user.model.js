@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema(
     profile_picture: { type: String, default: "" },
     status: { type: String, default: "Available" },
     description: { type: String, default: "" },
-    last_seen: { type: Date, default: Date.now() },
+    last_seen: { type: String, default: Date.now() },
     location: { type: String, default: "" },
     connections: {
       all: {type: Object, default: {}},

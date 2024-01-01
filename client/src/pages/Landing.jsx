@@ -6,10 +6,7 @@ import { useIsUserAuthenticated } from "../Hooks/useIsAuthenticated.hook";
 function Landing() {
   useIsUserAuthenticated();
   return (
-    <>
-      <Loader />
-      <main className="text-white">Landing</main>
-    </>
+    <div>Landing</div>
   );
 }
 

@@ -4,17 +4,19 @@ import { Icon } from '@iconify/react';
 import defaultPicture from '../../../../assets/profile.jpg';
 import { setCurrentConnection } from '../../../../context/Connections/Connections.slice';
 import { setIsChatRoomOpen } from '../../../../context/Boolean/booleanSlice';
+import { socket } from '../../../../socket/socket-client';
 
 
 // Contact
 const FavoriteChat = React.memo(({ value }) => {
   const dispatch = useDispatch();
-  const { username, profile_picture, last_seen } = value;
+  const { username, email, profile_picture, last_seen } = value;
   const pictureToDisplay = profile_picture ? profile_picture : defaultPicture;
 
   function handleClick(){
     dispatch(setIsChatRoomOpen(true));
     dispatch(setCurrentConnection(value))
+    socket.emit('user/status', email);
   }
 
   return (

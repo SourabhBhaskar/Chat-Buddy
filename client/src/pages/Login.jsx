@@ -10,12 +10,15 @@ import LabeledInput from "../components/Auth/LabeledInput";
 import RememberMe from "../components/Auth/RememberMe";
 import Submit from "../components/Auth/Submit";
 import Footer from "../components/Auth/Footer";
+import Loader from "../components/Common/Loader";
+
 
 // Login Component
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { initialSetup } = useInitialSetup();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -47,7 +50,7 @@ function Login() {
       headers: { "Content-Type": "application/json" },
       data: { email, password },
       credential: true,
-      loaderCallback: (isLoading) => dispatch(setIsLoading(isLoading)),
+      loaderCallback: (isLoading) => setIsLoading(isLoading),
     });
 
     if (!error) {
@@ -68,6 +71,7 @@ function Login() {
 
   return (
     <main className="w-full h-full min-w-screen min-h-screen flex flex-col justify-center items-center bg-l-secondary-bg-color dark:bg-d-secondary-bg-color">
+      { isLoading && <Loader/> }
       <Header page="Login" description="Welcom back to Chat-Buddy" />
       <FormContainer handleSubmit={handleSubmit}>
         <LabeledInput
