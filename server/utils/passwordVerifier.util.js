@@ -23,7 +23,7 @@ const passwordVerifier = (password) => {
     const isLengthValid = password.length >= 8 && password.length <= 16;
     if (!isLengthValid) return { error: "Password length should be between 8 to 16 characters." };
   
-    return null; 
+    return { error: null }; 
   }
 
 

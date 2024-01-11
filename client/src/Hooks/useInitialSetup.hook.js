@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setIsAuthenticated } from "../context/Boolean/booleanSlice";
-import { setInitialUserSetup } from "../context/User/userSlice";
-import { setInitialConnectionsSetup } from "../context/Connections/Connections.slice";
+import { setIsAuthenticated } from "../context/GlobalContext/global.slice";
+import { setInitialUserSetup } from "../context/UserContext/user.slice";
+import { setInitialConnectionsSetup } from "../context/ConnectionsContext/Connections.slice";
+import { dummyContactsData } from "../context/DummyData";
 
 
 // Initial Setup
@@ -12,18 +13,16 @@ export function useInitialSetup(){
 
     // Data Setup
     const initialSetup = (user) => {
-        
-        // Use Authentication
-        dispatch(setIsAuthenticated(true));
 
         // User Setup
         dispatch(setInitialUserSetup(user));
 
         // User's Connection Setup
-        dispatch(setInitialConnectionsSetup(user));
+        dispatch(setInitialConnectionsSetup({ ...user, connections: dummyContactsData}));
 
-        // Home Navigate
-        navigate('/home');
+        // Use Authentication
+        dispatch(setIsAuthenticated(true));
+
     }
 
     return { initialSetup };

@@ -1,14 +1,12 @@
 // Imports
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Heading from "../Common/Headings";
-import Search from "../Common/Search";
-import ConnectionsList from "./ConnectionsList";
+import Heading from "../Headings";
+import Search from "../Search";
 import GroupedConnections from "./GroupedConnections";
 import Connection from "./Connection";
 import Menu from "./Menu";
-import Empty from "../Common/Empty";
-import AddConnection from "./AddConnection";
+// import AddConnection from "./AddConnection";
 
 
 
@@ -16,54 +14,41 @@ import AddConnection from "./AddConnection";
 function Connections() {
   const { all, groupedAll } = useSelector((state) => state.ConnectionsSlice);
   const [listToDisplay, setListToDisplay] = useState([]);
-  const [itemToSearch, setItemToSearch] = useState("");
-  const [isAddingConnection, setIsAddingConnection] = useState(false);
-
-  const handleAddConnection = () => setIsAddingConnection(true);
-
-  useEffect(() => {
-    if (itemToSearch) {
-      const letter = itemToSearch.slice(0, 1).toUpperCase();
-      const values = groupedAll[letter];
-      const foundConnections = {};
-      if (values) {
-        values.forEach((key) => {
-          const connection_data = all[key];
-          const username = connection_data.username.toLowerCase();
-          const usernameToSearch = itemToSearch.toLowerCase();
-          if (username === usernameToSearch) {
-            foundConnections[letter]
-              ? foundConnections[letter].push(connection_data.email)
-              : (foundConnections[letter] = [connection_data.email]);
-          }
-        });
-      }
-      setListToDisplay(Object.entries(foundConnections));
-    } else {
-      setListToDisplay(Object.entries(groupedAll));
-    }
-  }, [itemToSearch]);
-
+  const [itemToSearch, setItemToSearch] = useState('');
   
-  // Update Connection List
-  useEffect(() => {
-    setListToDisplay(Object.entries(groupedAll))
-  }, [all]);
+  useEffect(()=>{
+    const updatedItemToSearch = itemToSearch.trim().toLocaleLowerCase();
+    if(updatedItemToSearch){
+      const keyToSearch = updatedItemToSearch.slice(0, 1).toLocaleUpperCase();
+      const list = groupedAll[keyToSearch];
+      const newListToDisplay = {};
+      newListToDisplay[keyToSearch] = list.filter((connection) => all[connection].username.toLocaleLowerCase() === updatedItemToSearch);
+      setListToDisplay(Object.entries(newListToDisplay));
+
+    }else{
+      // for(let i in groupedAll){
+      //   groupedAll[i].forEach(connection => {
+      //     console.log(connection)
+      //   });
+      // }
+      setListToDisplay(Object.entries(groupedAll).sort());
+    }
+  }, [itemToSearch, groupedAll])
 
   return (
-    <>
-      <div className="w-full h-full flex flex-col overflow-hidden">
-        <Heading
-          headingText="Contacts"
-          headingType="heading-with-right-btn"
-          btnIcon="addContact"
-          handleBtnClick={handleAddConnection}
-        />
-        <Search
-          placeholder={"Search for a contact"}
-          setItemToSearch={setItemToSearch}
-        />
-        <ConnectionsList>
+    <div className="w-full h-full flex flex-col overflow-hidden">
+      <Heading
+        headingText="Contacts"
+        headingType="heading-with-right-btn"
+        btnIcon="addContact"
+        // handleBtnClick={handleAddConnection}
+      />
+      <Search
+        placeholder={"Search for a contact"}
+        setItemToSearch={setItemToSearch}
+      />
+      <section className='flex-grow relative'>
+        <div className="w-full h-full absolute overflow-y-scroll hide-scrollbar">
           {listToDisplay.map(([key, value]) => {
             return (
               <GroupedConnections key={key} group={key}>
@@ -77,13 +62,10 @@ function Connections() {
               </GroupedConnections>
             );
           })}
-          {listToDisplay.length === 0 && (
-            <Empty message="Connection not found" />
-          )}
-        </ConnectionsList>
-        <AddConnection isAdding={isAddingConnection} exit={() => setIsAddingConnection(false)} />
-      </div>
-    </>
+        </div>
+      </section>
+      {/* <AddConnection isAdding={isAddingConnection} exit={() => setIsAddingConnection(false)} /> */}
+    </div>
   );
 }
 

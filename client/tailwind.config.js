@@ -23,53 +23,53 @@ module.exports = {
         'sans-serif': ['Arial', 'Helvetica', 'sans-serif'],
       },
       colors: {
-
-        // Dark Color
-        'd-primary-bg-color' : '#262e35',
-        'd-secondary-bg-color': '#303841',
-
-        'd-primary-hoverBg-color': '#a6b0cf22',
-        'd-secondary-hoverBg-color': '#abb4d2',
-
-        'd-primary-txt-color': '#eff2f7',
-        'd-secondary-txt-color': '#a6b0cf',
-
-        'd-primary-hoverTxt-color': '',
-        'd-secondary-hoverTxt-color': '',
-
-        'd-primary-border': '#abb4d233',
-      
-        // Light Color
-        'l-primary-bg-color' : '#ffffff',
-        'l-secondary-bg-color': '#f0f2f5',
-
-        'l-primary-hoverBg-color': '#e6ebf5',
-        'l-secondary-hoverBg-color': '',
-
-        'l-primary-txt-color': '#343a40',
-        'l-secondary-txt-color': '#7a7f9a',
-
-        'l-primary-hoverTxt-color': '',
-        'l-secondary-hoverTxt-color': '',
-
-        'l-primary-border': '#abb4d266',
-
-        'util-color-1': '#36404a',
-        'util-color-2': '',
-        'util-color-3': '',
-        'util-color-4': '',
-
+        'light-nav': '#ffffff',
+        'dark-nav': '#36404a',
+        'main-color': '#7269ef',
       },
+
+      borderColor: {
+        'primary-dark': '#abb4d222',
+        'primary-dark-hover':'#a6b0cf22',
+        'secondary-dark': '#303841',
+        'secondary-dark-hover': '#abb4d2',
+        'primary-light': '#abb4d288',
+        'primary-light-hover':'#e6ebf5',
+        'secondary-light': '#f0f2f5',
+        'secondary-light-hover': '',
+      },
+
+      ringColor: {
+        'primary-dark': '#262e35',
+        'primary-dark-hover':'#a6b0cf22',
+        'secondary-dark': '#303841',
+        'secondary-dark-hover': '#abb4d2',
+        'primary-light': '#ffffff',
+        'primary-light-hover':'#e6ebf5',
+        'secondary-light': '#f0f2f5',
+        'secondary-light-hover': '',
+      },
+
       textColor: {
-        'light-1': '#7a7f9a',
-        'light-2': '#343a40',
-        'light-3': '#878a92',
-        'light-4': '#7a7f9a',
-        'dark-1': '#262e35',
-        'dark-2': '#eff2f7',
-        'dark-3': '#a6b0cf',
-        'dark-4': '#abb4d2',
-      }
+        'primary-dark': '#eff2f7',
+        'secondary-dark': '#a6b0cf',
+        'primary-light': '#343a40',
+        'secondary-light': '#7a7f9a',
+      },
+
+      backgroundColor:{
+        'primary-dark': '#262e35',
+        'secondary-dark': '#303841',
+
+        'primary-light': '#ffffff',
+        'secondary-light': '#f0f2f5',
+
+        'primary-dark-hover':'#a6b0cf22',
+        'secondary-dark-hover': '#abb4d2',
+
+        'primary-light-hover':'#e6ebf5',
+        'secondary-light-hover': '',
+      },
     },
   },
   plugins: [],

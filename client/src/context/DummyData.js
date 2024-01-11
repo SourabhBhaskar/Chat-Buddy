@@ -209,6 +209,6 @@ export const dummyContactsData = {
         },
     },
     favorites: ["captanAmerica@example.com", "ironMan@example.com", "thor@example.com", "thor2@example.com", "hulk@example.com", "blackWidow@example.com", "hawkeye@example.com", "drStrange@example.com", "blackPanther@example.com", "spiderMan@example.com", "loki@example.com"],
-    recents: ["captanAmerica@example.com", "ironMan@example.com", "thor@example.com", "thor2@example.com", "hulk@example.com", "blackWidow@example.com", "hawkeye@example.com", "drStrange@example.com", "blackPanther@example.com", "spiderMan@example.com", "loki@example.com"]
+    recents: ["captanAmerica@example.com", "ironMan@example.com", "thor@example.com", "thor2@example.com", "hulk@example.com", "blackWidow@example.com", "hawkeye@example.com", "drStrange@example.com", "blackPanther@example.com", "spiderMan@example.com", "loki@example.com"],
 
 }

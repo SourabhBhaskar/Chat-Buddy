@@ -1,23 +1,21 @@
 // Imports
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsConnectionProfileOpen } from "../../../../context/Boolean/booleanSlice";
 import { formSubmitter } from "../../../../utils/formSubmitter.util";
-import { setUpdateConnection } from "../../../../context/Connections/Connections.slice";
+import { setUpdateConnection } from "../../../../context/ConnectionsContext/Connections.slice";
 import defaultPic from "../../../../assets/profile.jpg";
-import Profile from "./Profile";
-import Heading from "../Common/Headings";
-import PictureSection from "./PictureSection/PictureSection";
-import Picture from "./PictureSection/Picture/Picture";
-import Name from "./PictureSection/Name/Name";
-import Status from "./PictureSection/Status/Status";
-import InfoSection from "./InfoSection/InfoSection";
-import DataSection from "./InfoSection/DataSection";
-import Input from "./InfoSection/Input";
-import Notifications from "./InfoSection/Notifications";
-import Share from "./InfoSection/Share";
-import Remove from "./InfoSection/Remove";
-import Block from "./InfoSection/Block";
+import Heading from "../Headings";
+import PictureSection from "./PictureSection";
+import Picture from "./Picture";
+import Name from "./Name";
+import Status from "./Status";
+import InfoSection from "./InfoSection";
+import DataSection from "./DataSection";
+import InputTextField from "./InputTextField";
+import Notifications from "./Notifications";
+import Share from "./Share";
+import Remove from "./Remove";
+import Block from "./Block";
 
 const findUrl = (urlName) => {
   switch (urlName) {
@@ -75,12 +73,12 @@ function ConnectionProfile() {
   }
 
   return (
-    <Profile padding={true}>
+    <section>
       <Heading
         headingText={`${username}'s Proflie`}
         headingType={"heading-with-front-btn"}
         btnIcon={"back"}
-        handleBtnClick={() => dispatch(setIsConnectionProfileOpen(false))}
+        // handleBtnClick={() => dispatch(setIsConnectionProfileOpen(false))}
       />
       <PictureSection>
         <Picture picture={profile_picture || defaultPic} />
@@ -97,26 +95,26 @@ function ConnectionProfile() {
           />
         </DataSection>
         <DataSection>
-          <Input
+          <InputTextField
             type="text"
             name="Username"
             value={username || "Username"}
-            inputEditButton={false}></Input>
-          <Input
+            inputEditButton={false}></InputTextField>
+          <InputTextField
             type="text"
             name="Mobile Number"
             value={mobile_number || "_"}
-            inputEditButton={false}></Input>
-          <Input
+            inputEditButton={false}></InputTextField>
+          <InputTextField
             type="email"
             name="Email"
             value={email || "_"}
-            inputEditButton={false}></Input>
-          <Input
+            inputEditButton={false}></InputTextField>
+          <InputTextField
             type="text"
             name="Location"
             value={location || "_"}
-            inputEditButton={false}></Input>
+            inputEditButton={false}></InputTextField>
         </DataSection>
         <DataSection>
           <Share />
@@ -128,7 +126,7 @@ function ConnectionProfile() {
              } />
         </DataSection>
       </InfoSection>
-    </Profile>
+    </section>
   );
 }
 

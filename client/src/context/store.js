@@ -1,16 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
-import UserSlice from './User/userSlice';
-import BooleanSlice from './Boolean/booleanSlice';
-import StringSlice from './String/StringSlice';
-import ConnectionsSlice from './Connections/Connections.slice';
+import GlobalSlice from './GlobalContext/global.slice';
+import UserSlice from './UserContext/user.slice';
+import ConnectionsSlice from './ConnectionsContext/Connections.slice';
 
 
 const store = configureStore({
     reducer: {
+        GlobalSlice: GlobalSlice,
         UserSlice: UserSlice,
         ConnectionsSlice: ConnectionsSlice,
-        BooleanSlice: BooleanSlice,
-        StringSlice: StringSlice,
     }
 })
 

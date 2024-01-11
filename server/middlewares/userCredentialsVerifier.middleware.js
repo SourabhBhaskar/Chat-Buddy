@@ -16,19 +16,19 @@ const userCredentialsVerifier = (req, res, next) => {
     if(!password) return res.status(400).json({ error: "Password is not provided" });
 
     // Password Verification
-    const isUsernameValid = usernameVerifier(username);
-    if(isUsernameValid !== null)
-        return res.status(400).json({ ...isUsernameValid });
+    const usernameError = usernameVerifier(username);
+    if(usernameError.error)
+        return res.status(400).json(usernameError);
     
     // Email Verification
-    const isEmailValid = emailVerifier(email);
-    if(isEmailValid !== null) 
-        return res.status(400).json({ ...isEmailValid });
+    const emailError = emailVerifier(email);
+    if(emailError.error) 
+        return res.status(400).json(emailError);
 
     // Password Verification
-    const isPasswordValid = passwordVerifier(password);
-    if(isPasswordValid !== null)
-        return res.status(400).json({ ...isPasswordValid });
+    const passwordError = passwordVerifier(password);
+    if(passwordError.error)
+        return res.status(400).json(passwordError);
 
     // Email & Password Varified
     console.log("Username, Email & Password are verified");

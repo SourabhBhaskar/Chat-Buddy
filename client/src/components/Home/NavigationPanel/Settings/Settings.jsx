@@ -1,17 +1,16 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import defaultPic from '../../../../assets/profile.jpg';
-import Headings from '../Common/Headings';
-import PictureSection from '../Profile/PictureSection/PictureSection';
-import Picture from '../Profile/PictureSection/Picture/Picture';
-import EditPicture from '../Profile/PictureSection/Picture/EditPicture';
-import Name from '../Profile/PictureSection/Name/Name';
-import StatusList from '../Profile/PictureSection/Status/StatusList';
-import InfoSection from './InfoSection/InfoSection';
-import Account from './InfoSection/Account/Account';
-import Privacy from './InfoSection/Privacy/Privacy';
-import ThemAndLanguage from './InfoSection/Theme&Language/ThemAndLanguage';
-import Help from './InfoSection/Help/Help';
+import Headings from '../Headings';
+import PictureSection from '../Profile/PictureSection';
+import Picture from '../Profile/Picture';
+import EditPicture from '../Profile/EditPicture';
+import Name from '../Profile/Name';
+import StatusList from '../Profile/StatusList';
+import Account from './Account';
+import Privacy from './Privacy';
+import ThemAndLanguage from './ThemAndLanguage';
+import Help from './Help';
 
 
 function Settings() {
@@ -30,12 +29,14 @@ function Settings() {
         <Name name={username} />
         <StatusList status={status} handleSubmit={handleSubmit} />
       </PictureSection>
-      <InfoSection>
-        <Account />
-        <Privacy />
-        <ThemAndLanguage />
-        <Help />
-      </InfoSection>
+      <section className='flex-grow relative overflow-x-hidden overflow-y-scroll hide-scrollbar'>
+        <div className='w-full h-full absolute'>
+          <Account />
+          <Privacy />
+          <ThemAndLanguage />
+          <Help />
+        </div>
+      </section>
     </div>
   )
 }

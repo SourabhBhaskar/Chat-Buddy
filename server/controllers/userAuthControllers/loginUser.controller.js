@@ -1,11 +1,18 @@
 // Imports
 const { User } = require("../../models/user.model");
-const { convertEmail, convertBackEmail } = require("../../utils/emailConvert.util");
+const { convertBackEmail } = require("../../utils/emailConvert.util");
 const passport = require("passport");
 
 
 // Login route
 const userLogin = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  // Email & Password Validation
+  if(!email && !password) return res.status(400).json({ error: "Email & Password are not provided"});
+  if(!email) return res.status(400).json({ error: "Email is not provided" });
+  if(!password) return res.status(400).json({ error: "Password is not provided" });
+
   passport.authenticate("local", (err, user, info) => {
     if (err) return res.status(500).json({ error: "Internal Server Error" });
     if (!user) return res.status(400).json(info);

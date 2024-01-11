@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import defaultPicture from '../../../../assets/profile.jpg';
 import {  useDispatch } from 'react-redux';
-import { setIsChatRoomOpen } from '../../../../context/Boolean/booleanSlice';
-import { setCurrentConnection } from '../../../../context/Connections/Connections.slice';
+import { setChatRoom } from '../../../../context/GlobalContext/global.slice';
+import { setCurrentConnection } from '../../../../context/ConnectionsContext/Connections.slice';
 import { socket } from '../../../../socket/socket-client';
+import { loadPicture } from '../../../../utils/loadPicture.util';
 
 
 // Recent Chat
@@ -13,31 +14,34 @@ const RecentChat = React.memo(({ value }) => {
   const pictureToDisplay = profile_picture ? profile_picture : defaultPicture;
   const isOnline = last_seen === 'online' || last_seen === 'typing...' ? true : false;
   const lastMessage = messages && messages.length ? messages[messages.length-1].message : '';
+  const [ loadedPicture, setLoadedPicture] = useState('');
 
   // handleClick
   function handleClick(){
     dispatch(setCurrentConnection(value))
-    dispatch(setIsChatRoomOpen(true));
+    dispatch(setChatRoom(true));
     socket.emit('user/status', value.email);
   }
 
+  useEffect(() => {
+    loadPicture(profile_picture, setLoadedPicture);
+  }, [])
+
   return (
-    <div onClick={handleClick} className='w-full h-[73px] flex items-center justify-center gap-3 px-4 transition-all rounded-lg overflow-hidden cursor-pointer hover:bg-l-primary-hoverBg-color dark:hover:bg-d-primary-hoverBg-color'>
-      <div className='relative flex-shrink-0'>         
-        <img className='w-[40px] aspect-square rounded-full' src={pictureToDisplay} alt={'pic'} />
+    <div className='w-full h-[75px] flex items-center px-4 rounded-md hover:bg-primary-light-hover dark:hover:bg-primary-dark-hover transition-all'>
+      <div className={`w-[40px] h-[40px] rounded-full overflow-hidden relative mr-4 ${!loadedPicture && 'load-picture'}`}>
+        <img src={loadedPicture || defaultPicture} className='w-full h-full rounded-full' />
       </div>
-      <div className='h-[73px] flex-grow flex items-center border-t-[1px] border-l-primary-border dark:border-d-primary-border'>
-        <div className='w-[15px] flex-grow h-[44px] overflow-hidden'>
-          <p className='w-auto truncate font-[500] text-l-primary-txt-color dark:text-d-primary-txt-color'>{username}</p>
-          <p className='w-auto truncate text-[14px] font-[400] text-l-secondary-txt-color dark:text-d-secondary-txt-color'>{lastMessage}</p>
-        </div>
-        <div className='w-[80px] h-[44px] flex-shrink-0 flex flex-col justify-between items-center'>
-          <p className={`${ isOnline ? 'text-green-600 text-[13px]' : 'text-l-secondary-txt-color dark:text-d-secondary-txt-color'} text-[11px] text-center`}>{last_seen}</p>
-          {!isSeen && <div className={`w-full h-full flex justify-center items-center`}>
-            <p className='flex items-center px-1 text-xs text-[#ef476f] bg-[#ef476f22] rounded-full'>{unSeenMsgCnt}</p>
-          </div>}
+      <div className='flex-grow h-full relative border-b-[1px] border-primary-light dark:border-primary-dark'>
+        <div className='w-full h-full absolute flex flex-col justify-center'>
+          <h1 className='w-full truncate text font-semibold text-primary-light dark:text-primary-dark'>{username}</h1>
+          <p className='w-full truncate text-sm text-secondary-light dark:text-secondary-dark'>{lastMessage}</p>
         </div>
       </div>
+      <ul className='h-full aspect-square flex flex-col justify-center items-center gap-2 border-b-[1px] border-primary-light dark:border-primary-dark'>
+        <li className={`${last_seen === 'online' || last_seen === 'typing...' ? 'text-[13px] text-green-600' : 'text-[12px] text-secondary-light dark:text-secondary-dark'}`}>{last_seen}</li>
+        { unSeenMsgCnt !== 0 && <li className='text-xs px-1 rounded-full text-[#ef476f] bg-[#ef476f22]'>{unSeenMsgCnt}</li>}
+      </ul>
     </div>
   )
 }); 
@@ -46,17 +50,21 @@ const RecentChat = React.memo(({ value }) => {
 
 // Recent Chats List
 function RecentChats({ List, children }){
-
   return (
-    <section className='w-full h-full flex flex-col overflow-hidden'> 
-      <h1 className={`py-2 font-semibold flex-shrink-0 text-l-primary-txt-color dark:text-d-primary-txt-color`}>Recent Chats</h1>
-      <div className='flex-grow overflow-y-scroll hide-scrollbar'>
+    <section className='flex-grow flex flex-col'>
+      <h1 className='py-2 font-bold text-primary-light dark:text-primary-dark'>Recent Chats</h1>
+      <div className='flex-grow relative'>
+        <div className='w-full h-full absolute py-1 overflow-scroll hide-scrollbar'>
         { List.length 
         ? List.map((value, index) => <RecentChat key={index} value={value}/>) 
         : children}
+        </div>
       </div>
     </section>
   );
 };
 
+
 export default React.memo(RecentChats);
+
+

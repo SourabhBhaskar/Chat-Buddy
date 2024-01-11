@@ -2,7 +2,6 @@
 const userAuthRouter = require('express').Router();
 const { jsonValidator } = require("../middlewares/jsonValidator.middleware");
 const { userCredentialsVerifier } = require("../middlewares/userCredentialsVerifier.middleware");
-const { reqBodyDataVerifier } = require("../middlewares/reqBodyDataVerifier.middleware");
 const { userAuthentication } = require("../controllers/userAuthControllers/authenticationUser");
 const { userSignup } = require("../controllers/userAuthControllers/signupUser.controller");
 const { userLogin } = require("../controllers/userAuthControllers/loginUser.controller");
@@ -12,7 +11,7 @@ const { userLogout } = require("../controllers/userAuthControllers/logoutUser.co
 // Routes
 userAuthRouter.get('/', userAuthentication);
 userAuthRouter.post('/signup', [jsonValidator, userCredentialsVerifier], userSignup);
-userAuthRouter.post('/login', [jsonValidator, reqBodyDataVerifier], userLogin);
+userAuthRouter.post('/login', [jsonValidator ], userLogin);
 userAuthRouter.get('/logout', userLogout);
 
 

@@ -1,36 +1,38 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { formSubmitter } from "../utils/formSubmitter.util";
-import { setIsLoading } from "../context/Boolean/booleanSlice";
-import { useInitialSetup} from "./useInitialSetup.hook";
+import { useInitialSetup } from "./useInitialSetup.hook";
 
 
 // Is user authenticated
 export const useIsUserAuthenticated = () => {
-    const dispatch = useDispatch();
-    const { initialSetup } = useInitialSetup();
+  const navigate = useNavigate();
+  const { initialSetup } = useInitialSetup();
+  const { isAuthenticated} = useSelector(state => state.GlobalSlice);
 
-    const isUserAuthenticated = async () => {
-        const { result, error } = await formSubmitter({
-            url:  process.env.REACT_APP_SERVER_AUTH,
-            method: "GET", 
-            loaderCallback: (isLoading) => dispatch(setIsLoading(isLoading))
-        })
+  const isUserAuthenticated = async () => {
+    const { result, error } = await formSubmitter({
+      url: process.env.REACT_APP_SERVER_AUTH,
+      method: "GET",
+      credentials: "include",
+    });
 
-        if(!error){
-            const { data, message, error } = result;
-            if(!error){
-                initialSetup(data);
-                console.log(message);
-            }else{
-                console.log("Server Error:", error);
-            }
-        }else{
-            console.log("Client Error:", error);
-        }
+    if (!error) {
+      const { data, error } = result;
+      if (!error) {
+        initialSetup(data);
+      } else {
+        console.log(error);
+        navigate('/')
+      }
+    } else {
+      console.log(error);
+      navigate('/');
     }
+  };
 
-    useEffect(()=>{
-        isUserAuthenticated();
-    }, [])
-}
+  useEffect(() => {
+    !isAuthenticated && isUserAuthenticated();
+  }, []);
+};

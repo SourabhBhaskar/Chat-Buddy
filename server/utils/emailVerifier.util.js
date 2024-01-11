@@ -12,7 +12,7 @@ const emailVerifier = (email) => {
     if(!isEmailSyntaxValid) 
         return { error: "Email is not valid" };
 
-    return null;
+    return { error: null };
 }
 
 

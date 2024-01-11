@@ -1,26 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Heading from '../Common/Headings';
-import Search from '../Common/Search';
+import Heading from '../Headings';
+import Search from '../Search';
 import FavoriteChats from './FavoriteChats';
 import RecentChats from './RecentChats';
 import { useSelector } from 'react-redux';
-
-
-// Search
-function searchItem(itemToSearch, favorites, recents, all){
-  const filteredItemInFavorites = favorites.filter((e) => all[e].username.toUpperCase() === itemToSearch.toUpperCase());
-  const filteredItemInRecents = recents.filter((e) => all[e].username.toUpperCase() === itemToSearch.toUpperCase());
-  return { filteredItemInFavorites, filteredItemInRecents };
-}
-
-// Search not found
-function NotFound(){
-  return (
-    <div className='w-full h-full flex justify-center items-center'>
-      <p className='text-l-primary-txt-color dark:text-d-secondary-txt-color'>Chat not found </p>
-    </div>
-  )
-}
 
 
 // Chats
@@ -31,32 +14,25 @@ function Chats() {
   const [itemToSearch, setItemToSearch] = useState('');
   
   useEffect(()=>{
-    const foundInFavorites = favoriteListToDisplay.filter(chat => chat.username.toLowerCase() === itemToSearch);
-    const foundInRecents = recentListToDisplay.filter(chat => chat.username.toLowerCase() === itemToSearch)
-    if(itemToSearch){
+    const updatedItemToSearch = itemToSearch.trim().toLocaleLowerCase();
+    if(updatedItemToSearch){
+      const foundInFavorites = favoriteListToDisplay.filter(chat => chat.username.toLowerCase() === updatedItemToSearch);
+      const foundInRecents = recentListToDisplay.filter(chat => chat.username.toLowerCase() === updatedItemToSearch);
       setFavoriteListToDisplay(foundInFavorites);
       setRecentListToDisplay(foundInRecents);
     }else{
       setFavoriteListToDisplay(favorites.map(e => all[e]));
       setRecentListToDisplay(recents.map(e => all[e]));
     }
-  }, [itemToSearch])
+  }, [itemToSearch, all])
 
-  useEffect(()=>{
-    setFavoriteListToDisplay(favorites.map(e => all[e]));
-    setRecentListToDisplay(recents.map(e => all[e]));
-  }, [all])
 
   return (
-    <div className="w-full h-full flex flex-col overflow-hidden">
+    <div className='w-full h-full flex flex-col overflow-hidden'>
       <Heading headingText={"Chats"} headingType="simple-heading" />
       <Search placeholder="Search for a chat" setItemToSearch={setItemToSearch} />
-      <FavoriteChats List={favoriteListToDisplay}>
-        <NotFound />
-      </FavoriteChats>
-      <RecentChats List={recentListToDisplay}>
-        <NotFound />
-      </RecentChats>
+      <FavoriteChats List={favoriteListToDisplay} />
+      <RecentChats List={recentListToDisplay} />
     </div>
   )
 }

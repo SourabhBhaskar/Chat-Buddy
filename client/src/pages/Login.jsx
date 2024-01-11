@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setIsLoading } from "../context/Boolean/booleanSlice";
 import { formSubmitter } from "../utils/formSubmitter.util";
 import { useInitialSetup } from "../Hooks/useInitialSetup.hook";
 import Header from "../components/Auth/Header";
@@ -11,27 +10,20 @@ import RememberMe from "../components/Auth/RememberMe";
 import Submit from "../components/Auth/Submit";
 import Footer from "../components/Auth/Footer";
 import Loader from "../components/Common/Loader";
+import { icons } from "../utils/icons.util";
 
 
 // Login Component
 function Login() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { initialSetup } = useInitialSetup();
   const [isLoading, setIsLoading] = useState(false);
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [credential, setCredential] = useState(false);
   const [emailErr, setEmailErr] = useState('');
   const [passwordErr, setPasswordErr] = useState('');
-
-  const handleEmailchange = (e) => setEmail(e.target.value);
-  const handlePasswordChange = (e) => setPassword(e.target.value);
-
-
-  // Handle Navigate
-  const handleNavigate = () => navigate("/signup");
+  const [rememberMe, setRememberMe] = useState(false);
 
   // Handle Form Submit
   async function handleSubmit(e) {
@@ -54,24 +46,24 @@ function Login() {
     });
 
     if (!error) {
-      const { data, message, error } = result;
+      const { data, error } = result;
       if (!error) {
         initialSetup(data);
-        console.log(message);
+        navigate('/home');
       } else {
         typeof error === "string" && error.toLowerCase().indexOf("email") !== -1 && setEmailErr(error);
         typeof error === "string" && error.toLowerCase().indexOf("password") !== -1 && setPasswordErr(error);
-        console.log("Server Error:", error);
+        console.log(error);
       }
     } else {
-      console.log("Client Error:", error);
+      console.log(error);
       alert("Unable to login");
     }
   }
 
   return (
-    <main className="w-full h-full min-w-screen min-h-screen flex flex-col justify-center items-center bg-l-secondary-bg-color dark:bg-d-secondary-bg-color">
-      { isLoading && <Loader/> }
+    <main className="w-full h-full min-w-screen min-h-screen flex flex-col justify-center items-center bg-secondary-light dark:bg-secondary-dark">
+      { isLoading && < Loader />}
       <Header page="Login" description="Welcom back to Chat-Buddy" />
       <FormContainer handleSubmit={handleSubmit}>
         <LabeledInput
@@ -80,9 +72,10 @@ function Login() {
           name="email"
           placeholder="Enter your email"
           value={email}
-          handleValueChange={handleEmailchange}
+          onChange={(e) => setEmail(e.target.value)}
           error={emailErr}
           setError={setEmailErr}
+          icon={icons.username}
         />
         <LabeledInput
           label="Password"
@@ -90,9 +83,10 @@ function Login() {
           name="password"
           placeholder="Enter your password"
           value={password}
-          handleValueChange={handlePasswordChange}
+          onChange={(e) => setPassword(e.target.value)}
           error={passwordErr}
           setError={setPasswordErr}
+          icon={icons.password}
         />
         <RememberMe credential={credential} setCredential={setCredential}/>
         <Submit value="Login" />
@@ -100,7 +94,7 @@ function Login() {
       <Footer
         goto="Signup"
         description="New to Chat-Buddy?"
-        handleNavigate={handleNavigate}
+        handleNavigate={() => navigate("/signup")}
       />
     </main>
   );

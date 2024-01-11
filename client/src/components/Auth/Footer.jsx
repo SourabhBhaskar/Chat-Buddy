@@ -4,11 +4,11 @@ import React from 'react';
 function Footer({ goto, description, handleNavigate }) {
   return (
     <div className="w-full px-4">
-        <div className="flex justify-center gap-2">
-            <p className="text-gray-400">{description}</p>
-            <a className="text-[#7269EF] font-semibold hover:underline" onClick={handleNavigate}>{goto}</a>
+        <div className="flex justify-center gap-2 py-2">
+            <p className="text-md text-secondary-light dark:text-secondary-dark ">{description}</p>
+            <a className="text-main-color font-semibold hover:underline" onClick={handleNavigate}>{goto}</a>
         </div>
-        <p className="text-center text-gray-400 mt-2">
+        <p className="text-sm text-center text-secondary-light dark:text-secondary-dark ">
             &copy; 2023 Chat-Buddy. Crafted with ❤️ by Bhaskar
         </p>
     </div>

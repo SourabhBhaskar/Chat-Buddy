@@ -9,11 +9,11 @@ const updateStatus = async(req, res) => {
     try {
         const updatingStatus = await User.updateOne({ email: req.user.email }, { status: value });
         if(updatingStatus.modifiedCount === 0)
-            return res.status(500).json({ error: 'Internel Server Error' });
+            throw new Error('Status is not modified');
         else 
-            return res.status(200).json({ message: `${name} Updated Successfully`, data: { name, value }});
+            return res.status(200).json({ name, value });
     } catch (error) {
-        return res.status(500).json({ error: 'Internel Server Error' });
+        return res.status(500).json(error.message);
     }
 }
 

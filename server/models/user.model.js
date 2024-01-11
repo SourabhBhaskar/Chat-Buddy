@@ -1,5 +1,7 @@
 // Imports
 const mongoose = require("mongoose");
+const bcryptjs = require("bcryptjs");
+
 
 // User Schema
 const userSchema = new mongoose.Schema(
@@ -24,8 +26,26 @@ const userSchema = new mongoose.Schema(
   { minimize: false }
 );
 
+
+// Hash the password before saving
+userSchema.pre("save", async function (next) {
+  try {
+    if (this.isModified("password")) {
+      // Hash the password
+      const salt = await bcryptjs.genSalt(10);
+      const hashedPassword = await bcryptjs.hash(this.password, salt);
+      this.password = hashedPassword;
+    }
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+
 // User Model
 const User = mongoose.model("User", userSchema);
+
 
 // Export
 module.exports = { User };

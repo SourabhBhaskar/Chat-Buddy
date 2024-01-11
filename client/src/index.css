@@ -197,5 +197,27 @@
     border-bottom: 2px solid #7269ef;
   }
 
+
+  /* Picure Loading animation */
+  .load-picture::after{
+    content: '';
+    position: absolute;
+    right: 50%;
+    bottom: 0%;
+    width: 100%;
+    box-shadow: 0px 0px 15px 2px black;
+    transform: rotate(45deg);
+    transform-origin: center;
+
+    animation-name: load-picture;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+
+  @keyframes load-picture {
+    from{right: 50%; bottom: 0%;  }
+    to{right: -50%; bottom: 100%; }
+  }
 }
 

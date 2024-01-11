@@ -1,34 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Icon } from '@iconify/react';
+import { icons } from '../../../../utils/icons.util';
 import defaultPicture from '../../../../assets/profile.jpg';
-import { setCurrentConnection } from '../../../../context/Connections/Connections.slice';
-import { setIsChatRoomOpen } from '../../../../context/Boolean/booleanSlice';
-import { socket } from '../../../../socket/socket-client';
+import { loadPicture } from '../../../../utils/loadPicture.util';
+import { setChatRoom } from '../../../../context/GlobalContext/global.slice';
+import { setCurrentConnection } from '../../../../context/ConnectionsContext/Connections.slice';
 
 
 // Contact
 const FavoriteChat = React.memo(({ value }) => {
   const dispatch = useDispatch();
-  const { username, email, profile_picture, last_seen } = value;
-  const pictureToDisplay = profile_picture ? profile_picture : defaultPicture;
+  const { username, profile_picture, last_seen } = value;
+  const [ loadedPicture, setLoadedPicture] = useState('');
 
   function handleClick(){
-    dispatch(setIsChatRoomOpen(true));
+    dispatch(setChatRoom(true));
     dispatch(setCurrentConnection(value))
-    socket.emit('user/status', email);
   }
 
+  useEffect(() => {
+    loadPicture(profile_picture, setLoadedPicture);
+  }, [])
+
   return (
-    <div className='w-[70px] h-[70px] flex-shrink-0 flex justify-center relative group cursor-pointer' onClick={handleClick}>
-      <div className='w-auto h-auto flex justify-center absolute z-10'>         
-        <img className='w-[40px] aspect-square rounded-full' src={pictureToDisplay} alt={username} />
-        <div className='absolute right-0 bottom-0'>
-          <Icon icon="pajamas:status-active" className={`text-[11px] border-2 border-black rounded-full ${last_seen === 'online' || last_seen === 'typing...' ? 'text-green-400' : 'text-red-600'}`}/>
+    <div onClick={handleClick} className='w-[70px] aspect-square relative flex-shrink-0 flex flex-col items-center cursor-pointer group'>
+        <div className='w-[40px] aspect-square absolute z-10 overflow-hidden'>
+          <div className={`w-full h-full rounded-full overflow-hidden relative ${ !loadedPicture && 'load-picture' }`}>
+            <img src={loadedPicture || defaultPicture} className='w-full h-full rounded-full' />
+          </div>
+          <Icon icon={icons.status2} fontSize={10} className={`absolute bottom-0 right-0 rounded-full border-2 border-black ${ last_seen === 'online' || last_seen === 'typing...' ? 'text-green-400' : 'text-red-400'}`} />
         </div>
-      </div>
-      <div className='w-full h-[50px] absolute bottom-0 rounded-md bg-l-primary-hoverBg-color dark:bg-d-primary-hoverBg-color'>
-         <p className={`w-full text-center text-sm font-medium mx-auto absolute bottom-2 px-2 animate-box text-l-primary-hoverTxt-color dark:text-d-primary-txt-color ${username.length>=7 && 'truncate'}`}>{username}</p>
+      <div className='w-full h-[40px] rounded-[5px] absolute bottom-1 flex items-end p-1 hover:shadow-md transition-all group-hover:bg-gray-300 dark:group-hover:bg-gray-600 bg-primary-light-hover dark:bg-primary-dark-hover'>
+        <h1 className='w-full text-sm font-semibold truncate text-center text-primary-light dark:text-primary-dark'>{username}</h1>
       </div>
     </div>
   );
@@ -39,9 +43,9 @@ const FavoriteChat = React.memo(({ value }) => {
 // Favorite Chat List
 function FavoriteChats({ List, children }) {
   return (
-    <div className=''>
-      <h1 className='py-4 font-semibold text-l-primary-hoverTxt-color dark:text-d-primary-txt-color'>Favorite Chats</h1>
-      <div className='w-full h-[90px] flex gap-4 overflow-x-scroll hide-scrollbar'>
+    <div>
+      <h1 className='py-4 font-bold text-primary-light dark:text-primary-dark'>Favorite Chats</h1>
+      <div className='w-full h-[80px] flex gap-4 pb-2 overflow-x-scroll hide-scrollbar'>
         { List.length 
         ? List.map((value, index) => <FavoriteChat key={index} value={value} />)
         : children}
@@ -49,5 +53,6 @@ function FavoriteChats({ List, children }) {
     </div>
   )
 }
+
 
 export default React.memo(FavoriteChats);
