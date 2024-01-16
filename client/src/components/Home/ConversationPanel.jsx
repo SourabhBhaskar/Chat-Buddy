@@ -19,11 +19,11 @@ function ConversationPanel() {
   const conversationPanelRef = useRef(null);
   const messageBoxRef = useRef(null);
 
-  // Animation for Conversation Panel
-  useEffect(() => {
-    if(width >= 1280) gsap.from(conversationPanelRef.current, { xPercent: -5 }, { xPercent: 0 });
-    else gsap.from(conversationPanelRef.current, {yPercent: -10 }, { yPercent: 0 });
-  }, [])
+  // // Animation for Conversation Panel
+  // useEffect(() => {
+  //   if(width >= 1280) gsap.from(conversationPanelRef.current, { xPercent: -5 }, { xPercent: 0 });
+  //   else gsap.from(conversationPanelRef.current, {yPercent: -10 }, { yPercent: 0 });
+  // }, [])
 
   // Window Resizing 
   useEffect(() => {

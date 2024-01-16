@@ -5,6 +5,8 @@ import SignUp from './pages/Signup';
 import LogIn from './pages/Login';
 import Home from './pages/Home';
 import PageNotFound from './pages/PageNotFound';
+import PopUpWindows from './components/GlobalComponents/PopUpWindows';
+// import Loader from './components/GlobalComponents/Loader';
 
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
         <Route path='/home' element={<Home />} />
         <Route path='/*' element={<PageNotFound />} />
       </Routes>
+      <PopUpWindows />
+      {/* <Loader /> */}
     </div>
   );
 }

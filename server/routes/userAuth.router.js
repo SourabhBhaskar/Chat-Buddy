@@ -11,7 +11,7 @@ const { userLogout } = require("../controllers/userAuthControllers/logoutUser.co
 // Routes
 userAuthRouter.get('/', userAuthentication);
 userAuthRouter.post('/signup', [jsonValidator, userCredentialsVerifier], userSignup);
-userAuthRouter.post('/login', [jsonValidator ], userLogin);
+userAuthRouter.post('/login', [jsonValidator], userLogin);
 userAuthRouter.get('/logout', userLogout);
 
 

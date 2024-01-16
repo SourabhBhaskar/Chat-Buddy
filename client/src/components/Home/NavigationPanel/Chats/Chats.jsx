@@ -21,10 +21,10 @@ function Chats() {
       setFavoriteListToDisplay(foundInFavorites);
       setRecentListToDisplay(foundInRecents);
     }else{
-      setFavoriteListToDisplay(favorites.map(e => all[e]));
-      setRecentListToDisplay(recents.map(e => all[e]));
+      setFavoriteListToDisplay(favorites.map(f => all[f]));
+      setRecentListToDisplay(recents.map(r => all[r]));
     }
-  }, [itemToSearch, all])
+  }, [itemToSearch, favorites, recents])
 
 
   return (
@@ -32,7 +32,7 @@ function Chats() {
       <Heading headingText={"Chats"} headingType="simple-heading" />
       <Search placeholder="Search for a chat" setItemToSearch={setItemToSearch} />
       <FavoriteChats List={favoriteListToDisplay} />
-      <RecentChats List={recentListToDisplay} />
+      <RecentChats List={recentListToDisplay}  />
     </div>
   )
 }

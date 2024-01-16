@@ -1,33 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux';
 import { Icon } from '@iconify/react';
 import { icons } from '../../../../utils/icons.util';
 import defaultPicture from '../../../../assets/profile.jpg';
-import { loadPicture } from '../../../../utils/loadPicture.util';
 import { setChatRoom } from '../../../../context/GlobalContext/global.slice';
-import { setCurrentConnection } from '../../../../context/ConnectionsContext/Connections.slice';
+import { setCurrentConnection } from '../../../../context/ConnectionsContext/connections.slice';
 
 
 // Contact
 const FavoriteChat = React.memo(({ value }) => {
   const dispatch = useDispatch();
   const { username, profile_picture, last_seen } = value;
-  const [ loadedPicture, setLoadedPicture] = useState('');
 
   function handleClick(){
     dispatch(setChatRoom(true));
     dispatch(setCurrentConnection(value))
   }
 
-  useEffect(() => {
-    loadPicture(profile_picture, setLoadedPicture);
-  }, [])
-
   return (
     <div onClick={handleClick} className='w-[70px] aspect-square relative flex-shrink-0 flex flex-col items-center cursor-pointer group'>
         <div className='w-[40px] aspect-square absolute z-10 overflow-hidden'>
-          <div className={`w-full h-full rounded-full overflow-hidden relative ${ !loadedPicture && 'load-picture' }`}>
-            <img src={loadedPicture || defaultPicture} className='w-full h-full rounded-full' />
+          <div className={`w-full h-full rounded-full overflow-hidden relative ${ !profile_picture && 'load-picture' }`}>
+            <img src={profile_picture || defaultPicture} className='w-full h-full rounded-full' />
           </div>
           <Icon icon={icons.status2} fontSize={10} className={`absolute bottom-0 right-0 rounded-full border-2 border-black ${ last_seen === 'online' || last_seen === 'typing...' ? 'text-green-400' : 'text-red-400'}`} />
         </div>
@@ -41,14 +35,13 @@ const FavoriteChat = React.memo(({ value }) => {
 
 
 // Favorite Chat List
-function FavoriteChats({ List, children }) {
+function FavoriteChats({ List }) {
+
   return (
     <div>
       <h1 className='py-4 font-bold text-primary-light dark:text-primary-dark'>Favorite Chats</h1>
       <div className='w-full h-[80px] flex gap-4 pb-2 overflow-x-scroll hide-scrollbar'>
-        { List.length 
-        ? List.map((value, index) => <FavoriteChat key={index} value={value} />)
-        : children}
+        {List.map((value, index) => <FavoriteChat key={index} value={value} />)}
       </div>
     </div>
   )

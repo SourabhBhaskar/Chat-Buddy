@@ -2,28 +2,32 @@
 
 // Password Verifier
 const passwordVerifier = (password) => {
+
+    if (!password) 
+      return "Password is required.";
+
     if(typeof password !== 'string') 
-      return { error: "Password should be a string" };
+      return "Password should be a string";
+
+    const isLengthValid = password.length >= 8 && password.length <= 16;
+    if (!isLengthValid) return "Password length should be between 8 to 16 characters.";
     
     const isCharactersValid = /^[A-Za-z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/.test(password);
-    if (!isCharactersValid) return { error: "Invalid characters in the password. Only use letters, numbers, and special characters." };
+    if (!isCharactersValid) return "Invalid characters in the password. Only use letters, numbers, and special characters.";
   
     const hasUppercase = /[A-Z]/.test(password);
-    if (!hasUppercase) return { error: "Add at least one uppercase letter in the password." };
+    if (!hasUppercase) return "Add at least one uppercase letter in the password.";
   
     const hasLowercase = /[a-z]/.test(password);
-    if (!hasLowercase) return { error: "Add at least one lowercase letter in the password." };
+    if (!hasLowercase) return "Add at least one lowercase letter in the password.";
   
     const hasDigit = /\d/.test(password);
-    if (!hasDigit) return { error: "Add at least one digit in the password." };
+    if (!hasDigit) return "Add at least one digit in the password.";
   
     const hasSpecialChar = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(password);
-    if (!hasSpecialChar) return { error: "Add at least one special character in the password." };
+    if (!hasSpecialChar) return "Add at least one special character in the password.";
   
-    const isLengthValid = password.length >= 8 && password.length <= 16;
-    if (!isLengthValid) return { error: "Password length should be between 8 to 16 characters." };
-  
-    return { error: null }; 
+    return null;
   }
 
 

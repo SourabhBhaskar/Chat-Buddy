@@ -1,44 +1,76 @@
-// Imports
-import React, { useState } from 'react';
-import { Icon } from '@iconify/react';
-import { icons } from '../../../../utils/icons.util';
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import gsap from "gsap";
+import { Icon } from "@iconify/react";
+import { icons } from "../../../../utils/icons.util";
+import { useRemoveConnection } from "../../../../Hooks/useRemoveConnection.hook";
+import { useFavoriteConnection } from "../../../../Hooks/useFavoriteConnection.hook";
+import { useBlockConnection } from "../../../../Hooks/useBlockConnection.hook";
 
 
 // Menu Item
-function MenuItem({ icon, text}){
+function MenuItem({ icon, text, onClick }) {
   return (
-    <span className='flex items-center gap-2  text-l-secondary-txt-color dark:text-d-secondary-txt-color'>
+    <li onClick={onClick} className="truncate px-4 py-2 rounded-md flex items-center gap-2 transition-all hover:bg-primary-light-hover dark:hover:bg-primary-dark-hover text-primary-light dark:text-secondary-dark dark:hover:text-primary-dark">
       <Icon icon={icon} />
-      <li>{text}</li>
-    </span>
-  )
+      <span>{text}</span>
+    </li>
+  );
 }
-
 
 // Menu
-function Menu() {
-  const [menu, setMenu] = useState(false);
+function Menu({ value }) {
+  const menuRef = useRef(null);
+  const dispatch = useDispatch();
+  const [btnHover, setBtnHover] = useState(false);
+  const removeConnection = useRemoveConnection();
+  const favoriteConnection = useFavoriteConnection();
+  const blockConnection = useBlockConnection();
 
-  const handleSetMenu = (e) => {
-    e.stopPropagation();
-    setMenu(!menu);
+  const handleFavorite = async () => {
+    favoriteConnection.submit({ connectionEmail: value.email, isFavorite: !value.isFavorite })
   }
 
+  const handleBlcok = async () => {
+    blockConnection.submit({ connectionEmail: value.email, isBlocked: !value.isBlocked })
+  }
+  
+  const handleDelete = async () => {
+    removeConnection.submit({ connectionEmail: value.email });
+  }
+
+
+  useEffect(() => {
+    const element = menuRef.current;
+    if (element) {
+      if (btnHover)
+        gsap.to(element, { y: -5, opacity: 1, display: "block"});
+      else
+        gsap.to(element, { y: 25, opacity: 0, display: "none"});
+    }
+    return () => gsap.killTweensOf(element);
+  }, [btnHover]);
+
   return (
-    <div className='relative'>
-      <button onClick={handleSetMenu} className='flex justify-center items-center text-l-secondary-txt-color hover:text-l-primary-txt-color dark:text-d-secondary-txt-color dark:hover:text-d-primary-txt-color'>
-        <Icon icon={icons.menu}/>
+    <div className="relative">
+      <button
+        onMouseEnter={() => setBtnHover(true)}
+        onMouseLeave={() => setBtnHover(false)}
+        className="peer transition-all text-secondary-light hover:text-primary-light dark:text-secondary-dark dark:hover:text-primary-dark">
+        <Icon icon={ favoriteConnection.isLoading || blockConnection.isLoading || removeConnection.isLoading ? icons.loader : icons.menu} />
       </button>
-      { menu && <ul className='rounded-md p-4 absolute right-full top-full flex flex-col gap-2 shadow-md bg-l-primary-bg-color dark:bg-d-secondary-bg-color'>
-        <MenuItem text={"Chat"} icon={icons.chats} />
-        <MenuItem text={"Share"} icon={icons.share} />
-        <MenuItem text={"Delete"} icon={icons.delete} />
-        <MenuItem text={"Block"} icon={icons.block} />
-      </ul>}
+      <ul
+        onMouseEnter={() => setBtnHover(true)}
+        onMouseLeave={() => setBtnHover(false)}
+        ref={menuRef}
+        className="absolute right-0 z-10 hidden shadow-md p-2 rounded-md border-[1px] border-primary-light dark:border-primary-dark bg-secondary-light dark:bg-secondary-dark">
+        <MenuItem text={ value.isFavorite ? "Unfavorite" : "Favorite"} icon={icons.favorite} onClick={handleFavorite} />
+        <MenuItem text={ value.isBlocked ? "Unblock" : "Block"} icon={icons.block} onClick={handleBlcok} />
+        <MenuItem text={"Delete"} icon={icons.delete} onClick={handleDelete} />
+      </ul>
     </div>
-  )
+  );
 }
 
 
-// Export
 export default Menu;

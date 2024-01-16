@@ -14,6 +14,7 @@ export const dummyContactsData = {
             status: 'Available',
             isSeen: false,
             unSeenMsgCnt: 7,
+            isFavorite: true,
             messages: [
                 { id:'1', status: 'read', from: "connection", time: "12:00 AM", type: "text", message: "Hi, how are you?" },
                 { id:'2', status: 'read', from: "user", time: "12:00 AM", type: "text", message: "I'm good, thanks!" },
@@ -34,6 +35,7 @@ export const dummyContactsData = {
             status: 'Away',
             isSeen: true,
             unSeenMsgCnt: 0,
+            isFavorite: true,
             messages: [
                 { id:'1', status: 'read', from: "connection", time: "1:00 PM", type: "text", message: "Hey there!" },
                 { id:'2', status: 'read', from: "user", time: "1:05 PM", type: "text", message: "Hello! What's up?" },
@@ -54,6 +56,7 @@ export const dummyContactsData = {
             status: 'In a battle',
             isSeen: false,
             unSeenMsgCnt: 5,
+            isFavorite: true,
             messages: [
                 { id:'1', status: 'read', from: "connection", time: "3:00 PM", type: "text", message: "Thor, we need your help!" },
                 { id:'2', status: 'read', from: "user", time: "3:05 PM", type: "text", message: "I'm on my way! What's the situation?" },
@@ -73,6 +76,7 @@ export const dummyContactsData = {
             status: 'In a battle',
             isSeen: false,
             unSeenMsgCnt: 5,
+            isFavorite: true,
             messages: [
                 { id:'1', status: 'read', from: "connection", time: "3:00 PM", type: "text", message: "Thor, we need your help!" },
                 { id:'2', status: 'read', from: "user", time: "3:05 PM", type: "text", message: "I'm on my way! What's the situation?" },
@@ -92,6 +96,7 @@ export const dummyContactsData = {
             status: 'Smashing',
             isSeen: false,
             unSeenMsgCnt: 3,
+            isFavorite: true,
             messages: [
                 { id:'1', status: 'read', from: "connection", time: "2:00 PM", type: "text", message: "Hulk, we need you for a mission!" },
                 { id:'2', status: 'read', from: "user", time: "2:05 PM", type: "text", message: "Hulk is always ready! What's the mission?" },
@@ -110,6 +115,7 @@ export const dummyContactsData = {
             status: 'Undercover',
             isSeen: true,
             unSeenMsgCnt: 0,
+            isFavorite: false,
             messages: [
                 { id:'1', status: 'read', from: "connection", time: "4:00 PM", type: "text", message: "Black Widow, we need information on the enemy." },
                 { id:'2', status: 'read', from: "user", time: "4:05 PM", type: "text", message: "I'm on a mission. I'll get the intel you need." },
@@ -128,6 +134,7 @@ export const dummyContactsData = {
             status: 'On a mission',
             isSeen: true,
             unSeenMsgCnt: 0,
+            isFavorite: false,
             messages: [
                 { id:'1', status: 'read', from: "connection", time: "5:00 PM", type: "text", message: "Hawkeye, we need your precision skills." },
                 { id:'2', status: 'read', from: "user", time: "5:05 PM", type: "text", message: "I'm always ready. What's the target?" },
@@ -146,6 +153,7 @@ export const dummyContactsData = {
             status: 'In meditation',
             isSeen: false,
             unSeenMsgCnt: 6,
+            isFavorite: false,
             messages: [
                 { id:'1', status: 'read', from: "connection", time: "6:00 PM", type: "text", message: "Doctor Strange, we need your mystical help." },
                 { id:'2', status: 'read', from: "user", time: "6:05 PM", type: "text", message: "I sense a disturbance. I'll investigate." },
@@ -164,6 +172,7 @@ export const dummyContactsData = {
             status: 'Protecting the kingdom',
             isSeen: false,
             unSeenMsgCnt: 1,
+            isFavorite: false,
             messages: [
                 { id:'1', status: 'read', from: "connection", time: "7:00 PM", type: "text", message: "T'Challa, we need your leadership." },
                 { id:'2', status: 'read', from: "user", time: "7:05 PM", type: "text", message: "I'm always ready to defend Wakanda. What's the issue?" },
@@ -182,6 +191,7 @@ export const dummyContactsData = {
             status: 'Swinging around',
             isSeen: true,
             unSeenMsgCnt: 0,
+            isFavorite: false,
             messages: [
                 { id:'1', status: 'read', from: "connection", time: "8:00 PM", type: "text", message: "Hey, Spidey! We need your help." },
                 { id:'2', status: 'read', from: "user", time: "8:05 PM", type: "text", message: "Sure thing! What's the situation?" },
@@ -200,6 +210,7 @@ export const dummyContactsData = {
             status: 'Mischief mode',
             isSeen: false,
             unSeenMsgCnt: 3,
+            isFavorite: false,
             messages: [
                 { id:'1', status: 'read', from: "connection", time: "9:00 PM", type: "text", message: "Loki, what are you up to now?" },
                 { id:'2', status: 'read', from: "user", time: "9:05 PM", type: "text", message: "Just a little mischief. Nothing to worry about." },

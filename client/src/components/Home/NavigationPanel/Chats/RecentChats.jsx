@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import defaultPicture from '../../../../assets/profile.jpg';
 import {  useDispatch } from 'react-redux';
 import { setChatRoom } from '../../../../context/GlobalContext/global.slice';
-import { setCurrentConnection } from '../../../../context/ConnectionsContext/Connections.slice';
+import { setCurrentConnection } from '../../../../context/ConnectionsContext/connections.slice';
 import { socket } from '../../../../socket/socket-client';
 import { loadPicture } from '../../../../utils/loadPicture.util';
 
@@ -14,7 +14,6 @@ const RecentChat = React.memo(({ value }) => {
   const pictureToDisplay = profile_picture ? profile_picture : defaultPicture;
   const isOnline = last_seen === 'online' || last_seen === 'typing...' ? true : false;
   const lastMessage = messages && messages.length ? messages[messages.length-1].message : '';
-  const [ loadedPicture, setLoadedPicture] = useState('');
 
   // handleClick
   function handleClick(){
@@ -23,14 +22,10 @@ const RecentChat = React.memo(({ value }) => {
     socket.emit('user/status', value.email);
   }
 
-  useEffect(() => {
-    loadPicture(profile_picture, setLoadedPicture);
-  }, [])
-
   return (
     <div className='w-full h-[75px] flex items-center px-4 rounded-md hover:bg-primary-light-hover dark:hover:bg-primary-dark-hover transition-all'>
-      <div className={`w-[40px] h-[40px] rounded-full overflow-hidden relative mr-4 ${!loadedPicture && 'load-picture'}`}>
-        <img src={loadedPicture || defaultPicture} className='w-full h-full rounded-full' />
+      <div className={`w-[40px] h-[40px] rounded-full overflow-hidden relative mr-4 ${!profile_picture && 'load-picture'}`}>
+        <img src={profile_picture || defaultPicture} className='w-full h-full rounded-full' />
       </div>
       <div className='flex-grow h-full relative border-b-[1px] border-primary-light dark:border-primary-dark'>
         <div className='w-full h-full absolute flex flex-col justify-center'>
@@ -49,15 +44,13 @@ const RecentChat = React.memo(({ value }) => {
 
 
 // Recent Chats List
-function RecentChats({ List, children }){
+function RecentChats({ List }){
   return (
     <section className='flex-grow flex flex-col'>
       <h1 className='py-2 font-bold text-primary-light dark:text-primary-dark'>Recent Chats</h1>
       <div className='flex-grow relative'>
         <div className='w-full h-full absolute py-1 overflow-scroll hide-scrollbar'>
-        { List.length 
-        ? List.map((value, index) => <RecentChat key={index} value={value}/>) 
-        : children}
+          { List.map((value, index) => <RecentChat key={index} value={value}/>)}
         </div>
       </div>
     </section>

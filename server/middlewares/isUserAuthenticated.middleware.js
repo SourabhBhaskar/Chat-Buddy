@@ -5,7 +5,6 @@ function isUserAuthenticated(req, res, next) {
     console.log("User is not authenticated")
     return res.status(400).json({ error: "User is not authenticated"});
   }
-  console.log("User is authenticated")
   next();
  }
  

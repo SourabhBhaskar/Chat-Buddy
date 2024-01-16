@@ -1,9 +1,10 @@
-import React from 'react';
-import { useIsUserAuthenticated } from '../Hooks/useIsAuthenticated.hook';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useIsAuthenticated } from '../Hooks/useIsAuthenticated.hook';
 
 
 function Landing() {
-  useIsUserAuthenticated();
+  useIsAuthenticated();
   return (
     <div>Landing</div>
   )

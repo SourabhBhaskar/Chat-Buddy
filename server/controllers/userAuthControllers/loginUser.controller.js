@@ -9,17 +9,16 @@ const userLogin = async (req, res, next) => {
   const { email, password } = req.body;
 
   // Email & Password Validation
-  if(!email && !password) return res.status(400).json({ error: "Email & Password are not provided"});
-  if(!email) return res.status(400).json({ error: "Email is not provided" });
-  if(!password) return res.status(400).json({ error: "Password is not provided" });
+  if(!email) return res.status(400).send("Email is not provided" );
+  if(!password) return res.status(400).send("Password is not provided");
 
   passport.authenticate("local", (err, user, info) => {
-    if (err) return res.status(500).json({ error: "Internal Server Error" });
-    if (!user) return res.status(400).json(info);
+    if (err) return res.status(500).send("Internal Server Error");
+    if (!user) return res.status(400).send(info.error);
     
     req.login(user, async (err) => {
       if (err)
-        return res.status(500).json({ error: "Internal Server Error" });
+        return res.status(500).send("Internal Server Error");
 
         const connections = user.connections.all;
 
@@ -47,7 +46,7 @@ const userLogin = async (req, res, next) => {
           },
         };
       
-      return res.status(200).json({ message: 'Login successful', data: updatedUser });
+      return res.status(200).json(updatedUser);
     });
   })(req, res, next);
 };

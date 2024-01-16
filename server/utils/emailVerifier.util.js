@@ -4,15 +4,19 @@ const validator = require("validator");
 
 // Email Verifier
 const emailVerifier = (email) => {
+
+    if (!email) 
+        return "Email is required.";
+
     if(typeof email !== 'string') 
-        return { error: "Email should be a string" };
+        return "Email should be a string";
 
     // Check email syntax
     const isEmailSyntaxValid = validator.isEmail(email);
     if(!isEmailSyntaxValid) 
-        return { error: "Email is not valid" };
+        return "Email is not valid";
 
-    return { error: null };
+    return null;
 }
 
 

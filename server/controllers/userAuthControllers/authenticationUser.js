@@ -9,7 +9,7 @@ const userAuthentication = async (req, res) => {
   const user = req.user;
 
   if (!req.isAuthenticated()) {
-    return res.status(400).json({ error: "User is not authenticated" });
+    return res.status(400).send("User is not authenticated");
   } else {
     const connections = user.connections.all;
 
@@ -39,7 +39,7 @@ const userAuthentication = async (req, res) => {
 
     return res
       .status(200)
-      .json({ message: "User is authenticated", data: updatedUser });
+      .json(updatedUser);
   }
 };
 

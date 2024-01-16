@@ -11,10 +11,10 @@ function Search({ placeholder, setItemToSearch }) {
   }, [inpVal]);
 
   return (
-    <div className='w-full h-[44px] relative rounded-md flex items-center gap-3 px-3 overflow-hidden bg-primary-light-hover dark:bg-primary-dark-hover'>
-      <Icon icon={icons.search} fontSize={22} className={`${inpVal ? 'text-primary-light dark:text-primary-dark' : 'text-secondary-light dark:text-secondary-dark'} transition-all`} />
+    <div className='w-full h-[44px] truncate relative rounded-md flex items-center gap-3 px-3 overflow-hidden bg-primary-light-hover dark:bg-primary-dark-hover'>
+      <Icon icon={icons.search} fontSize={22} className={`${inpVal ? 'text-primary-light dark:text-primary-dark' : 'text-secondary-light dark:text-secondary-dark'} transition-all flex-shrink-0`} />
       <input 
-        className='flex-grow h-full bg-transparent text-primary-light dark:text-primary-dark placeholder:text-secondary-light dark:placeholder:text-secondary-dark peer'
+        className='flex-grow h-full truncate bg-transparent text-primary-light dark:text-primary-dark placeholder:text-secondary-light dark:placeholder:text-secondary-dark peer'
         onChange={(e) => setInpVal(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && setItemToSearch(inpVal)}
         value={inpVal}

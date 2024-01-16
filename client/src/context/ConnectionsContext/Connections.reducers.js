@@ -15,26 +15,6 @@ export function currentConnectionReducer(state, action){
 }
 
 
-// Add Connection
-export function addNewConnectionReducer(state, action){
-    const newConnection = action.payload;
-    console.log(newConnection)
-
-    // All
-    state.all[newConnection.email] = newConnection;
-
-    // Sorted All
-    const updated_groupedAll = {};
-    Object.values({ ...state.all })
-        .sort((a, b) => a.username.toLowerCase().localeCompare(b.username.toLowerCase()))
-        .forEach((connection) => {
-            const key = connection.username.slice(0, 1).toUpperCase();
-            (updated_groupedAll[key])
-            ? updated_groupedAll[key].push(connection.email)
-            : updated_groupedAll[key] = [connection.email];
-        })
-    state.groupedAll = updated_groupedAll;
-}
 
 
 

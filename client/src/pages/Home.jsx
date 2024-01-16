@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Loader from "../components/Common/Loader";
+import { useIsAuthenticated } from "../Hooks/useIsAuthenticated.hook";
 import Navigation from "../components/Home/Navigation";
-import NavigationPanel from "../components/Home/NavigationPanel/NavigationPanel";
+import NavigationPanel from "../components/Home/NavigationPanel";
 import ConversationPanel from "../components/Home/ConversationPanel";
 import ConnectionProfile from "../components/Home/NavigationPanel/Profile/ConnectionProfile";
-import { useIsUserAuthenticated } from "../Hooks/useIsAuthenticated.hook";
-
+import GlobalLoader from "../components/GlobalComponents/GlobalLoader";
 
 // Home
 function Home() {
-  useIsUserAuthenticated();
-  const { isAuthenticated } = useSelector((state) => state.GlobalSlice);
-  const { chatRoom, connectionProfile } = useSelector(
-    (state) => state.GlobalSlice
-  );
+  useIsAuthenticated();
+  const { chatRoom, connectionProfile, isAuthenticated } = useSelector((state) => state.GlobalSlice);
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
 
@@ -34,9 +30,7 @@ function Home() {
       {((chatRoom && !connectionProfile) || width >= 1280) && (<ConversationPanel />)}
       {connectionProfile && chatRoom && <ConnectionProfile />}
     </main>
-  ) : (
-    <Loader />
-  );
+  ) : <GlobalLoader />
 }
 
 

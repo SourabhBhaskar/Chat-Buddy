@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { formSubmitter } from "../../../../utils/formSubmitter.util";
-import { setUpdateConnection } from "../../../../context/ConnectionsContext/Connections.slice";
+import { setUpdateConnection } from "../../../../context/ConnectionsContext/connections.slice";
 import defaultPic from "../../../../assets/profile.jpg";
 import Heading from "../Headings";
 import PictureSection from "./PictureSection";
