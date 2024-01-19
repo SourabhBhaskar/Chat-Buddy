@@ -2,7 +2,7 @@
 export function favoriteConnectionReducer(state, action){
     const { connectionEmail, isFavorite} = action.payload;
 
-    state.all[connectionEmail].isFavorite = isFavorite;
+    state.all[connectionEmail].settings.isFavorite = isFavorite;
     if(isFavorite)
         state.favorites.push(connectionEmail);
     else

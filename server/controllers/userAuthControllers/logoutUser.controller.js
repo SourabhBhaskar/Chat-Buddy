@@ -3,9 +3,8 @@
 // Logout route
 const userLogout = (req, res) => {
     req.logout((err) => {
-      if (err) return res.status(500).json({ error: err.message });
-      console.log("Logout successful");
-      res.status(200).json({ message: "Logout successful" });
+      if (err) return res.status(500).send(err.message);
+      res.status(200).send("Logout successful");
     });
 };
 

@@ -9,7 +9,7 @@ import RememberMe from "../components/Auth/RememberMe";
 import Submit from "../components/Auth/Submit";
 import Footer from "../components/Auth/Footer";
 import GlobalLoader from "../components/GlobalComponents/GlobalLoader";
-import { useLogin } from "../Hooks/useLogin.hook";
+import { useLogin } from "../Hooks/auth/useLogin.hook";
 
 
 // Login Component
@@ -27,7 +27,7 @@ function Login() {
   return (
     <main className="w-full h-full min-w-screen min-h-screen flex flex-col justify-center items-center bg-secondary-light dark:bg-secondary-dark">
       { login.state.isLoading && <GlobalLoader /> }
-      <Header page="Login" description="Welcom back to Chat-Buddy" />
+      <Header page="Login" description="Welcome back to ChatBuddy" />
       <FormContainer handleSubmit={handleSubmit}>
       <LabeledInput
           label="Email"
@@ -35,7 +35,7 @@ function Login() {
           name="email"
           placeholder="Enter your email"
           value={login.state.email}
-          onChange={(e) => login.dispatcher({ type: "EMAIL", payload: e.target.value })}
+          onChange={(value) => login.dispatcher({ type: "EMAIL", payload: value })}
           error={login.state.emailError}
           setError={(err) => login.dispatcher({ type: "EMAIL_ERROR", payload: err })}
           icon={icons.email}
@@ -46,7 +46,7 @@ function Login() {
           name="password"
           placeholder="Enter your password"
           value={login.state.password}
-          onChange={(e) => login.dispatcher({ type: "PASSWORD", payload: e.target.value })}
+          onChange={(value) => login.dispatcher({ type: "PASSWORD", payload: value })}
           error={login.state.passwordError}
           setError={(err) => login.dispatcher({ type: "PASSWORD_ERROR", payload: err })}
           icon={icons.password}
@@ -56,7 +56,7 @@ function Login() {
       </FormContainer>
       <Footer
         goto="Signup"
-        description="New to Chat-Buddy?"
+        description="New to ChatBuddy?"
         handleNavigate={() => navigate("/signup")}
       />
     </main>

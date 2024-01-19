@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useIsAuthenticated } from '../Hooks/useIsAuthenticated.hook';
+import React from 'react';
+import { useIsAuthenticated } from '../Hooks/auth/useIsAuthenticated.hook';
 
 
 function Landing() {

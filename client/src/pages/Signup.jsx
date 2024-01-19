@@ -8,7 +8,7 @@ import Submit from "../components/Auth/Submit";
 import RememberMe from "../components/Auth/RememberMe";
 import Footer from "../components/Auth/Footer";
 import GlobalLoader from "../components/GlobalComponents/GlobalLoader";
-import { useSignup } from "../Hooks/useSignup.hook";
+import { useSignup } from "../Hooks/auth/useSignup.hook";
 
 
 function Signup() {
@@ -23,7 +23,7 @@ function Signup() {
   return (
     <main className="w-full h-full min-w-screen min-h-screen flex flex-col items-center justify-center bg-secondary-light dark:bg-secondary-dark">
       { signup.state.isLoading && <GlobalLoader /> }
-      <Header page="Signup" description="Welcome to Chat-Buddy" />
+      <Header page="Signup" description="Welcome to ChatBuddy" />
       <FormContainer handleSubmit={handleSubmit}>
         <LabeledInput
           label="Username"
@@ -31,7 +31,7 @@ function Signup() {
           name="username"
           placeholder="Enter your username"
           value={signup.state.username}
-          onChange={(e) => signup.dispatcher({ type: "USERNAME", payload: e.target.value })}
+          onChange={(value) => signup.dispatcher({ type: "USERNAME", payload: value })}
           error={signup.state.usernameError}
           setError={(err) => signup.dispatcher({ type: "USERNAME_ERROR", payload: err})}
           icon={icons.username}
@@ -42,7 +42,7 @@ function Signup() {
           name="email"
           placeholder="Enter your email"
           value={signup.state.email}
-          onChange={(e) => signup.dispatcher({ type: "EMAIL", payload: e.target.value })}
+          onChange={(value) => signup.dispatcher({ type: "EMAIL", payload: value })}
           error={signup.state.emailError}
           setError={(err) => signup.dispatcher({ type: "EMAIL_ERROR", payload: err })}
           icon={icons.email}
@@ -53,7 +53,7 @@ function Signup() {
           name="password"
           placeholder="Enter your password"
           value={signup.state.password}
-          onChange={(e) => signup.dispatcher({ type: "PASSWORD", payload: e.target.value })}
+          onChange={(value) => signup.dispatcher({ type: "PASSWORD", payload: value })}
           error={signup.state.passwordError}
           setError={(err) => signup.dispatcher({ type: "PASSWORD_ERROR", payload: err })}
           icon={icons.password}

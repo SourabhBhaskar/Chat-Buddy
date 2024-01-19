@@ -5,6 +5,7 @@ import { connectionProfileReducer } from './Reducers/connectionProflie.reducer';
 import { isAuthenticatedReducer } from './Reducers/isAuthenticated.reducer';
 import { addPopUpWindowReducer } from './Reducers/addPopUpWindow.reducer';
 import { removePopUpWindowReducer } from './Reducers/removePopUpWindow.reducer';
+import { loaderReducer } from './Reducers/loader.reducer';
 
 
 // Initial State
@@ -13,6 +14,7 @@ const initialState = {
     chatRoom: window.innerWidth >= 1280,
     connectionProfile: false,
     isAuthenticated: false,
+    isLoading: false,
     popUpWindows: [],
 }
 
@@ -28,6 +30,7 @@ const GlobalSlice = createSlice({
         setIsAuthenticated: isAuthenticatedReducer,
         setAddPopUpWindow: addPopUpWindowReducer,
         setRemovePopUpWindow: removePopUpWindowReducer,
+        setLoader: loaderReducer
     }
 })
 
@@ -40,5 +43,6 @@ export const {
     setIsAuthenticated,
     setAddPopUpWindow,
     setRemovePopUpWindow,
+    setLoader
  } = GlobalSlice.actions;
 export default GlobalSlice.reducer;

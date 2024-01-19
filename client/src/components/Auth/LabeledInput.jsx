@@ -38,7 +38,7 @@ function LabeledInput({
           type={type}
           placeholder={placeholder}
           value={value}
-          onChange={(e) => onChange(e)}
+          onChange={(e) => onChange(e.target.value)}
           onFocus={() => setError('')}
           className='flex-grow bg-transparent px-2 text-sm text-secondary-light dark:text-secondary-dark placeholder:text-secondary-light placeholder:dark:text-secondary-dark'
         />

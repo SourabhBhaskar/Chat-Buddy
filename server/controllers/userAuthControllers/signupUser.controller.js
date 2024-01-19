@@ -4,9 +4,11 @@ const { User } = require("../../models/user.model");
 // Signup controller
 const userSignup = async (req, res) => {
   const { username, email, password } = req.body;
+
   try {
     // Check, If user exists already
     const isExist = await User.findOne({ email });
+
     if(isExist)
       return res.status(409).send('Email already exists' );
 
@@ -21,7 +23,6 @@ const userSignup = async (req, res) => {
     });
 
   } catch (error) {
-    console.log(error);
     return res.status(500).send(error.message);
   }
 };

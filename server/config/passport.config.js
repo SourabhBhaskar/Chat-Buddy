@@ -11,7 +11,7 @@ passport.use(
     { usernameField: 'email' },
     async function (email, password, done) {
       try {
-        const user = await User.findOne({ email }).exec();
+        const user = await User.findOne({ email }, { email: 1, password: 1, _id: 0 });
         if (!user) {
           return done(null, false, { error: 'Incorrect email' });
         }
@@ -40,7 +40,7 @@ passport.serializeUser(function (user, done) {
 // Deserialize the user
 passport.deserializeUser(async function (email, done) {
   try {
-    const user = await User.findOne({ email }).exec();
+    const user = await User.findOne({ email }, { email: 1, password: 1 , _id: 0 });
     done(null, user);
   } catch (err) {
     console.error('Error during user deserialization:', err);

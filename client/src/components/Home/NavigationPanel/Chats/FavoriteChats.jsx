@@ -14,7 +14,7 @@ const FavoriteChat = React.memo(({ value }) => {
 
   function handleClick(){
     dispatch(setChatRoom(true));
-    dispatch(setCurrentConnection(value))
+    dispatch(setCurrentConnection(value.email))
   }
 
   return (
@@ -41,7 +41,7 @@ function FavoriteChats({ List }) {
     <div>
       <h1 className='py-4 font-bold text-primary-light dark:text-primary-dark'>Favorite Chats</h1>
       <div className='w-full h-[80px] flex gap-4 pb-2 overflow-x-scroll hide-scrollbar'>
-        {List.map((value, index) => <FavoriteChat key={index} value={value} />)}
+        {List.map((value, index) => <FavoriteChat key={index} value={value.bio} />)}
       </div>
     </div>
   )

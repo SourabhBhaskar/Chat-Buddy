@@ -6,7 +6,7 @@ import { icons } from '../../../../utils/icons.util';
 import TextArea from './TextArea';
 import LabeledInput from '../../../Auth/LabeledInput';
 import Submit from '../../../Auth/Submit';
-import { useAddConnection } from '../../../../Hooks/useAddConnection';
+import { useAddConnection } from '../../../../Hooks/userConnections/useAddConnection.hook';
 import GlobalLoader from "../../../GlobalComponents/GlobalLoader";
 
 
@@ -16,11 +16,18 @@ function AddConnection({ isAddingConnection, setIsAddingConnection }) {
   const addConnectionBoxRef = useRef(null);
   const addConnection = useAddConnection();
 
-  // Handle Submit
-  const handleSubmit = async(e) => {
-    e.preventDefault();
-    addConnection.submit(() => setIsAddingConnection(false));
+  // Handle Cancel 
+  const handleCancel = () => {
+    setIsAddingConnection(!isAddingConnection);
   }
+
+    // Handle Submit
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+        if(isAddingConnection){
+            addConnection.submit(handleCancel);
+        }
+    }
 
   useEffect(() => {
     const containerElement = containerRef.current;
@@ -42,11 +49,11 @@ function AddConnection({ isAddingConnection, setIsAddingConnection }) {
         <form onSubmit={handleSubmit} ref={addConnectionBoxRef} className='w-[95%] max-w-[500px] h-auto absolute flex-col gap-4 p-4 rounded-md shadow-md bg-primary-light dark:bg-primary-dark border-[1px] border-primary-light dark:border-primary-dark'>
             <div className='flex justify-between pb-4 border-b-[1px] border-primary-light dark:border-primary-dark'>
                 <h1 className='text-xl font-semibold text-primary-light dark:text-primary-dark'>Add Connection</h1>
-                <button onClick={() => setIsAddingConnection(!isAddingConnection)} className='transition-all text-secondary-light dark:text-secondary-dark hover:text-primary-light dark:hover:text-primary-dark'>
+                <button onClick={() => setIsAddingConnection(false)} className='transition-all text-secondary-light dark:text-secondary-dark hover:text-primary-light dark:hover:text-primary-dark'>
                     <Icon icon={icons.cancel} />
                 </button>
             </div>
-            <LabeledInput icon={icons.email} type={"email"} placeholder={'Enter your email'} label={'Email'} value={addConnection.state.connectionEmail} error={addConnection.state.connectionEmailError} setError={(err) => addConnection.dispatcher({ type: "EMAIL_ERROR", payload: err })} onChange={(e) => addConnection.dispatcher({ type: "EMAIL", payload: e.target.value })} />
+            <LabeledInput icon={icons.email} type={"email"} placeholder={'Enter your email'} label={'Email'} value={addConnection.state.connectionEmail} error={addConnection.state.connectionEmailError} setError={(err) => addConnection.dispatcher({ type: "EMAIL_ERROR", payload: err })} onChange={(value) => addConnection.dispatcher({ type: "EMAIL", payload: value })} />
             <TextArea label={"Type a message"} value={addConnection.state.connectionMessage} onChange={(e) => addConnection.dispatcher({ type: "MESSAGE", payload: e.target.value })} />
             <Submit/>
         </form>

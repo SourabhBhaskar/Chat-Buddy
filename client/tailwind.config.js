@@ -26,6 +26,7 @@ module.exports = {
         'light-nav': '#ffffff',
         'dark-nav': '#36404a',
         'main-color': '#7269ef',
+        'main-color-hover': '#7269efee',
       },
 
       borderColor: {

@@ -22,9 +22,8 @@ const { sessionSetup } = require("./middlewares/sessionSetup.middleware");
 const { routeIsNotFound } = require("./middlewares/routeIsNotFound.middleware");
 const { appMiddlewareError } = require("./middlewares/appMiddlewareError.middleware");
 const { userAuthRouter } = require("./routes/userAuth.router");
-const { userUpdateRouter } = require("./routes/userUpdate.router");
-const { userConnectionRouter } = require("./routes/userConnection.router");
-const { userConnectionUpdateRouter } = require("./routes/userConnectionUpdate.router");
+const { userBioRouter } = require("./routes/userBio.router");
+const { userConnectionRouter } = require("./routes/userConnections.router");
 const { uploadFilesRouter } = require("./routes/uploadFiles.router");
 
 
@@ -55,9 +54,8 @@ app.use(appMiddlewareError);
 
 // Routes
 app.use('/user/auth', userAuthRouter);
-app.use('/user/update', userUpdateRouter);
-app.use('/user/connections/', userConnectionRouter);
-app.use('/user/connections/update', userConnectionUpdateRouter);
+app.use('/user/bio', userBioRouter);
+app.use('/user/connections', userConnectionRouter);
 app.use('/upload', uploadFilesRouter);
 app.use(routeIsNotFound);
 

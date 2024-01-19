@@ -16,4 +16,4 @@ function GroupedConnections({ group, children }) {
 
 
 // Export
-export default React.memo(GroupedConnections);
+export default GroupedConnections;

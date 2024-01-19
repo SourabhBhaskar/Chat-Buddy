@@ -1,32 +1,38 @@
+import { connections as dummyConnections } from "../../../context/DummyData";
+
 
 // Initial Setup
 export function initialConnectionsSetupReducer(state, action) {
-  const { all, favorites, recents } = action.payload.connections;
+  const connections = [ ...action.payload, ...dummyConnections ];
+  const updatedAll = {};
+  const updatedSortedAll = {};
+  const updatedFavorites = [];
+  const updatedRecents = [ ...dummyConnections.map((c) => c.bio.email)];
 
-  // Favorites & Sorted All
-  const sortedAll = {};
-  for (let i in all) {
-    const { email, username, isFavorite } = all[i];
+  connections.forEach(connection => {
+    const { email, username } = connection.bio;
 
-    if(isFavorite){
-      favorites.push(email);
-      console.log("Hi................")
-    }
+    // All
+    updatedAll[email] = connection;
 
+    // Sorted All
     const key = username.slice(0, 1).toUpperCase();
-    const value = { email, username };
-    sortedAll[key]
-    ? sortedAll[key].push(value)
-    : sortedAll[key] = [value]
-  }
+    if(updatedSortedAll[key]) updatedSortedAll[key].push(email);
+    else updatedSortedAll[key] = [email];
+
+    // Favorites
+    const isFavorite = connection.settings.isFavorite;
+    if(isFavorite) updatedFavorites.push(email);
+    
+  });
 
   // Updated state
   const updatedState = {
-    ...state,
-    all: all,
-    favorites: favorites,
-    recents: recents,
-    sortedAll: Object.entries(sortedAll).sort()
+    currentConnection: "",
+    all: updatedAll,
+    sortedAll: updatedSortedAll,
+    favorites: updatedFavorites,
+    recents: updatedRecents
   };
 
   return updatedState;

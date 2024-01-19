@@ -3,9 +3,9 @@ import { useDispatch } from "react-redux";
 import gsap from "gsap";
 import { Icon } from "@iconify/react";
 import { icons } from "../../../../utils/icons.util";
-import { useRemoveConnection } from "../../../../Hooks/useRemoveConnection.hook";
-import { useFavoriteConnection } from "../../../../Hooks/useFavoriteConnection.hook";
-import { useBlockConnection } from "../../../../Hooks/useBlockConnection.hook";
+import { useRemoveConnection } from "../../../../Hooks/userConnections/useRemoveConnection.hook";
+import { useFavoriteConnection } from "../../../../Hooks/userConnections/useFavoriteConnection.hook";
+import { useBlockConnection } from "../../../../Hooks/userConnections/useBlockConnection.hook";
 
 
 // Menu Item
@@ -19,7 +19,7 @@ function MenuItem({ icon, text, onClick }) {
 }
 
 // Menu
-function Menu({ value }) {
+function Menu({ value={} }) {
   const menuRef = useRef(null);
   const dispatch = useDispatch();
   const [btnHover, setBtnHover] = useState(false);
@@ -27,17 +27,21 @@ function Menu({ value }) {
   const favoriteConnection = useFavoriteConnection();
   const blockConnection = useBlockConnection();
 
-  const handleFavorite = async () => {
-    favoriteConnection.submit({ connectionEmail: value.email, isFavorite: !value.isFavorite })
+  const handleFavorite = async (e) => {
+    e.stopPropagation();
+    favoriteConnection.submit({ connectionEmail: value.bio.email, isFavorite: !value.settings.isFavorite })
   }
 
-  const handleBlcok = async () => {
-    blockConnection.submit({ connectionEmail: value.email, isBlocked: !value.isBlocked })
+  const handleBlcok = async (e) => {
+    e.stopPropagation();
+    blockConnection.submit({ connectionEmail: value.bio.email, isBlocked: !value.settings.isBlocked })
   }
   
-  const handleDelete = async () => {
-    removeConnection.submit({ connectionEmail: value.email });
+  const handleDelete = async (e) => {
+    e.stopPropagation();
+    removeConnection.submit({ connectionEmail: value.bio.email });
   }
+
 
 
   useEffect(() => {
@@ -64,8 +68,8 @@ function Menu({ value }) {
         onMouseLeave={() => setBtnHover(false)}
         ref={menuRef}
         className="absolute right-0 z-10 hidden shadow-md p-2 rounded-md border-[1px] border-primary-light dark:border-primary-dark bg-secondary-light dark:bg-secondary-dark">
-        <MenuItem text={ value.isFavorite ? "Unfavorite" : "Favorite"} icon={icons.favorite} onClick={handleFavorite} />
-        <MenuItem text={ value.isBlocked ? "Unblock" : "Block"} icon={icons.block} onClick={handleBlcok} />
+        <MenuItem text={ value.settings.isFavorite ? "Unfavorite" : "Favorite"} icon={icons.favorite} onClick={handleFavorite} />
+        <MenuItem text={ value.settings.isBlocked ? "Unblock" : "Block"} icon={icons.block} onClick={handleBlcok} />
         <MenuItem text={"Delete"} icon={icons.delete} onClick={handleDelete} />
       </ul>
     </div>

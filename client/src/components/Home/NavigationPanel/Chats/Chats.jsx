@@ -16,8 +16,8 @@ function Chats() {
   useEffect(()=>{
     const updatedItemToSearch = itemToSearch.trim().toLocaleLowerCase();
     if(updatedItemToSearch){
-      const foundInFavorites = favoriteListToDisplay.filter(chat => chat.username.toLowerCase() === updatedItemToSearch);
-      const foundInRecents = recentListToDisplay.filter(chat => chat.username.toLowerCase() === updatedItemToSearch);
+      const foundInFavorites = favoriteListToDisplay.filter(chat => chat.bio.username.toLowerCase() === updatedItemToSearch);
+      const foundInRecents = recentListToDisplay.filter(chat => chat.bio.username.toLowerCase() === updatedItemToSearch);
       setFavoriteListToDisplay(foundInFavorites);
       setRecentListToDisplay(foundInRecents);
     }else{

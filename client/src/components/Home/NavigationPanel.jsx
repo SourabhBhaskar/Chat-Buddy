@@ -1,8 +1,7 @@
 // Imports
 import React, { useState, useRef, useEffect} from 'react';
 import { useSelector } from 'react-redux';
-import gsap from 'gsap';
-import UserProfile from './NavigationPanel/Profile/UserProfile';
+import UserProfile from './NavigationPanel/Profile/UserProfile/UserProfile';
 import Chats from './NavigationPanel/Chats/Chats';
 import Connections from './NavigationPanel/Connections/Connections';
 import Settings from './NavigationPanel/Settings/Settings';
@@ -11,15 +10,9 @@ import Settings from './NavigationPanel/Settings/Settings';
 
 // Navigation Panel
 function NavigationPanel() {
-  const navigationPanelRef = useRef(null);
   const { navigation } = useSelector(state => state.GlobalSlice);
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
-
-  // useEffect(() => {
-  //   if(width >= 1280) gsap.from(navigationPanelRef.current, {xPercent: 10 }, { xPercent: 0 });
-  //   else gsap.from(navigationPanelRef.current, {yPercent: -10 }, { yPercent: 0 });
-  // }, [])
 
   useEffect(() => {
     const handleResize = () => {
@@ -31,7 +24,7 @@ function NavigationPanel() {
   }, [width, height]);
 
   return (
-    <div ref={navigationPanelRef} className='flex-grow xl:w-[385px] flex-shrink-0 xl:flex-grow-0 px-2 xl:px-4 bg-secondary-light dark:bg-secondary-dark border-y-[1px] xl:border-x-[1px] xl:border-y-[0px] border-primary-light dark:border-primary-dark'>
+    <div className='flex-grow xl:w-[420px] flex-shrink-0 xl:flex-grow-0 px-2 xl:px-4 bg-secondary-light dark:bg-secondary-dark border-y-[1px] xl:border-x-[1px] xl:border-y-[0px] border-primary-light dark:border-primary-dark'>
       { navigation === 'profile' && <UserProfile /> }
       { navigation === 'chats' && <Chats />}
       { navigation === 'connections' && <Connections /> }

@@ -1,29 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import defaultPicture from '../../../../assets/profile.jpg';
 import {  useDispatch } from 'react-redux';
 import { setChatRoom } from '../../../../context/GlobalContext/global.slice';
 import { setCurrentConnection } from '../../../../context/ConnectionsContext/connections.slice';
-import { socket } from '../../../../socket/socket-client';
-import { loadPicture } from '../../../../utils/loadPicture.util';
 
 
 // Recent Chat
 const RecentChat = React.memo(({ value }) => {
   const dispatch = useDispatch();
-  const { username, profile_picture, last_seen, unSeenMsgCnt, isSeen, messages } = value;
-  const pictureToDisplay = profile_picture ? profile_picture : defaultPicture;
+  const { username, profile_picture, last_seen } = value.bio;
+  const { unSeenMsgCnt, messageList } = value.messages;
   const isOnline = last_seen === 'online' || last_seen === 'typing...' ? true : false;
-  const lastMessage = messages && messages.length ? messages[messages.length-1].message : '';
+  const lastMessage = messageList[messageList.length-1].message || "";
 
   // handleClick
   function handleClick(){
-    dispatch(setCurrentConnection(value))
     dispatch(setChatRoom(true));
-    socket.emit('user/status', value.email);
+    dispatch(setCurrentConnection(value.bio.email))
   }
 
   return (
-    <div className='w-full h-[75px] flex items-center px-4 rounded-md hover:bg-primary-light-hover dark:hover:bg-primary-dark-hover transition-all'>
+    <div onClick={handleClick} className='w-full h-[75px] flex items-center px-4 rounded-md hover:bg-primary-light-hover dark:hover:bg-primary-dark-hover transition-all'>
       <div className={`w-[40px] h-[40px] rounded-full overflow-hidden relative mr-4 ${!profile_picture && 'load-picture'}`}>
         <img src={profile_picture || defaultPicture} className='w-full h-full rounded-full' />
       </div>
@@ -34,7 +31,7 @@ const RecentChat = React.memo(({ value }) => {
         </div>
       </div>
       <ul className='h-full aspect-square flex flex-col justify-center items-center gap-2 border-b-[1px] border-primary-light dark:border-primary-dark'>
-        <li className={`${last_seen === 'online' || last_seen === 'typing...' ? 'text-[13px] text-green-600' : 'text-[12px] text-secondary-light dark:text-secondary-dark'}`}>{last_seen}</li>
+        <li className={`${ isOnline ? 'text-[13px] text-green-600' : 'text-[12px] text-secondary-light dark:text-secondary-dark'}`}>{last_seen}</li>
         { unSeenMsgCnt !== 0 && <li className='text-xs px-1 rounded-full text-[#ef476f] bg-[#ef476f22]'>{unSeenMsgCnt}</li>}
       </ul>
     </div>

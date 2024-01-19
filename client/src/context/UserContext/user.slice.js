@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { initialUserSetupReducer } from './reducers/initialUserSetup.reducer';
-import { userBioDataBuilder } from './extraReducers/userBioData.extraReducer';
+import { userBioReducer } from './reducers/userBio.reducer';
 
 
 // Initial State
@@ -21,9 +21,7 @@ const UserSlice = createSlice({
     name: 'UserSlice',
     reducers: {
         setInitialUserSetup: initialUserSetupReducer,
-    },
-    extraReducers: (builder) => {
-        userBioDataBuilder(builder);
+        setUserBio: userBioReducer
     }
 })
 
@@ -31,6 +29,6 @@ const UserSlice = createSlice({
 // Export
 export const { 
     setInitialUserSetup,
-    setUpdateUser
+    setUserBio
  } = UserSlice.actions;
 export default UserSlice.reducer;

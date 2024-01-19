@@ -5,24 +5,14 @@ import { addConnectionReducer } from "./reducers/addConnection.reducer";
 import { removeConnectionReducer } from "./reducers/removeConnection.reducer";
 import { favoriteConnectionReducer } from "./reducers/favoriteConnection.reducer";
 import { blockConnectionReducer } from "./reducers/blockConnection.reducer";
+import { currentConnectionReducer } from "./reducers/currentConnection.reducer";
+import { toggleNotificationReducer } from "./reducers/toggelNotification.reducer";
 
 
 // Initial State
 const initialState = {
-    currentConnection: {
-        username: 'Sourabh Bhaskar',
-        email: 'sourabhbhaskar71@gmail.com',
-        phone: '7000849686',
-        profile_picture: 'https://picsum.photos/id/7/100/100',
-        status: 'offline',
-        last_seen: '07-07-2007',
-        location: 'Bangloare',
-        
-        isSeen: true,
-        unSeenMsgCnt: 0,
-        messages: [],
-    },
-    all: {},
+    currentConnection: '',
+    all: [],
     favorites: [],
     recents: [],
 }
@@ -37,7 +27,9 @@ const ConnectionsSlice = createSlice({
         setAddConnection: addConnectionReducer,
         setRemoveConnection: removeConnectionReducer,
         setFavoriteConnection: favoriteConnectionReducer,
-        setBlockConnection: blockConnectionReducer
+        setBlockConnection: blockConnectionReducer,
+        setCurrentConnection: currentConnectionReducer,
+        setToggleNotification: toggleNotificationReducer
     }
 })
 
@@ -49,8 +41,9 @@ export const {
     setRemoveConnection,
     setFavoriteConnection,
     setBlockConnection,
-
     setCurrentConnection,
+    setToggleNotification,
+
     setSendMessage,
     setReceiveMessage,
     setMessageStatus,

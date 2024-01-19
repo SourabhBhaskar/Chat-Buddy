@@ -1,21 +1,24 @@
-const { convertEmail } = require("../../utils/emailConvert.util");
 const { User } = require("../../models/user.model");
 
-async function blockConnectionController(req, res){
+async function blockConnection(req, res){
     const { connectionEmail, isBlocked } = req.body;
 
-    const connection = req.user.connections.all[convertEmail(connectionEmail)];
-    if(!connection)
-        return res.status(404).send("Connection not found");
     try {
         const response = await User.updateOne(
             { email: req.user.email },
             {
               $set: {
-                [`connections.all.${convertEmail(connectionEmail)}.isBlocked`]: isBlocked
+                'connections.$[element].settings.isBlocked': isBlocked
               }
+            },
+            {
+              arrayFilters: [{ 'element.bio.email': connectionEmail }]
             }
-        );
+          );
+        
+        if(response.modifiedCount === 0)
+            return res.status(404).send("Connection not found in connection list");
+
         return res.status(204).send();
     } catch (error) {
         return res.status(500).send("Internal server error");
@@ -23,4 +26,4 @@ async function blockConnectionController(req, res){
 }
 
 
-module.exports = { blockConnectionController }
+module.exports = { blockConnection }

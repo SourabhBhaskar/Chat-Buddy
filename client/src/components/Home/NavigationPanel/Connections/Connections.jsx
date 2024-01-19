@@ -21,12 +21,13 @@ function Connections() {
     const updatedItemToSearch = itemToSearch.trim().toLowerCase();
     if(updatedItemToSearch){
       const key = updatedItemToSearch.slice(0, 1).toUpperCase();
-      const connectionList = sortedAll.filter(connectionList => connectionList[0] === key);
-      setListToDisplay(connectionList.length ? [[ key, connectionList[0][1].filter(c => c.username.toLowerCase() === itemToSearch.toLowerCase())]] : []);
+      const connectionList = sortedAll[key];
+      const fillteredConnectionList = connectionList ? connectionList.filter(c => all[c].bio.username.toLowerCase() === updatedItemToSearch): [];
+      setListToDisplay(fillteredConnectionList.length ? [[key, fillteredConnectionList ]] : []);
     }else{
-      setListToDisplay(sortedAll)
+      setListToDisplay(Object.entries(sortedAll).sort());
     }
-  }, [itemToSearch, sortedAll, all])
+  }, [itemToSearch, sortedAll])
 
   return (
     <div className="w-full h-full flex flex-col overflow-hidden">
@@ -45,10 +46,10 @@ function Connections() {
           {listToDisplay.map(([key, value]) => {
             return (
               <GroupedConnections key={key} group={key}>
-                 {value.map(({ username, email }) => {
-                  const connectionValue = all[email];
-                  return (
-                    <Connection key={email} value={connectionValue}>
+                 {value.map((v) => {
+                  const connectionValue = all[v];
+                  return connectionValue && (
+                    <Connection key={connectionValue.bio.email} value={connectionValue.bio}>
                       <Menu value={connectionValue} />
                     </Connection>
                   );

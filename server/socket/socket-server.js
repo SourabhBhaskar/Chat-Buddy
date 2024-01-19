@@ -16,10 +16,8 @@ const startSocketServer = (server) => {
   });
 
   io.on('connection', (socket)=>{
-    socket.on('connected', (user, cb) => handleConnectedUser({ socket, user, cb }));
-    socket.on('disconnect', (cb) => handleDisconnectedUser({ socket, cb }));
-    socket.on('message', (message, cb) => handleMessage({ socket, message, cb }));
-    socket.on('user/status', (emailId) => handleUserStatus({ socket, emailId }));
+    socket.on('connected', (user) => handleConnectedUser({ socket, user}));
+    socket.on('disconnect', () => handleDisconnectedUser({ socket }));
   })
 
   return io;

@@ -1,14 +1,18 @@
 // Imports
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import defaultPic from '../../../../assets/profile.jpg';
-
+import { setChatRoom } from '../../../../context/GlobalContext/global.slice';
+import { setCurrentConnection } from '../../../../context/ConnectionsContext/connections.slice';
 
 // Connection
 function Connection({ children, value = {} }) {
-  const { username, profile_picture, status } = value;
+  const dispatch = useDispatch();
+  const { username, profile_picture, status, email } = value;
 
-  const handleClick = () => {
-
+  function handleClick(){
+    dispatch(setChatRoom(true));
+    dispatch(setCurrentConnection(email));
   }
 
   return (

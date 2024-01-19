@@ -1,53 +1,34 @@
 // Imports
 const { User } = require("../../models/user.model");
-const { convertEmail } = require("../../utils/emailConvert.util");
+
 
 // Create User Contact
 const addUserConnection = async (req, res) => {
+  const userEmail = req.user.email;
+  const { connectionEmail, connectionMessage } = req.body;
+
   try {
-    const userEmail = req.user.email;
-    const { connectionEmail, connectionMessage } = req.body;
-    
-    const connection = await User.findOne(
-      { email: connectionEmail },
-      { __v: 0, password: 0, connections: 0, groups: 0, settings: 0 }
-    );
+    const connection = await User.findOne({ email: connectionEmail }, User.getUser());
+    if (!connection) 
+      return res.status(404).send("Connection not found on this platform");
 
-    if (!connection) {
-      return res
-        .status(404)
-        .send("Connection not found on this platform");
-    }
-
-    // Add new connection to user
-    const addingNewConnection = await User.updateOne(
+    // Retrieve the document with the last connection
+    const updatedDocument = await User.updateOne(
       { email: userEmail },
-      {
-        $set: {
-          [`connections.all.${convertEmail(connectionEmail)}`]: {
-            isSeen: true,
-            unSeenMsgCnt: 0,
-            messages: [],
-            notifications: true,
-            isBlocked: false,
-            isFavorite: false,
-          },
-        },
-      }
+      { $addToSet: { connections: { bio: connection } } },
     );
-
-    if (!addingNewConnection.modifiedCount)
+    
+    if (!updatedDocument.modifiedCount)
       return res.status(409).send("Connection already exists");
 
+    
+    // Get Newly added connections
+    const newConnection = await User.findOne({ email: userEmail }, User.getNewlyAddedConnection())
     return res.status(201).json({
-      ...connection.toObject(),
-      isSeen: true,
-      unSeenMsgCnt: 0,
-      messages: [],
-      notifications: true,
-      isBlocked: false,
+      ...newConnection.connections[0].toObject()
     });
   } catch (error) {
+    console.log(error.message)
     return res.status(500).send("Internal Server Error");
   }
 };
