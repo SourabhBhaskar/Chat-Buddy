@@ -38,20 +38,20 @@ function SendMore({ files, setFiles }) {
   const sendOptionRef = useRef(null);
   const [selectingFileOption, isSelectingFileOption] = useState(false);
 
-  useEffect(() => {
-    const menu = sendOptionRef.current;
-    gsap.fromTo(
-      menu,
-      { y: selectingFileOption ? "200" : "150" },
-      {
-        y: selectingFileOption ? "150" : "200",
-        duration: 0.5,
-        ease: "ease",
-        opacity: selectingFileOption ? 1 : 0,
-        display: selectingFileOption ? "flex" : "none",
-      }
-    );
-  }, [selectingFileOption]);
+  // useEffect(() => {
+  //   const menu = sendOptionRef.current;
+  //   gsap.fromTo(
+  //     menu,
+  //     { y: selectingFileOption ? "200" : "150" },
+  //     {
+  //       y: selectingFileOption ? "150" : "200",
+  //       duration: 0.5,
+  //       ease: "ease",
+  //       opacity: selectingFileOption ? 1 : 0,
+  //       display: selectingFileOption ? "flex" : "none",
+  //     }
+  //   );
+  // }, [selectingFileOption]);
 
   return (
       <IconButton icon={icons.addMore} />

@@ -9,8 +9,8 @@ async function handleDisconnectedUser({ socket }){
     userId_socketId.delete(userId);
     socketId_userId.delete(socket.id);
     await User.updateOne({ email: userId }, { $set: { last_seen: Date.now() }});
-    socket.broadcast.emit('last-seen', userId);
-    console.log(socketId_userId, userId_socketId);
+    socket.broadcast.emit('connection-status', { receiverId: userId, last_seen: Date.now() });
+    console.log("Disconnected :", socketId_userId, userId_socketId);
   } catch (error) {
     console.log("Error:", error.message);
   }

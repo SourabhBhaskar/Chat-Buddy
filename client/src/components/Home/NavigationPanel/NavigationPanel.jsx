@@ -1,10 +1,10 @@
 // Imports
 import React, { useState, useRef, useEffect} from 'react';
 import { useSelector } from 'react-redux';
-import UserProfile from './NavigationPanel/Profile/UserProfile/UserProfile';
-import Chats from './NavigationPanel/Chats/Chats';
-import Connections from './NavigationPanel/Connections/Connections';
-import Settings from './NavigationPanel/Settings/Settings';
+import UserProfile from './Profile/UserProfile/UserProfile';
+import Chats from './Chats/Chats';
+import Connections from './Connections/Connections';
+import Settings from './Settings/Settings';
 
 
 

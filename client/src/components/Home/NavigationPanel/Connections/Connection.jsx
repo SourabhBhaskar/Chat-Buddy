@@ -10,9 +10,10 @@ function Connection({ children, value = {} }) {
   const dispatch = useDispatch();
   const { username, profile_picture, status, email } = value;
 
+
   function handleClick(){
     dispatch(setChatRoom(true));
-    dispatch(setCurrentConnection(email));
+    dispatch(setCurrentConnection({ connectionId: email }));
   }
 
   return (

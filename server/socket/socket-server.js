@@ -2,8 +2,8 @@
 const { Server } = require("socket.io");
 const { handleConnectedUser } = require("./handleConnectedUser");
 const { handleDisconnectedUser} = require("./handleDisconnectedUser");
+const { handleConnectionStatus } = require("./handleConnectionStatus");
 const { handleMessage } = require("./handleMessage");
-const { handleUserStatus } = require("./handlUserStatus");
 
 
 // Socket IO Configuration
@@ -18,6 +18,8 @@ const startSocketServer = (server) => {
   io.on('connection', (socket)=>{
     socket.on('connected', (user) => handleConnectedUser({ socket, user}));
     socket.on('disconnect', () => handleDisconnectedUser({ socket }));
+    socket.on('connection-status', (status) => handleConnectionStatus({ socket, status }));
+    socket.on('message', (message) => handleMessage({ socket, message }));
   })
 
   return io;

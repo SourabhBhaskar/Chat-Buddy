@@ -1,33 +1,17 @@
-// Imports
-const { 
-  userId_socketId,
-  userId_messages,
- } = require("./store");
+const { userId_socketId, socketId_userId } = require("./store");
 
 
-
-
-// Handle Text Message
-function handleMessage({ socket, message }){
-  const from_socketId = socket.id;
-  const to_userId = message.to;
-  const to_socketId = userId_socketId.get(to_userId);
-
-  // If receiver is online
-  if(to_socketId){
-    socket.to(to_socketId).emit('message', message);
-    socket.emit('message/status', { id: message.id, to: message.to, status: 'delivered'});
-  }else{
-  //   if(!userId_messages.has(to_userId)){
-  //     userId_messages.set(to_userId, [{ ...message }]);
-  //   }else{
-  //     userId_messages.get(to_userId).push({ ...message });
-  //   }
-    socket.emit('message/status', { id: message.id, to: message.to, status: 'sent'});
-  }
-  
+const handleMessage = ({ socket, message }) => {
+    const fromSocketId = socket.id;
+    const toSocketId = userId_socketId.get(message.to);
+    
+    socket.emit("connection-status", { receiverId: message.to, message: "sent" });
+    if(toSocketId){
+        socket.to(toSocketId).emit("message", message);
+    }else{
+        console.log(message)
+    }
 }
 
 
-// Exports
 module.exports = { handleMessage };

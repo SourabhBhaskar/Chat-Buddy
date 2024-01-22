@@ -6,7 +6,7 @@ export function sendMessageReducer(state, action){
 
     // Update Connection Message
     if(allConnections[message.to])
-    allConnections[message.to].messages.push(message);
+        allConnections[message.to].messages.messageList.push(message);
 
     // Update Recent
     const recentIndex = recentConnections.findIndex((c) => c === message.to);

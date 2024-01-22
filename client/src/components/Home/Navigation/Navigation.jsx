@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import gsap from "gsap";
-import defaultPic from "../../assets/profile.jpg";
-import { icons } from "../../utils/icons.util";
+import defaultPic from "../../../assets/profile.jpg";
+import { icons } from "../../../utils/icons.util";
 import { Icon } from "@iconify/react";
-import { setNavigation } from "../../context/GlobalContext/global.slice";
+import { setNavigation } from "../../../context/GlobalContext/global.slice";
 
 
 // Navigation Panel
@@ -18,11 +17,6 @@ function Navigation() {
   const { navigation } = useSelector((state) => state.GlobalSlice);
   const { profile_picture } = useSelector(state => state.UserSlice);
 
-  // useEffect(() => {
-  //   if(width >= 1280) gsap.from(navRef.current, { xPercent: -100 }, { xPercent: 0 });
-  //   else gsap.from(navRef.current, { yPercent: 100 }, { yPercent: 0 });
-  // }, [])
-
   useEffect(() => {
     const handleResize = () => {
       setWidth(window.innerWidth);
@@ -33,7 +27,7 @@ function Navigation() {
   }, [width, height]);
 
   return (
-    <nav ref={navRef} className="w-full xl:w-[75px] h-[65px] xl:h-full flex xl:flex-col justify-between items-center order-1 xl:order-none flex-shrink-0 px-2 py-4 bg-light-nav dark:bg-dark-nav">
+    <nav ref={navRef} className="w-full xl:w-[75px] h-[65px] xl:h-full flex xl:flex-col justify-between items-center order-1 xl:order-none flex-shrink-0 p-2 xl:py-4 bg-light-nav dark:bg-dark-nav">
       {width >= 1280 && <div>
         <Icon
           icon={icons.logo}

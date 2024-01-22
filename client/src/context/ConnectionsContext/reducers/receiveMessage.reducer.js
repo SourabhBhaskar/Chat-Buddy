@@ -1,16 +1,17 @@
-// Receive Messages
+import { socket } from "../../../socket/socket-client";
+
+
 export function receiveMessageReducer(state, action){
     const message = action.payload;
-    const currentConnection = state.currentConnection;
+    const currentConnectionEmail = state.currentConnection;
     const allConnections = state.all;
     const recentConnections = state.recents;
 
     // Upadte All
     if(allConnections[message.from]){
-        allConnections[message.from].messages.push(message);
-        if(currentConnection.email !== message.from){
-            allConnections[message.from].isSeen = false;
-            allConnections[message.from].unSeenMsgCnt += 1;
+        allConnections[message.from].messages.messageList.push(message);
+        if(currentConnectionEmail !== message.from){
+            allConnections[message.from].messages.unSeenMsgCnt += 1;
         }
     }
 
@@ -26,7 +27,10 @@ export function receiveMessageReducer(state, action){
         if(isExit){
             recentConnections.splice(0, 0, connection);
         }else{
-
+            
         }
     }     
+
+    // Responce back
+    socket.emit("connection-status", { receiverId: message.to, message: "delivered" });
 }

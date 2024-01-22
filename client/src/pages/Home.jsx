@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Navigation from "../components/Home/Navigation";
-import NavigationPanel from "../components/Home/NavigationPanel";
+import Navigation from "../components/Home/Navigation/Navigation";
+import NavigationPanel from "../components/Home/NavigationPanel/NavigationPanel";
 import ConversationPanel from "../components/Home/ConversationPanel/ConversationPanel";
 import ConnectionProfile from "../components/Home/NavigationPanel/Profile/ConnectionProfile/ConnectionProfile";
 import { useSocket } from "../socket/socket-client";

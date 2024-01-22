@@ -16,7 +16,7 @@ const RecentChat = React.memo(({ value }) => {
   // handleClick
   function handleClick(){
     dispatch(setChatRoom(true));
-    dispatch(setCurrentConnection(value.bio.email))
+    dispatch(setCurrentConnection({ connectionId: value.bio.email }));
   }
 
   return (
@@ -47,7 +47,7 @@ function RecentChats({ List }){
       <h1 className='py-2 font-bold text-primary-light dark:text-primary-dark'>Recent Chats</h1>
       <div className='flex-grow relative'>
         <div className='w-full h-full absolute py-1 overflow-scroll hide-scrollbar'>
-          { List.map((value, index) => <RecentChat key={index} value={value}/>)}
+          { List.map((value, index) => <RecentChat key={value.bio.email} value={value}/>)}
         </div>
       </div>
     </section>

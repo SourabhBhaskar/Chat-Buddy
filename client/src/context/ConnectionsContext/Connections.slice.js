@@ -7,6 +7,9 @@ import { favoriteConnectionReducer } from "./reducers/favoriteConnection.reducer
 import { blockConnectionReducer } from "./reducers/blockConnection.reducer";
 import { currentConnectionReducer } from "./reducers/currentConnection.reducer";
 import { toggleNotificationReducer } from "./reducers/toggelNotification.reducer";
+import { sendMessageReducer } from "./reducers/sendMessage.reducer";
+import { receiveMessageReducer } from "./reducers/receiveMessage.reducer";
+import { connectionStatusReducer } from "./reducers/connectionStatus.reducer";
 
 
 // Initial State
@@ -29,7 +32,11 @@ const ConnectionsSlice = createSlice({
         setFavoriteConnection: favoriteConnectionReducer,
         setBlockConnection: blockConnectionReducer,
         setCurrentConnection: currentConnectionReducer,
-        setToggleNotification: toggleNotificationReducer
+        setToggleNotification: toggleNotificationReducer,
+
+        setConnectionStatus: connectionStatusReducer,
+        setSendMessage: sendMessageReducer,
+        setReceiveMessage: receiveMessageReducer
     }
 })
 
@@ -44,10 +51,8 @@ export const {
     setCurrentConnection,
     setToggleNotification,
 
+    setConnectionStatus,
     setSendMessage,
     setReceiveMessage,
-    setMessageStatus,
-    setUpdateConnection,
-    setUserStatus
 } = ConnectionsSlice.actions;
 export default ConnectionsSlice.reducer;

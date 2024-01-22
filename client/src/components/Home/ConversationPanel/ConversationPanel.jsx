@@ -1,5 +1,5 @@
 // Imports
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Nav from "./Nav/Nav";
 import MessageBox from "./MessageBox/MessageBox";
@@ -9,16 +9,8 @@ import MessageSender from "./MessageSender/MessageSender";
 // Conversation Panel
 function ConversationPanel() {
   const [width, setWidth] = useState(window.innerWidth);
-  const [height, setHeight] = useState(window.innerHeight);
-  const conversationPanelRef = useRef(null);
-  const messageBoxRef = useRef(null);
+  const [height, setHeight] = useState(window.innerHeight)
   const { currentConnection } = useSelector((state) => state.ConnectionsSlice);
-
-  // // Animation for Conversation Panel
-  // useEffect(() => {
-  //   if(width >= 1280) gsap.from(conversationPanelRef.current, { xPercent: -5 }, { xPercent: 0 });
-  //   else gsap.from(conversationPanelRef.current, {yPercent: -10 }, { yPercent: 0 });
-  // }, [])
 
   // Window Resizing
   useEffect(() => {
@@ -31,7 +23,7 @@ function ConversationPanel() {
   }, [width, height]);
 
   return currentConnection ? (
-    <section ref={conversationPanelRef} className="flex-grow flex flex-col bg-primary-light dark:bg-primary-dark">
+    <section className="flex-grow flex flex-col bg-primary-light dark:bg-primary-dark">
       <Nav />
       <MessageBox />
       <MessageSender />

@@ -14,7 +14,7 @@ const FavoriteChat = React.memo(({ value }) => {
 
   function handleClick(){
     dispatch(setChatRoom(true));
-    dispatch(setCurrentConnection(value.email))
+    dispatch(setCurrentConnection({ connectionId: value.bio.email }));
   }
 
   return (
