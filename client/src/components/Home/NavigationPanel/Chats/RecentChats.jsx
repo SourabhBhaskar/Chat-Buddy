@@ -3,6 +3,7 @@ import defaultPicture from '../../../../assets/profile.jpg';
 import {  useDispatch } from 'react-redux';
 import { setChatRoom } from '../../../../context/GlobalContext/global.slice';
 import { setCurrentConnection } from '../../../../context/ConnectionsContext/connections.slice';
+import { getTimeByTimestamps } from '../../../../utils/getTimeByTimestamps.util';
 
 
 // Recent Chat
@@ -10,7 +11,7 @@ const RecentChat = React.memo(({ value }) => {
   const dispatch = useDispatch();
   const { username, profile_picture, last_seen } = value.bio;
   const { unSeenMsgCnt, messageList } = value.messages;
-  const isOnline = last_seen === 'online' || last_seen === 'typing...' ? true : false;
+  const isOnline = last_seen === 'Online' || last_seen === 'Typing...' ? true : false;
   const lastMessage = messageList[messageList.length-1].message || "";
 
   // handleClick
@@ -30,8 +31,8 @@ const RecentChat = React.memo(({ value }) => {
           <p className='w-full truncate text-sm text-secondary-light dark:text-secondary-dark'>{lastMessage}</p>
         </div>
       </div>
-      <ul className='h-full aspect-square flex flex-col justify-center items-center gap-2 border-b-[1px] border-primary-light dark:border-primary-dark'>
-        <li className={`${ isOnline ? 'text-[13px] text-green-600' : 'text-[12px] text-secondary-light dark:text-secondary-dark'}`}>{last_seen}</li>
+      <ul className='h-full w-auto pl-2 flex flex-col justify-center items-center gap-2 border-b-[1px] border-primary-light dark:border-primary-dark'>
+        <li className={`${ isOnline ? 'text-[13px] text-green-600' : 'text-[12px] text-secondary-light dark:text-secondary-dark'}`}>{isOnline ? last_seen : getTimeByTimestamps(last_seen)}</li>
         { unSeenMsgCnt !== 0 && <li className='text-xs px-1 rounded-full text-[#ef476f] bg-[#ef476f22]'>{unSeenMsgCnt}</li>}
       </ul>
     </div>

@@ -29,8 +29,19 @@ export function receiveMessageReducer(state, action){
         }else{
             
         }
-    }     
-
-    // Responce back
-    socket.emit("connection-status", { receiverId: message.to, message: "delivered" });
+    } 
+    
+    // Responce
+    if(currentConnectionEmail === message.from){
+        const responceMessage = { 
+            id: message.id, 
+            status: 'seen', 
+            time: {
+                ...message.time,
+                seen: Date.now()
+            }, 
+            to: message.from
+        }
+        socket.emit('connection-status', { name: "message", value: { ...responceMessage }});
+    }
 }

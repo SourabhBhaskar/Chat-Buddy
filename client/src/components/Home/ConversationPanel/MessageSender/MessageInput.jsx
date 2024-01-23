@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { debounce } from 'lodash';
 import { socket } from '../../../../socket/socket-client';
@@ -6,19 +6,19 @@ import { socket } from '../../../../socket/socket-client';
 
 function Input({ value, onChange }){
   const { currentConnection, all } = useSelector(state => state.ConnectionsSlice);
+  const [typingTimout, setTypingTimout] = useState(false);
 
   useEffect(() => {
-    const debouncedSocketEmitOnline = debounce(() => {
-      socket.emit('connection-status', { receiverId: currentConnection, message: 'online' });
-    }, 300);
-
-    const debouncedSocketEmit = debounce((receiverId, message) => {
-      socket.emit('connection-status', { receiverId, message });
-      debouncedSocketEmitOnline()
-    }, 300);
+    const debouncedSocketEmit = debounce((receiverId) => {
+      clearTimeout(typingTimout);
+      socket.emit('connection-status', { name: "typing...", value: { receiverId }});
+      setTypingTimout(setTimeout(() => {
+        socket.emit('connection-status', { name: "online", value: { receiverId }});
+      }, 1000))
+    }, 100);
 
     const isOnline = all[currentConnection].bio.last_seen === 'Online' || all[currentConnection].bio.last_seen === 'Typing...';
-    isOnline && debouncedSocketEmit(currentConnection, 'typing...');
+    isOnline && debouncedSocketEmit(currentConnection);
     return () => debouncedSocketEmit.cancel();
   }, [value])
 

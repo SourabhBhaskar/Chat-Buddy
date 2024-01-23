@@ -19,7 +19,7 @@ const startSocketServer = (server) => {
     socket.on('connected', (user) => handleConnectedUser({ socket, user}));
     socket.on('disconnect', () => handleDisconnectedUser({ socket }));
     socket.on('connection-status', (status) => handleConnectionStatus({ socket, status }));
-    socket.on('message', (message) => handleMessage({ socket, message }));
+    socket.on('message', (message, cb) => handleMessage({ socket, message, cb }));
   })
 
   return io;

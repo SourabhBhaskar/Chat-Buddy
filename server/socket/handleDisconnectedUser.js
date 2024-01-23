@@ -4,13 +4,16 @@ const { User } = require("../models/user.model");
 
 // Handle Disconnect User
 async function handleDisconnectedUser({ socket }){
+  const userId = socketId_userId.get(socket.id);
+
   try {
-    const userId = socketId_userId.get(socket.id);
-    userId_socketId.delete(userId);
-    socketId_userId.delete(socket.id);
-    await User.updateOne({ email: userId }, { $set: { last_seen: Date.now() }});
-    socket.broadcast.emit('connection-status', { receiverId: userId, last_seen: Date.now() });
-    console.log("Disconnected :", socketId_userId, userId_socketId);
+    const response = await User.updateOne({ email: userId }, { $set: { last_seen: Date.now() }});
+    // if(response.modifiedCount){
+      userId_socketId.delete(userId);
+      socketId_userId.delete(socket.id);
+      socket.broadcast.emit('connection-status', { name: "last_seen", value: { receiverId: userId, last_seen: Date.now() }});
+      // console.log("Disconnected :", socketId_userId, userId_socketId);
+    // }
   } catch (error) {
     console.log("Error:", error.message);
   }

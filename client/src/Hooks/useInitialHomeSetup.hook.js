@@ -10,6 +10,7 @@ export function useInitialHomeSetup(){
 
     // Data Setup
     const initialHomeSetup = async(user) => {
+        console.log(user)
 
         // User Setup
         dispatch(setInitialUserSetup(user));

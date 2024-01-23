@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { socket } from "../../socket/socket-client";
-import { setSendMessage } from "../../context/ConnectionsContext/connections.slice";
+import { setSendMessage, setConnectionStatus } from "../../context/ConnectionsContext/connections.slice";
 
 
 export function useSendMessage() {
@@ -27,7 +27,9 @@ export function useSendMessage() {
       };
 
       dispatch(setSendMessage(updatedMessage));
-      socket.emit("message", updatedMessage);
+      socket.emit("message", updatedMessage, (status) => {
+        dispatch(setConnectionStatus({ name: 'message', value: { ...status }}));
+      });
     },
     [currConnectionEmail]
   );

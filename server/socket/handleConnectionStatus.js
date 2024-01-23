@@ -1,31 +1,26 @@
-const { User } = require("../models/user.model");
 const { socketId_userId, userId_socketId } = require("./store");
 
 
 const handleConnectionStatus = async ({ socket, status }) => {
+    const { name, value } = status;
     const senderId = socketId_userId.get(socket.id);
-    const receiverId = status.receiverId;
+    const receiverId = value.receiverId || value.to;
     const receiverSocketId = userId_socketId.get(receiverId);
 
     try {
-        switch(status.message || status.last_seen){
-            case 'delivered':
-                receiverSocketId && socket.to(receiverSocketId).emit('connection-status', { receiverId: senderId, message: 'delivered' });
-            break;
+        switch(name){
             case 'seen':
-                await User.updateOne(
-                    { email: senderId }, 
-                    { $set: { 'connections.$[element].messages.unSeenMsgCnt': 0 }}, 
-                    { arrayFilters: [{ 'element.bio.email': receiverId }]}
-                );
-                receiverSocketId && socket.to(receiverSocketId).emit('connection-status', { receiverId: senderId, message: 'seen' });
+                receiverSocketId && socket.to(receiverSocketId).emit('connection-status', { name: "seen", value: { receiverId: senderId }});
             break;
             case 'online':
-                receiverSocketId && socket.to(receiverSocketId).emit('connection-status', { receiverId: senderId, message: 'online' });
+                receiverSocketId && socket.to(receiverSocketId).emit('connection-status', { name: "online", value: { receiverId: senderId }});
             break;
             case 'typing...':
-                receiverSocketId && socket.to(receiverSocketId).emit('connection-status', { receiverId: senderId, message: 'typing...' });
+                receiverSocketId && socket.to(receiverSocketId).emit('connection-status', { name: "typing...", value: { receiverId: senderId }});
             break;
+            case 'message': 
+                receiverSocketId && socket.to(receiverSocketId).emit('connection-status', { name: 'message', value: { ...value, to: senderId }});
+                break;
         }
     } catch (error) {
         console.log("Error", error.message);

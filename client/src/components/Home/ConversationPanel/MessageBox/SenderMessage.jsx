@@ -9,12 +9,11 @@ function SenderMessage({ Message }) {
   const sendTime = getTimeByTimestamps(time.seen || time.delivered || time.sent, true);
 
   const iconToDisplay =
-    (status === "seen" && icons.messageSent) ||
+    (status === "seen" && icons.messageSeen) ||
     (status === "delivered" && icons.messageDelivered) ||
     (status === "sent" && icons.messageSent) ||
     (status === "sending" && icons.messageSending) ||
     (status === "error" && icons.messageResend);
-    console.log(status)
 
   return (
     <div className="w-full flex justify-end my-1 px-2">
@@ -31,7 +30,7 @@ function SenderMessage({ Message }) {
           <Icon
             icon={iconToDisplay}
             fontSize={16}
-            className={`${status === "seen" ? "text-green-600" : 'text-secondary-light dark:ext-secondary-dark'}`}
+            className={`${status === "seen" ? "text-blue-600" : 'text-secondary-light dark:ext-secondary-dark'}`}
           />
         </div>
       </div>

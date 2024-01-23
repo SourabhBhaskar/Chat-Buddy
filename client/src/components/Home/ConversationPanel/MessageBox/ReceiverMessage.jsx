@@ -5,8 +5,8 @@ import { getTimeByTimestamps } from "../../../../utils/getTimeByTimestamps.util"
 
 // Sender
 function SenderMessage({ Message }) {
-  const { message, type, status, time } = Message;
-  const sendTime = time.seen || time.delivered || time.sent;
+  const { message, time } = Message;
+  const sendTime = getTimeByTimestamps((time.seen || time.delivered || time.sent), true);
 
   return (
     <div className="w-full flex justify-start my-1 px-2">

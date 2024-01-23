@@ -2,9 +2,9 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setConnectionProfile } from "../../../../../context/GlobalContext/global.slice";
 import defaultPic from "../../../../../assets/profile.jpg";
+import { getTimeByTimestamps } from "../../../../../utils/getTimeByTimestamps.util";
 
 
-// Connection Info
 function ConnectionInfo(){
   const dispatch = useDispatch();
   const { currentConnection, all } = useSelector(state => state.ConnectionsSlice)
@@ -17,7 +17,7 @@ function ConnectionInfo(){
       </div>
       <div className="w-full max-w-[200px] truncate flex flex-col justify-center text-primary-light dark:text-primary-dark">
         <p className='w-full text-[1.1rem] font-medium truncate'>{username}</p>
-        <small className="w-full truncate text-xs">{last_seen}</small>
+        <small className="w-full truncate text-xs">{getTimeByTimestamps(last_seen)}</small>
       </div>
     </div>
   );
