@@ -4,7 +4,7 @@ export const connections = [
             username: 'Captain America',
             mobile_number: '3001',
             email: 'captanAmerica@example.com',
-            profile_picture: 'https://picsum.photos/id/237/100/100',
+            profile_picture: 'https://picsum.photos/id/238/100/100',
             description: "",
             last_seen: "01-01-0001" ,          
             location: 'New York',
