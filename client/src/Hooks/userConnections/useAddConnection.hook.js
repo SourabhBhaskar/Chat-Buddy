@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import { useDispatch } from "react-redux";
-import { setAddPopUpWindow } from "../../context/GlobalContext/global.slice";
+import { setAddPopUpWindow, setLoader } from "../../context/GlobalContext/global.slice";
 import { setAddConnection } from "../../context/ConnectionsContext/connections.slice";
 
 // Initial State
@@ -50,6 +50,7 @@ export function useAddConnection(){
         };
         
         try {
+          dispatch(setLoader(true))
           dispatcher({ type: "IS_LOADING", payload: true });
           const response = await fetch(url, options);
           if (response.status === 201) {
@@ -64,6 +65,7 @@ export function useAddConnection(){
         } catch (error) {
           dispatch(setAddPopUpWindow({ isError: true, message: error.message}));
         } finally {
+          dispatch(setLoader(false))
           dispatcher({ type: "IS_LOADING", payload: false });
         }
     }

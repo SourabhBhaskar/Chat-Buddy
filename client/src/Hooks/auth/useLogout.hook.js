@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setAddPopUpWindow } from "../../context/GlobalContext/global.slice";
+import { setAddPopUpWindow, setLoader } from "../../context/GlobalContext/global.slice";
 
 
 // useLogout hook
@@ -18,6 +18,7 @@ export function useLogout() {
     };
 
     try {
+      dispatch(setLoader(true));
       setIsLoading(true);
       const response = await fetch(url, options);
       if (response.ok) {
@@ -31,7 +32,8 @@ export function useLogout() {
     } catch (error) {
         dispatch(setAddPopUpWindow({ isError: true, message: error.message}));
     } finally {
-        setIsLoading(false)
+        dispatch(setLoader(false));
+        setIsLoading(false);
     }
   };
 

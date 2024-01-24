@@ -1,7 +1,7 @@
 import { useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setAddPopUpWindow } from "../../context/GlobalContext/global.slice";
+import { setAddPopUpWindow, setLoader} from "../../context/GlobalContext/global.slice";
 import { useInitialHomeSetup } from "../useInitialHomeSetup.hook";
 
 
@@ -14,7 +14,7 @@ const initialState = {
   usernameError: "",
   emailError: "",
   passwordError: "",
-  isLoading: "",
+  isLoading: false
 };
 
 
@@ -72,6 +72,7 @@ export function useSignup() {
     };
 
     try {
+      dispatch(setLoader(true));
       dispatcher({ type: "IS_LOADING", payload: true });
       const response = await fetch(url, options);
       if (response.ok) {
@@ -95,6 +96,7 @@ export function useSignup() {
     } catch (error) {
       dispatch(setAddPopUpWindow({ isError: true, message: "Internal Server Error" }));
     } finally {
+      dispatch(setLoader(false))
       dispatcher({ type: "IS_LOADING", payload: false });
     }
   };
