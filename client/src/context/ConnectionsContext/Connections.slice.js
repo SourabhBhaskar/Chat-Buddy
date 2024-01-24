@@ -34,8 +34,8 @@ const ConnectionsSlice = createSlice({
         setCurrentConnection: currentConnectionReducer,
         setToggleNotification: toggleNotificationReducer,
 
-        setConnectionStatus: connectionStatusReducer,
         setSendMessage: sendMessageReducer,
+        setConnectionStatus: connectionStatusReducer,
         setReceiveMessage: receiveMessageReducer,
     }
 })
