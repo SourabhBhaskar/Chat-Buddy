@@ -10,8 +10,8 @@ const { notificationConnection } = require("../controllers/userConnectionControl
 
 
 // Routes
-userConnectionRouter.put('/add', [isUserAuthenticated, jsonValidator], addUserConnection);
-userConnectionRouter.delete('/remove', [isUserAuthenticated, jsonValidator], removeUserConnection);
+userConnectionRouter.put('/add', [jsonValidator], addUserConnection);
+userConnectionRouter.delete('/remove', [jsonValidator], removeUserConnection);
 userConnectionRouter.patch('/block', blockConnection);
 userConnectionRouter.patch('/favorite', favoriteConnection);
 userConnectionRouter.patch('/notification', notificationConnection);
