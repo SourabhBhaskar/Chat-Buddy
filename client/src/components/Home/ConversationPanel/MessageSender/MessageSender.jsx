@@ -10,7 +10,7 @@ function MessageSender() {
   const [inpValue, setInpval] = useState('');
 
   return (
-    <div className='w-full h-[75px] flex flex-shrink-0 gap-8 py-3 px-2 border-t-[1px] border-primary-light dark:border-primary-dark'>
+    <div className='w-full h-[75px] flex flex-shrink-0 gap-8 py-3 px-2 relative border-t-[1px] border-primary-light dark:border-primary-dark'>
       <MessageInput value={inpValue} onChange={(e) => setInpval(e.target.value)} />
       <Emoji />
       <SendMore />

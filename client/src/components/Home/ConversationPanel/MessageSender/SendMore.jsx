@@ -35,31 +35,65 @@ function Option({ text, accept, icon, files, setFiles, isSelectingFileOption }) 
 
 // Send More
 function SendMore({ files, setFiles }) {
-  const sendOptionRef = useRef(null);
-  const [selectingFileOption, isSelectingFileOption] = useState(false);
+  const sendMoreRef = useRef(null);
+  const [sendMore, setSendMore] = useState(false);
 
-  // useEffect(() => {
-  //   const menu = sendOptionRef.current;
-  //   gsap.fromTo(
-  //     menu,
-  //     { y: selectingFileOption ? "200" : "150" },
-  //     {
-  //       y: selectingFileOption ? "150" : "200",
-  //       duration: 0.5,
-  //       ease: "ease",
-  //       opacity: selectingFileOption ? 1 : 0,
-  //       display: selectingFileOption ? "flex" : "none",
-  //     }
-  //   );
-  // }, [selectingFileOption]);
+  useEffect(() => {
+    const element = sendMoreRef.current;
+    if(element){
+      if(sendMore)
+        gsap.to(element, { bottom: '140%', opacity: 1, display: 'block' });
+      else 
+        gsap.to(element, { bottom: '80%', opacity: 0, display: 'hidden' });
+    }
+  }, [sendMore]);
 
   return (
-      <IconButton icon={icons.addMore} />
+    <>
+      <IconButton icon={icons.addMore} onClick={() => setSendMore(!sendMore)} >
+        <ul ref={sendMoreRef} className={`w-auto h-auto absolute right-0 p-2 rounded-md shadow-md bg-secondary-light dark:bg-secondary-dark`}>
+          <li className="flex items-center gap-2 text-lg text-primary-light dark:text-primary-dark px-6 py-[6px] rounded-sm hover:bg-primary-light-hover dark:hover:bg-primary-dark-hover">
+            <Icon icon={icons} onClick={() => sendMore(!sendMore)} />
+            <span>Image</span>
+          </li>
+          <li className="flex items-center gap-2 text-lg text-primary-light dark:text-primary-dark px-6 py-[6px] rounded-sm hover:bg-primary-light-hover dark:hover:bg-primary-dark-hover">
+            <Icon icon={icons} onClick={() => sendMore(!sendMore)} />
+            <span>Image</span>
+          </li>
+          <li className="flex items-center gap-2 text-lg text-primary-light dark:text-primary-dark px-6 py-[6px] rounded-sm hover:bg-primary-light-hover dark:hover:bg-primary-dark-hover">
+            <Icon icon={icons} onClick={() => sendMore(!sendMore)} />
+            <span>Image</span>
+          </li>
+        </ul>
+      </IconButton>
+      {/* { sendMore && <div className="border-2 w-full h-[150px] absolute left-0 bottom-full"></div> } */}
+    </>
   );
 }
 
 
 export default React.memo(SendMore);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
       {/* <div

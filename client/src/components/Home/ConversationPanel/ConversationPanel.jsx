@@ -31,15 +31,9 @@ function ConversationPanel() {
   ) : (
     <section className="flex-grow relative overflow-hidden">
       <div className="absolute w-full h-full flex justify-center items-center flex-col">
-        <h1 className="text-center text-4xl font-extrabold py-4 mx-auto text-main-color">
+        <h1 className="text-center text-5xl font-extrabold py-4 mx-auto text-main-color">
           ChatBuddy
         </h1>
-        <h2 className="text-center text-2xl font-semibold text-primary-light dark:text-primary-dark">
-          k
-        </h2>
-        <p className="text-center text-secondary-light dark:text-secondary-dark">
-          Welcom to ChatBuddy
-        </p>
       </div>
     </section>
   );
